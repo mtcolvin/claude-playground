@@ -1,156 +1,297 @@
-// Data encryption for localStorage
-// Using AES-256 via Web Crypto API
+/**
+ * Client-Side Encryption Utilities
+ *
+ * Implements end-to-end encryption for sensitive health data using:
+ * - AES-GCM for symmetric encryption
+ * - PBKDF2 for key derivation
+ * - Web Crypto API (browser-native)
+ *
+ * Security Features:
+ * - 256-bit AES encryption
+ * - Unique initialization vectors (IV) per encryption
+ * - Salt-based key derivation
+ * - Authenticated encryption (GCM mode)
+ */
 
-const ENCRYPTION_KEY_NAME = 'healthtrack_encryption_key';
+// Encryption configuration
+const ENCRYPTION_CONFIG = {
+  algorithm: 'AES-GCM',
+  keyLength: 256,
+  ivLength: 12, // 96 bits for GCM
+  saltLength: 16,
+  pbkdf2Iterations: 100000,
+  tagLength: 128, // Authentication tag length
+} as const
 
-// Generate or retrieve encryption key
-async function getEncryptionKey(): Promise<CryptoKey> {
-  // In production, this should be derived from user password or secure key management
-  // For demo, we'll generate a persistent key
-  const keyMaterial = await crypto.subtle.importKey(
-    'raw',
-    new TextEncoder().encode('healthtrack-demo-key-32-chars'),
-    { name: 'PBKDF2' },
-    false,
-    ['deriveBits', 'deriveKey']
-  );
-
-  return crypto.subtle.deriveKey(
+/**
+ * Generate a random encryption key
+ */
+export async function generateEncryptionKey(): Promise<CryptoKey> {
+  return await crypto.subtle.generateKey(
     {
-      name: 'PBKDF2',
-      salt: new TextEncoder().encode('healthtrack-salt'),
-      iterations: 100000,
-      hash: 'SHA-256',
+      name: ENCRYPTION_CONFIG.algorithm,
+      length: ENCRYPTION_CONFIG.keyLength,
     },
-    keyMaterial,
-    { name: 'AES-GCM', length: 256 },
+    true, // extractable
+    ['encrypt', 'decrypt']
+  )
+}
+
+/**
+ * Export key to base64 string for storage
+ */
+export async function exportKey(key: CryptoKey): Promise<string> {
+  const exported = await crypto.subtle.exportKey('raw', key)
+  return arrayBufferToBase64(exported)
+}
+
+/**
+ * Import key from base64 string
+ */
+export async function importKey(keyString: string): Promise<CryptoKey> {
+  const keyData = base64ToArrayBuffer(keyString)
+  return await crypto.subtle.importKey(
+    'raw',
+    keyData,
+    { name: ENCRYPTION_CONFIG.algorithm },
     true,
     ['encrypt', 'decrypt']
-  );
+  )
 }
 
-// Encrypt data
-export async function encryptData(data: string): Promise<string> {
-  try {
-    const key = await getEncryptionKey();
-    const iv = crypto.getRandomValues(new Uint8Array(12));
-    const encodedData = new TextEncoder().encode(data);
+/**
+ * Derive encryption key from password using PBKDF2
+ */
+export async function deriveKeyFromPassword(
+  password: string,
+  salt?: Uint8Array
+): Promise<{ key: CryptoKey; salt: Uint8Array }> {
+  // Generate or use provided salt
+  const keySalt = salt || crypto.getRandomValues(new Uint8Array(ENCRYPTION_CONFIG.saltLength))
 
-    const encryptedData = await crypto.subtle.encrypt(
-      { name: 'AES-GCM', iv },
-      key,
-      encodedData
-    );
+  // Import password as key material
+  const passwordKey = await crypto.subtle.importKey(
+    'raw',
+    new TextEncoder().encode(password),
+    'PBKDF2',
+    false,
+    ['deriveBits', 'deriveKey']
+  )
 
-    // Combine IV and encrypted data
-    const combined = new Uint8Array(iv.length + encryptedData.byteLength);
-    combined.set(iv);
-    combined.set(new Uint8Array(encryptedData), iv.length);
+  // Derive key using PBKDF2
+  const derivedKey = await crypto.subtle.deriveKey(
+    {
+      name: 'PBKDF2',
+      salt: keySalt,
+      iterations: ENCRYPTION_CONFIG.pbkdf2Iterations,
+      hash: 'SHA-256',
+    },
+    passwordKey,
+    { name: ENCRYPTION_CONFIG.algorithm, length: ENCRYPTION_CONFIG.keyLength },
+    true,
+    ['encrypt', 'decrypt']
+  )
 
-    // Convert to base64
-    return btoa(String.fromCharCode(...combined));
-  } catch (error) {
-    console.error('Encryption failed:', error);
-    return data; // Fallback to unencrypted in case of error
+  return { key: derivedKey, salt: keySalt }
+}
+
+/**
+ * Encrypt data using AES-GCM
+ */
+export async function encrypt(
+  data: string,
+  key: CryptoKey
+): Promise<{ ciphertext: string; iv: string }> {
+  // Generate random IV
+  const iv = crypto.getRandomValues(new Uint8Array(ENCRYPTION_CONFIG.ivLength))
+
+  // Encrypt data
+  const encoded = new TextEncoder().encode(data)
+  const ciphertext = await crypto.subtle.encrypt(
+    {
+      name: ENCRYPTION_CONFIG.algorithm,
+      iv: iv,
+      tagLength: ENCRYPTION_CONFIG.tagLength,
+    },
+    key,
+    encoded
+  )
+
+  return {
+    ciphertext: arrayBufferToBase64(ciphertext),
+    iv: arrayBufferToBase64(iv),
   }
 }
 
-// Decrypt data
-export async function decryptData(encryptedData: string): Promise<string> {
-  try {
-    const key = await getEncryptionKey();
-    const combined = Uint8Array.from(atob(encryptedData), (c) => c.charCodeAt(0));
+/**
+ * Decrypt data using AES-GCM
+ */
+export async function decrypt(
+  ciphertext: string,
+  iv: string,
+  key: CryptoKey
+): Promise<string> {
+  const ciphertextBuffer = base64ToArrayBuffer(ciphertext)
+  const ivBuffer = base64ToArrayBuffer(iv)
 
-    const iv = combined.slice(0, 12);
-    const data = combined.slice(12);
+  const decrypted = await crypto.subtle.decrypt(
+    {
+      name: ENCRYPTION_CONFIG.algorithm,
+      iv: ivBuffer,
+      tagLength: ENCRYPTION_CONFIG.tagLength,
+    },
+    key,
+    ciphertextBuffer
+  )
 
-    const decryptedData = await crypto.subtle.decrypt(
-      { name: 'AES-GCM', iv },
-      key,
-      data
-    );
+  return new TextDecoder().decode(decrypted)
+}
 
-    return new TextDecoder().decode(decryptedData);
-  } catch (error) {
-    console.error('Decryption failed:', error);
-    return encryptedData; // Fallback to return original data
+/**
+ * Encrypt object (converts to JSON first)
+ */
+export async function encryptObject<T>(
+  obj: T,
+  key: CryptoKey
+): Promise<{ ciphertext: string; iv: string }> {
+  const json = JSON.stringify(obj)
+  return await encrypt(json, key)
+}
+
+/**
+ * Decrypt object (parses JSON after decryption)
+ */
+export async function decryptObject<T>(
+  ciphertext: string,
+  iv: string,
+  key: CryptoKey
+): Promise<T> {
+  const json = await decrypt(ciphertext, iv, key)
+  return JSON.parse(json)
+}
+
+/**
+ * Encrypt file (for medical documents)
+ */
+export async function encryptFile(
+  file: File,
+  key: CryptoKey
+): Promise<{ encryptedData: Blob; iv: string; metadata: FileMetadata }> {
+  const iv = crypto.getRandomValues(new Uint8Array(ENCRYPTION_CONFIG.ivLength))
+  const fileBuffer = await file.arrayBuffer()
+
+  const encryptedBuffer = await crypto.subtle.encrypt(
+    {
+      name: ENCRYPTION_CONFIG.algorithm,
+      iv: iv,
+      tagLength: ENCRYPTION_CONFIG.tagLength,
+    },
+    key,
+    fileBuffer
+  )
+
+  const metadata: FileMetadata = {
+    name: file.name,
+    type: file.type,
+    size: file.size,
+    lastModified: file.lastModified,
+  }
+
+  return {
+    encryptedData: new Blob([encryptedBuffer]),
+    iv: arrayBufferToBase64(iv),
+    metadata,
   }
 }
 
-// Secure storage wrapper
-export const secureStorage = {
-  async setItem(key: string, value: any): Promise<void> {
-    if (typeof window === 'undefined') return;
-    const encrypted = await encryptData(JSON.stringify(value));
-    localStorage.setItem(key, encrypted);
-  },
+/**
+ * Decrypt file
+ */
+export async function decryptFile(
+  encryptedBlob: Blob,
+  iv: string,
+  key: CryptoKey,
+  metadata: FileMetadata
+): Promise<File> {
+  const ivBuffer = base64ToArrayBuffer(iv)
+  const encryptedBuffer = await encryptedBlob.arrayBuffer()
 
-  async getItem<T>(key: string): Promise<T | null> {
-    if (typeof window === 'undefined') return null;
-    const encrypted = localStorage.getItem(key);
-    if (!encrypted) return null;
+  const decryptedBuffer = await crypto.subtle.decrypt(
+    {
+      name: ENCRYPTION_CONFIG.algorithm,
+      iv: ivBuffer,
+      tagLength: ENCRYPTION_CONFIG.tagLength,
+    },
+    key,
+    encryptedBuffer
+  )
 
-    try {
-      const decrypted = await decryptData(encrypted);
-      return JSON.parse(decrypted) as T;
-    } catch {
-      return null;
-    }
-  },
-
-  removeItem(key: string): void {
-    if (typeof window === 'undefined') return;
-    localStorage.removeItem(key);
-  },
-
-  clear(): void {
-    if (typeof window === 'undefined') return;
-    localStorage.clear();
-  },
-};
-
-// Input sanitization
-export function sanitizeInput(input: string): string {
-  // Remove HTML tags
-  const withoutTags = input.replace(/<[^>]*>/g, '');
-
-  // Encode special characters
-  const div = document.createElement('div');
-  div.textContent = withoutTags;
-  return div.innerHTML;
+  return new File([decryptedBuffer], metadata.name, {
+    type: metadata.type,
+    lastModified: metadata.lastModified,
+  })
 }
 
-// Validate email
-export function isValidEmail(email: string): boolean {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
+// Helper functions
+
+function arrayBufferToBase64(buffer: ArrayBuffer): string {
+  const bytes = new Uint8Array(buffer)
+  let binary = ''
+  for (let i = 0; i < bytes.byteLength; i++) {
+    binary += String.fromCharCode(bytes[i])
+  }
+  return btoa(binary)
 }
 
-// Validate phone number
-export function isValidPhone(phone: string): boolean {
-  const phoneRegex = /^[\d\s\-\+\(\)]+$/;
-  return phoneRegex.test(phone) && phone.replace(/\D/g, '').length >= 10;
+function base64ToArrayBuffer(base64: string): ArrayBuffer {
+  const binary = atob(base64)
+  const bytes = new Uint8Array(binary.length)
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i)
+  }
+  return bytes.buffer
 }
 
-// Session timeout manager
-const INACTIVITY_TIMEOUT = 30 * 60 * 1000; // 30 minutes
-let inactivityTimer: NodeJS.Timeout | null = null;
+// Types
 
-export function startSessionMonitoring(onTimeout: () => void) {
-  const resetTimer = () => {
-    if (inactivityTimer) clearTimeout(inactivityTimer);
-    inactivityTimer = setTimeout(onTimeout, INACTIVITY_TIMEOUT);
-  };
-
-  // Reset timer on user activity
-  window.addEventListener('mousemove', resetTimer);
-  window.addEventListener('keypress', resetTimer);
-  window.addEventListener('click', resetTimer);
-  window.addEventListener('scroll', resetTimer);
-
-  resetTimer(); // Start initial timer
+export interface FileMetadata {
+  name: string
+  type: string
+  size: number
+  lastModified: number
 }
 
-export function stopSessionMonitoring() {
-  if (inactivityTimer) clearTimeout(inactivityTimer);
+export interface EncryptedData {
+  ciphertext: string
+  iv: string
+}
+
+/**
+ * Generate a secure random password for key derivation
+ */
+export function generateSecurePassword(length: number = 32): string {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?'
+  const randomValues = crypto.getRandomValues(new Uint8Array(length))
+  let password = ''
+  for (let i = 0; i < length; i++) {
+    password += chars[randomValues[i] % chars.length]
+  }
+  return password
+}
+
+/**
+ * Hash data using SHA-256 (for integrity checks)
+ */
+export async function hashData(data: string): Promise<string> {
+  const encoded = new TextEncoder().encode(data)
+  const hashBuffer = await crypto.subtle.digest('SHA-256', encoded)
+  return arrayBufferToBase64(hashBuffer)
+}
+
+/**
+ * Verify data integrity using hash
+ */
+export async function verifyDataIntegrity(data: string, hash: string): Promise<boolean> {
+  const computedHash = await hashData(data)
+  return computedHash === hash
 }
