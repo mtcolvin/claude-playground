@@ -118,6 +118,60 @@ export interface HealthEvent {
   relatedFileId?: string;
 }
 
+// New features types
+export interface MedicationReminder {
+  id: string;
+  medicationId: string;
+  medicationName: string;
+  time: string; // HH:MM format
+  days: ('mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun')[];
+  enabled: boolean;
+  lastTaken?: string;
+}
+
+export interface HealthGoal {
+  id: string;
+  metricType: MetricType;
+  targetValue: number;
+  currentValue?: number;
+  deadline: string;
+  progress: number; // 0-100
+  status: 'active' | 'completed' | 'abandoned';
+  notes?: string;
+}
+
+export interface Appointment {
+  id: string;
+  doctorName: string;
+  specialty?: string;
+  date: string;
+  time: string;
+  location?: string;
+  purpose: string;
+  notes?: string;
+  reminder?: boolean;
+}
+
+export interface Immunization {
+  id: string;
+  vaccineName: string;
+  date: string;
+  nextDue?: string;
+  provider?: string;
+  lotNumber?: string;
+  notes?: string;
+}
+
+export interface HealthNote {
+  id: string;
+  date: string;
+  title: string;
+  content: string;
+  tags: string[];
+  mood?: 'great' | 'good' | 'okay' | 'bad' | 'terrible';
+  symptoms?: string[];
+}
+
 // Metric configurations
 export const METRIC_CONFIGS: Record<MetricType, {
   label: string;
