@@ -10,8 +10,8 @@ import { Permission } from "@/lib/rbac"
 import { z } from "zod"
 
 const updateMedicalFileSchema = z.object({
-  name: z.string().min(1).optional(),
-  type: z.enum(["DICOM", "PDF", "IMAGE", "LAB_REPORT", "PRESCRIPTION", "SCAN", "OTHER"]).optional(),
+  fileName: z.string().min(1).optional(),
+  fileType: z.string().optional(),
   category: z.string().optional(),
   description: z.string().optional(),
   tags: z.array(z.string()).optional(),
@@ -64,8 +64,8 @@ export const PUT = apiHandler(
     const file = await prisma.medicalFile.update({
       where: { id },
       data: {
-        ...(data.name && { name: data.name }),
-        ...(data.type && { type: data.type }),
+        ...(data.fileName && { fileName: data.fileName }),
+        ...(data.fileType && { fileType: data.fileType }),
         ...(data.category !== undefined && { category: data.category }),
         ...(data.description !== undefined && { description: data.description }),
         ...(data.tags && { tags: data.tags }),
@@ -117,7 +117,7 @@ export const DELETE = apiHandler(
       "DELETE",
       "MedicalFile",
       id,
-      { name: existing.name },
+      { fileName: existing.fileName },
       request
     )
 
