@@ -13,18 +13,14 @@ import { z } from "zod"
 
 const createNutritionEntrySchema = z.object({
   date: z.string().datetime(),
-  mealType: z.enum(["BREAKFAST", "LUNCH", "DINNER", "SNACK"]),
-  foodName: z.string().min(1),
-  servingSize: z.string().optional(),
-  calories: z.number().optional(),
-  protein: z.number().optional(),
-  carbs: z.number().optional(),
-  fat: z.number().optional(),
-  fiber: z.number().optional(),
-  sugar: z.number().optional(),
-  sodium: z.number().optional(),
+  mealType: z.string().min(1),
+  totalCalories: z.number(),
+  totalProtein: z.number(),
+  totalCarbs: z.number(),
+  totalFat: z.number(),
+  totalFiber: z.number().optional(),
+  totalSugar: z.number().optional(),
   notes: z.string().optional(),
-  imageUrl: z.string().optional(),
 })
 
 // GET /api/v1/nutrition - List nutrition entries
@@ -75,21 +71,17 @@ export const POST = apiHandler(
         userId: request.user.id,
         date: new Date(data.date),
         mealType: data.mealType,
-        foodName: data.foodName,
-        servingSize: data.servingSize,
-        calories: data.calories,
-        protein: data.protein,
-        carbs: data.carbs,
-        fat: data.fat,
-        fiber: data.fiber,
-        sugar: data.sugar,
-        sodium: data.sodium,
+        totalCalories: data.totalCalories,
+        totalProtein: data.totalProtein,
+        totalCarbs: data.totalCarbs,
+        totalFat: data.totalFat,
+        totalFiber: data.totalFiber,
+        totalSugar: data.totalSugar,
         notes: data.notes,
-        imageUrl: data.imageUrl,
       },
     })
 
-    await logAuditTrail(request.user.id, "CREATE", "NutritionEntry", entry.id, { foodName: data.foodName }, request)
+    await logAuditTrail(request.user.id, "CREATE", "NutritionEntry", entry.id, { mealType: data.mealType, totalCalories: data.totalCalories }, request)
     return successResponse(entry, 201)
   },
   { requirePermission: Permission.WRITE_OWN_DATA }
