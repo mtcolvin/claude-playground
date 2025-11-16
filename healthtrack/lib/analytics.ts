@@ -11,6 +11,7 @@ export interface CorrelationResult {
   pValue: number;
   significance: 'strong' | 'moderate' | 'weak' | 'none';
   interpretation: string;
+  sampleSize: number;
 }
 
 export interface TrendAnalysis {
@@ -32,7 +33,7 @@ export interface TimeInRangeAnalysis {
   percentInRange: number;
   avgValue: number;
   stdDev: number;
-  coefficient OfVariation: number;
+  coefficientOfVariation: number;
 }
 
 export interface HealthScore {
@@ -137,6 +138,7 @@ export function analyzeCorrelations(metrics: HealthMetric[]): CorrelationResult[
           pValue,
           significance,
           interpretation,
+          sampleSize: minLength,
         });
       }
     }
