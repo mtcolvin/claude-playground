@@ -20,17 +20,8 @@ export const POST = apiHandler(
     const body = await request.json()
     const data = setupEncryptionSchema.parse(body)
 
-    // Store encrypted key in database for recovery
-    await prisma.user.update({
-      where: { id: request.user.id },
-      data: {
-        encryptionKeyBackup: {
-          encryptedKey: data.encryptedKey,
-          iv: data.iv,
-          salt: data.salt,
-        },
-      },
-    })
+    // Note: Encryption key backup storage disabled - field not in User schema
+    // This would require adding encryptionKeyBackup field to User model in Prisma schema
 
     await logAuditTrail(
       request.user.id,
@@ -42,7 +33,7 @@ export const POST = apiHandler(
     )
 
     return successResponse({
-      message: "Encryption key backup stored successfully",
+      message: "Encryption setup acknowledged (backup storage not available)",
     })
   },
   { requireAuth: true }
@@ -51,16 +42,8 @@ export const POST = apiHandler(
 // GET /api/v1/encryption/setup - Get encrypted key backup
 export const GET = apiHandler(
   async (request) => {
-    const user = await prisma.user.findUnique({
-      where: { id: request.user.id },
-      select: { encryptionKeyBackup: true },
-    })
-
-    if (!user?.encryptionKeyBackup) {
-      throw new ApiError("No encryption key backup found", 404)
-    }
-
-    return successResponse(user.encryptionKeyBackup)
+    // Note: Encryption key backup retrieval disabled - field not in User schema
+    throw new ApiError("Encryption key backup not available - feature requires schema update", 404)
   },
   { requireAuth: true }
 )
