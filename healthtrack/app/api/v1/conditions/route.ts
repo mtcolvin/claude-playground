@@ -13,13 +13,13 @@ import { z } from "zod"
 
 const createConditionSchema = z.object({
   name: z.string().min(1),
-  diagnosedDate: z.string().datetime(),
-  status: z.enum(["ACTIVE", "RESOLVED", "CHRONIC", "MANAGED"]).default("ACTIVE"),
-  severity: z.enum(["MILD", "MODERATE", "SEVERE"]).optional(),
+  diagnosedDate: z.string().datetime().optional(),
+  status: z.enum(["active", "resolved", "chronic"]).default("active"),
+  severity: z.string().optional(),
   diagnosedBy: z.string().optional(),
-  treatment: z.string().optional(),
   notes: z.string().optional(),
   icdCode: z.string().optional(),
+  snomedCode: z.string().optional(),
 })
 
 // GET /api/v1/conditions - List conditions
@@ -66,13 +66,13 @@ export const POST = apiHandler(
       data: {
         userId: request.user.id,
         name: data.name,
-        diagnosedDate: new Date(data.diagnosedDate),
+        diagnosedDate: data.diagnosedDate ? new Date(data.diagnosedDate) : undefined,
         status: data.status,
         severity: data.severity,
         diagnosedBy: data.diagnosedBy,
-        treatment: data.treatment,
         notes: data.notes,
         icdCode: data.icdCode,
+        snomedCode: data.snomedCode,
       },
     })
 
