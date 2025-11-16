@@ -405,7 +405,7 @@ export function PerformanceBenchmarkDashboard() {
               </p>
               <ul className="text-sm text-muted-foreground space-y-1">
                 <li>• Query execution time tracking</li>
-                <li>• Slow query detection (>1s)</li>
+                <li>• Slow query detection (&gt;1s)</li>
                 <li>• Query count and statistics</li>
                 <li>• N+1 query identification</li>
                 <li>• Index usage analysis</li>
@@ -422,7 +422,7 @@ export function PerformanceBenchmarkDashboard() {
               </p>
               <ul className="text-sm text-muted-foreground space-y-1">
                 <li>• Render time measurement</li>
-                <li>• Slow component detection (>16ms)</li>
+                <li>• Slow component detection (&gt;16ms)</li>
                 <li>• Re-render frequency tracking</li>
                 <li>• Component tree profiling</li>
                 <li>• Optimization suggestions</li>
@@ -439,7 +439,7 @@ export function PerformanceBenchmarkDashboard() {
               </p>
               <ul className="text-sm text-muted-foreground space-y-1">
                 <li>• Request/response time tracking</li>
-                <li>• Slow request detection (>1s)</li>
+                <li>• Slow request detection (&gt;1s)</li>
                 <li>• Data transfer size monitoring</li>
                 <li>• Failed request logging</li>
                 <li>• API call frequency analysis</li>

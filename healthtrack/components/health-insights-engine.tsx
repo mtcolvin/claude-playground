@@ -167,7 +167,7 @@ const generateInsights = (
           'Upward trend detected'
         ],
         recommendations: [
-          'Document what's working well',
+          "Document what's working well",
           'Maintain sleep schedule',
           'Continue social activities',
           'Practice gratitude journaling'
@@ -221,7 +221,7 @@ const generateInsights = (
         category: 'warning',
         priority: 'high',
         title: 'Chronic Sleep Deprivation',
-        description: 'You're averaging less than 7 hours of sleep per night.',
+        description: "You're averaging less than 7 hours of sleep per night.",
         evidence: [
           `Average sleep: ${avgSleep.toFixed(1)} hours/night`,
           'Recommended: 7-9 hours',
@@ -247,7 +247,7 @@ const generateInsights = (
         category: 'achievement',
         priority: 'low',
         title: 'Excellent Sleep Habits',
-        description: 'You're consistently getting the recommended amount of sleep.',
+        description: "You're consistently getting the recommended amount of sleep.",
         evidence: [
           `Average: ${avgSleep.toFixed(1)} hours/night`,
           'Within optimal range (7-9 hours)',
@@ -281,7 +281,7 @@ const generateInsights = (
         category: 'achievement',
         priority: 'medium',
         title: 'Meeting Exercise Guidelines',
-        description: 'You're exceeding the CDC recommendation of 150 minutes of moderate activity per week.',
+        description: "You're exceeding the CDC recommendation of 150 minutes of moderate activity per week.",
         evidence: [
           `Average: ${Math.round(weeklyAvg)} minutes/week`,
           'CDC guideline: 150 min/week',

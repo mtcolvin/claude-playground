@@ -2,6 +2,7 @@
 // Displays comprehensive health score with category breakdowns
 'use client';
 
+import { ReactElement } from 'react';
 import { HealthScore } from '@/lib/analytics';
 
 interface HealthScoreDashboardProps {
@@ -30,7 +31,7 @@ export default function HealthScoreDashboard({ healthScore }: HealthScoreDashboa
     return 'Needs Improvement';
   };
 
-  const getTrendIcon = (trend: 'improving' | 'stable' | 'declining'): JSX.Element => {
+  const getTrendIcon = (trend: 'improving' | 'stable' | 'declining'): ReactElement => {
     if (trend === 'improving') {
       return (
         <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
@@ -67,16 +68,20 @@ export default function HealthScoreDashboard({ healthScore }: HealthScoreDashboa
   const categoryIcons = {
     cardiovascular: '❤️',
     metabolic: '🩸',
-    body_composition: '⚖️',
-    respiratory: '🫁',
-    mental: '🧠',
+    bodyComposition: '⚖️',
   };
+
+  const categories = [
+    { key: 'cardiovascular', label: 'Cardiovascular', score: healthScore.cardiovascular },
+    { key: 'metabolic', label: 'Metabolic', score: healthScore.metabolic },
+    { key: 'bodyComposition', label: 'Body Composition', score: healthScore.bodyComposition },
+  ];
 
   return (
     <div className="space-y-6">
       {/* Overall Score Card */}
       <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-        <div className={`bg-gradient-to-r ${getScoreGradient(healthScore.overallScore)} p-6 text-white`}>
+        <div className={`bg-gradient-to-r ${getScoreGradient(healthScore.overall)} p-6 text-white`}>
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-2xl font-bold mb-1">Overall Health Score</h2>
@@ -89,13 +94,13 @@ export default function HealthScoreDashboard({ healthScore }: HealthScoreDashboa
           </div>
 
           <div className="mt-6 flex items-baseline gap-2">
-            <span className="text-6xl font-bold">{healthScore.overallScore}</span>
+            <span className="text-6xl font-bold">{healthScore.overall}</span>
             <span className="text-3xl font-semibold">/100</span>
           </div>
 
           <div className="mt-2">
             <span className="inline-block px-3 py-1 bg-white/20 rounded-full text-sm font-semibold">
-              {getScoreLabel(healthScore.overallScore)}
+              {getScoreLabel(healthScore.overall)}
             </span>
           </div>
         </div>
@@ -104,15 +109,15 @@ export default function HealthScoreDashboard({ healthScore }: HealthScoreDashboa
         <div className="p-6 space-y-4">
           <h3 className="font-semibold text-gray-900 mb-4">Category Breakdown</h3>
 
-          {Object.entries(healthScore.categoryScores).map(([category, score]) => (
-            <div key={category} className="space-y-2">
+          {categories.map(({ key, label, score }) => (
+            <div key={key} className="space-y-2">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">
-                    {categoryIcons[category as keyof typeof categoryIcons]}
+                    {categoryIcons[key as keyof typeof categoryIcons]}
                   </span>
-                  <span className="font-medium text-gray-900 capitalize">
-                    {category.replace('_', ' ')}
+                  <span className="font-medium text-gray-900">
+                    {label}
                   </span>
                 </div>
                 <span className={`text-lg font-bold ${getScoreColor(score)}`}>{score}</span>

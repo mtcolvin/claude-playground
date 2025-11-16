@@ -561,7 +561,7 @@ export interface DrugInfo {
   brandNames: string[];
   drugClass: string;
   schedule?: 'I' | 'II' | 'III' | 'IV' | 'V'; // DEA schedule for controlled substances
-  pregnancy category?: 'A' | 'B' | 'C' | 'D' | 'X';
+  pregnancyCategory?: 'A' | 'B' | 'C' | 'D' | 'X';
   lactation: 'safe' | 'use_caution' | 'avoid';
   mechanism: string;
   indications: string[];
