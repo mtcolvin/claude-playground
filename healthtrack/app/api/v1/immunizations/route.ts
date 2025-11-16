@@ -12,13 +12,15 @@ import { Permission } from "@/lib/rbac"
 import { z } from "zod"
 
 const createImmunizationSchema = z.object({
-  name: z.string().min(1),
+  vaccineName: z.string().min(1),
+  cvxCode: z.string().optional(),
   date: z.string().datetime(),
   provider: z.string().optional(),
-  location: z.string().optional(),
+  site: z.string().optional(),
+  route: z.string().optional(),
   lotNumber: z.string().optional(),
-  expirationDate: z.string().datetime().optional(),
-  nextDueDate: z.string().datetime().optional(),
+  doseNumber: z.number().int().optional(),
+  seriesStatus: z.string().optional(),
   notes: z.string().optional(),
 })
 
@@ -54,18 +56,20 @@ export const POST = apiHandler(
     const immunization = await prisma.immunization.create({
       data: {
         userId: request.user.id,
-        name: data.name,
+        vaccineName: data.vaccineName,
+        cvxCode: data.cvxCode,
         date: new Date(data.date),
         provider: data.provider,
-        location: data.location,
+        site: data.site,
+        route: data.route,
         lotNumber: data.lotNumber,
-        expirationDate: data.expirationDate ? new Date(data.expirationDate) : undefined,
-        nextDueDate: data.nextDueDate ? new Date(data.nextDueDate) : undefined,
+        doseNumber: data.doseNumber,
+        seriesStatus: data.seriesStatus,
         notes: data.notes,
       },
     })
 
-    await logAuditTrail(request.user.id, "CREATE", "Immunization", immunization.id, { name: data.name }, request)
+    await logAuditTrail(request.user.id, "CREATE", "Immunization", immunization.id, { vaccineName: data.vaccineName }, request)
     return successResponse(immunization, 201)
   },
   { requirePermission: Permission.WRITE_OWN_DATA }
