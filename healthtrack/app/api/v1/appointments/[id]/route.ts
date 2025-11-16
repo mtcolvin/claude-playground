@@ -7,8 +7,10 @@ import {
   ApiError,
 } from "@/lib/api-middleware"
 import { Permission } from "@/lib/rbac"
-import { AppointmentStatus } from "@prisma/client"
 import { z } from "zod"
+
+// Define AppointmentStatus enum locally
+const AppointmentStatus = z.enum(["SCHEDULED", "CONFIRMED", "COMPLETED", "CANCELLED", "NO_SHOW"])
 
 const updateAppointmentSchema = z.object({
   title: z.string().min(1).optional(),
@@ -18,7 +20,7 @@ const updateAppointmentSchema = z.object({
   specialty: z.string().optional(),
   location: z.string().optional(),
   type: z.enum(["IN_PERSON", "TELEMEDICINE", "PHONE"]).optional(),
-  status: z.nativeEnum(AppointmentStatus).optional(),
+  status: AppointmentStatus.optional(),
   reason: z.string().optional(),
   notes: z.string().optional(),
   reminderMinutes: z.array(z.number()).optional(),
