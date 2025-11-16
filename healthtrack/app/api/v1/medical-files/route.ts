@@ -21,8 +21,9 @@ const createMedicalFileSchema = z.object({
   fileUrl: z.string().url(),
   fileSize: z.number().positive(),
   uploadDate: z.string().datetime().optional(),
+  date: z.string().datetime().optional(),
+  provider: z.string().optional(),
   tags: z.array(z.string()).optional(),
-  metadata: z.record(z.any()).optional(),
 })
 
 const updateMedicalFileSchema = createMedicalFileSchema.partial()
@@ -100,8 +101,9 @@ export const POST = apiHandler(
         fileUrl: data.fileUrl,
         fileSize: data.fileSize,
         uploadDate: data.uploadDate ? new Date(data.uploadDate) : new Date(),
+        date: data.date ? new Date(data.date) : undefined,
+        provider: data.provider,
         tags: data.tags || [],
-        metadata: data.metadata,
       },
     })
 

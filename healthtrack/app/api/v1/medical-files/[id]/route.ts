@@ -14,8 +14,9 @@ const updateMedicalFileSchema = z.object({
   fileType: z.string().optional(),
   category: z.string().optional(),
   description: z.string().optional(),
+  date: z.string().datetime().optional(),
+  provider: z.string().optional(),
   tags: z.array(z.string()).optional(),
-  metadata: z.record(z.any()).optional(),
 })
 
 // GET /api/v1/medical-files/:id - Get specific medical file
@@ -68,8 +69,9 @@ export const PUT = apiHandler(
         ...(data.fileType && { fileType: data.fileType }),
         ...(data.category !== undefined && { category: data.category }),
         ...(data.description !== undefined && { description: data.description }),
+        ...(data.date && { date: new Date(data.date) }),
+        ...(data.provider !== undefined && { provider: data.provider }),
         ...(data.tags && { tags: data.tags }),
-        ...(data.metadata && { metadata: data.metadata }),
       },
     })
 
