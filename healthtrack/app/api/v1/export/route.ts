@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 import { apiHandler } from "@/lib/api-middleware"
 import { exportToCSV, exportToJSON, exportToPDF, exportToExcel } from "@/lib/export"
@@ -47,13 +47,13 @@ export const GET = apiHandler(
         prisma.labResult.findMany({
           where: {
             userId,
-            ...(startDate || endDate ? { testDate: dateFilter } : {}),
+            ...(startDate || endDate ? { date: dateFilter } : {}),
           },
         }),
         prisma.appointment.findMany({
           where: {
             userId,
-            ...(startDate || endDate ? { dateTime: dateFilter } : {}),
+            ...(startDate || endDate ? { date: dateFilter } : {}),
           },
         }),
         prisma.condition.findMany({ where: { userId } }),
@@ -118,21 +118,21 @@ export const GET = apiHandler(
           prisma.labResult.findMany({
             where: {
               userId,
-              ...(startDate || endDate ? { testDate: dateFilter } : {}),
+              ...(startDate || endDate ? { date: dateFilter } : {}),
             },
           }),
         appointments: () =>
           prisma.appointment.findMany({
             where: {
               userId,
-              ...(startDate || endDate ? { dateTime: dateFilter } : {}),
+              ...(startDate || endDate ? { date: dateFilter } : {}),
             },
           }),
       }
 
       const fetcher = resourceMap[resource]
       if (!fetcher) {
-        return new Response("Invalid resource", { status: 400 })
+        return NextResponse.json({ error: "Invalid resource" }, { status: 400 })
       }
 
       data = await fetcher()
@@ -166,15 +166,15 @@ export const GET = apiHandler(
         extension = "xlsx"
         break
       default:
-        return new Response("Invalid format", { status: 400 })
+        return NextResponse.json({ error: "Invalid format" }, { status: 400 })
     }
 
     // Generate filename
     const timestamp = new Date().toISOString().replace(/[:.]/g, "-").slice(0, -5)
     const filename = `healthtrack_${resource}_${timestamp}.${extension}`
 
-    // Return file
-    return new Response(blob, {
+    // Return file as NextResponse
+    return new NextResponse(blob, {
       headers: {
         "Content-Type": contentType,
         "Content-Disposition": `attachment; filename="${filename}"`,
