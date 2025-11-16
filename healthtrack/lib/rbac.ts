@@ -11,6 +11,7 @@ export enum Permission {
   // User management
   READ_OWN_DATA = "read:own:data",
   WRITE_OWN_DATA = "write:own:data",
+  DELETE_OWN_DATA = "delete:own:data",
   READ_USER_DATA = "read:user:data",
   WRITE_USER_DATA = "write:user:data",
   DELETE_USER = "delete:user",
@@ -92,6 +93,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, Permission[]> = {
     // Own data - full access
     Permission.READ_OWN_DATA,
     Permission.WRITE_OWN_DATA,
+    Permission.DELETE_OWN_DATA,
 
     // Health metrics
     Permission.READ_OWN_METRICS,
@@ -136,6 +138,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, Permission[]> = {
     // Own data
     Permission.READ_OWN_DATA,
     Permission.WRITE_OWN_DATA,
+    Permission.DELETE_OWN_DATA,
 
     // Patient data - read only
     Permission.READ_PATIENT_DATA,
@@ -175,6 +178,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, Permission[]> = {
     // Own data
     Permission.READ_OWN_DATA,
     Permission.WRITE_OWN_DATA,
+    Permission.DELETE_OWN_DATA,
 
     // Patient data - full access
     Permission.READ_PATIENT_DATA,
