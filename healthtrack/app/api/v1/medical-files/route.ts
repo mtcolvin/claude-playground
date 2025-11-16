@@ -16,7 +16,7 @@ import { z } from "zod"
 const createMedicalFileSchema = z.object({
   fileName: z.string().min(1),
   fileType: z.string(),
-  category: z.string().optional(),
+  category: z.string().min(1), // Required field
   description: z.string().optional(),
   fileUrl: z.string().url(),
   fileSize: z.number().positive(),
