@@ -5,6 +5,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { MultiMetricChart } from './charts/multi-metric-chart'
 
 interface MoodEntry {
   id: string
@@ -238,14 +239,24 @@ export function MentalHealthDashboard() {
         </div>
       </div>
 
-      {/* Mood Trend Visualization Placeholder */}
+      {/* Mood Trend Visualization */}
       <div className="bg-white rounded-lg shadow p-6">
         <h2 className="text-xl font-semibold text-gray-900 mb-4">Mood Trends</h2>
-        <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center text-gray-500">
-          Line chart showing mood, anxiety, and stress over time would render here
-          <br />
-          (Will be implemented with Recharts in Phase 21)
-        </div>
+        {periodEntries.length > 0 ? (
+          <MultiMetricChart
+            data={periodEntries}
+            metrics={[
+              { dataKey: 'mood', name: 'Mood', color: '#10b981', unit: '/10' },
+              { dataKey: 'anxiety', name: 'Anxiety', color: '#f59e0b', unit: '/10' },
+              { dataKey: 'stress', name: 'Stress', color: '#ef4444', unit: '/10' },
+            ]}
+            height={320}
+          />
+        ) : (
+          <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center text-gray-500">
+            No mood data to display. Start logging your mood to see trends!
+          </div>
+        )}
       </div>
 
       {/* Recent Entries */}

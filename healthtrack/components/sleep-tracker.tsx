@@ -5,6 +5,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { MultiMetricChart } from './charts/multi-metric-chart'
 
 interface SleepSession {
   id: string
@@ -272,14 +273,27 @@ export function SleepTracker() {
         </div>
       </div>
 
-      {/* Sleep Pattern Chart Placeholder */}
+      {/* Sleep Pattern Chart */}
       <div className="bg-white rounded-lg shadow p-6">
         <h2 className="text-xl font-semibold text-gray-900 mb-4">Sleep Pattern</h2>
-        <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center text-gray-500">
-          Line chart showing sleep duration and quality over time would render here
-          <br />
-          (Will be implemented with Recharts in Phase 21)
-        </div>
+        {periodSessions.length > 0 ? (
+          <MultiMetricChart
+            data={periodSessions.map(s => ({
+              date: s.date,
+              duration: s.totalDuration / 60, // Convert to hours
+              quality: s.quality,
+            }))}
+            metrics={[
+              { dataKey: 'duration', name: 'Duration (hours)', color: '#8b5cf6', unit: 'h' },
+              { dataKey: 'quality', name: 'Quality', color: '#3b82f6', unit: '/10' },
+            ]}
+            height={320}
+          />
+        ) : (
+          <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center text-gray-500">
+            No sleep data yet. Log your first sleep session to see patterns!
+          </div>
+        )}
       </div>
 
       {/* Sleep Stages Breakdown */}

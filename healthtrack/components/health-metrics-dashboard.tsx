@@ -5,7 +5,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Line } from 'recharts'
+import { HealthMetricChart } from './charts/health-metric-chart'
 
 interface HealthMetric {
   id: string
@@ -118,14 +118,15 @@ export function HealthMetricsDashboard() {
       <div className="bg-white rounded-lg shadow p-6">
         <h2 className="text-lg font-semibold mb-4">Trends</h2>
         {filteredMetrics.length > 0 ? (
-          <div className="h-64">
-            {/* Simple chart visualization - would use Recharts in production */}
-            <div className="text-gray-500 text-center py-20">
-              Chart visualization of {filteredMetrics.length} data points
-              <br />
-              <span className="text-sm">(Recharts integration in Phase 21)</span>
-            </div>
-          </div>
+          <HealthMetricChart
+            data={filteredMetrics.map(m => ({ date: m.date, value: m.value }))}
+            dataKey="value"
+            name={metricInfo?.label || 'Value'}
+            color="#3b82f6"
+            unit={metricInfo?.unit ? ` ${metricInfo.unit}` : ''}
+            type="line"
+            height={300}
+          />
         ) : (
           <div className="text-center py-12 text-gray-500">
             No data recorded yet. Add your first {metricInfo?.label} reading.

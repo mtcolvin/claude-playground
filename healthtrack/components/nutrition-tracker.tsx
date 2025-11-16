@@ -5,6 +5,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { MacroPieChart } from './charts/macro-pie-chart'
 
 interface NutritionEntry {
   id: string
@@ -269,11 +270,18 @@ export function NutritionTracker() {
       {/* Macros Breakdown Visualization */}
       <div className="bg-white rounded-lg shadow p-6">
         <h2 className="text-xl font-semibold text-gray-900 mb-4">Macro Distribution</h2>
-        <div className="h-48 bg-gray-50 rounded-lg flex items-center justify-center text-gray-500">
-          Pie chart showing protein/carbs/fat distribution would render here
-          <br />
-          (Will be implemented with Recharts in Phase 21)
-        </div>
+        {dailyTotals.protein + dailyTotals.carbs + dailyTotals.fat > 0 ? (
+          <MacroPieChart
+            protein={dailyTotals.protein}
+            carbs={dailyTotals.carbs}
+            fat={dailyTotals.fat}
+            height={350}
+          />
+        ) : (
+          <div className="h-48 bg-gray-50 rounded-lg flex items-center justify-center text-gray-500">
+            No nutrition data for today. Log your first meal to see macro distribution!
+          </div>
+        )}
       </div>
 
       {/* Meals Timeline */}

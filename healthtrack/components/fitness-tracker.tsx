@@ -5,6 +5,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { HealthMetricChart } from './charts/health-metric-chart'
 
 interface ExerciseSession {
   id: string
@@ -254,14 +255,24 @@ export function FitnessTracker() {
         </div>
       </div>
 
-      {/* Progress Chart Placeholder */}
+      {/* Progress Chart */}
       <div className="bg-white rounded-lg shadow p-6">
         <h2 className="text-xl font-semibold text-gray-900 mb-4">Workout Progress</h2>
-        <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center text-gray-500">
-          Bar chart showing workouts per week would render here
-          <br />
-          (Will be implemented with Recharts in Phase 21)
-        </div>
+        {periodSessions.length > 0 ? (
+          <HealthMetricChart
+            data={periodSessions.map(s => ({ date: s.date, value: s.duration }))}
+            dataKey="value"
+            name="Duration"
+            color="#3b82f6"
+            unit=" min"
+            type="bar"
+            height={300}
+          />
+        ) : (
+          <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center text-gray-500">
+            No workout data yet. Log your first workout to see progress!
+          </div>
+        )}
       </div>
 
       {/* Recent Workouts */}
