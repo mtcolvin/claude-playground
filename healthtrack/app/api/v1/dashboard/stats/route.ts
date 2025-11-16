@@ -33,14 +33,14 @@ export const GET = apiHandler(
       prisma.appointment.findMany({
         where: {
           userId,
-          dateTime: { gte: now },
-          status: "SCHEDULED",
+          date: { gte: now },
+          status: "scheduled",
         },
         take: 5,
-        orderBy: { dateTime: "asc" },
+        orderBy: { date: "asc" },
       }),
       prisma.labResult.count({
-        where: { userId, testDate: { gte: thirtyDaysAgo } },
+        where: { userId, date: { gte: thirtyDaysAgo } },
       }),
       prisma.healthGoal.count({
         where: {
@@ -67,14 +67,14 @@ export const GET = apiHandler(
     // Calculate average mood for the week
     const avgMood = recentMoodEntries.length > 0
       ? recentMoodEntries.reduce((acc, entry) => {
-          const moodValues = {
-            VERY_BAD: 1,
-            BAD: 2,
-            NEUTRAL: 3,
-            GOOD: 4,
-            VERY_GOOD: 5,
+          const moodValues: Record<string, number> = {
+            poor: 1,
+            low: 2,
+            okay: 3,
+            good: 4,
+            excellent: 5,
           }
-          return acc + (moodValues[entry.mood] || 3)
+          return acc + (moodValues[entry.mood.toLowerCase()] || 3)
         }, 0) / recentMoodEntries.length
       : null
 
