@@ -127,8 +127,8 @@ export const GET = apiHandler(
     // Nutrition insights
     if (!category || category === "nutrition") {
       const dailyCalories = nutritionData
-        .filter(n => n.calories)
-        .reduce((acc, n) => acc + (n.calories || 0), 0) / Math.max(1, new Set(nutritionData.map(n => n.date.toDateString())).size)
+        .filter(n => n.totalCalories)
+        .reduce((acc, n) => acc + (n.totalCalories || 0), 0) / Math.max(1, new Set(nutritionData.map(n => n.date.toDateString())).size)
 
       if (nutritionData.length < 7) {
         insights.push({
