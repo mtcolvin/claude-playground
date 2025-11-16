@@ -30,10 +30,6 @@ export const GET = apiHandler(
   async (request) => {
     const profile = await prisma.patientProfile.findUnique({
       where: { userId: request.user.id },
-      include: {
-        emergencyContacts: true,
-        careTeam: true,
-      },
     })
 
     if (!profile) {
