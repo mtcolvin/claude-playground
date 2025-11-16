@@ -6,8 +6,8 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import {
-  BookOpen, Search, Heart, Brain, Droplet, Lungs, Stethoscope,
-  Activity, Shield, AlertCircle, Info, CheckCircle, FileText,
+  BookOpen, Search, Heart, Brain, Droplet, Wind, Stethoscope,
+  Activity, Shield, AlertCircle, AlertTriangle, Info, CheckCircle, FileText,
   TrendingUp, Users, Calendar, Phone
 } from 'lucide-react'
 
@@ -309,7 +309,7 @@ export function MedicalKnowledgeBase() {
       'Cardiovascular': <Heart className="h-5 w-5" />,
       'Endocrine': <Droplet className="h-5 w-5" />,
       'Mental Health': <Brain className="h-5 w-5" />,
-      'Respiratory': <Lungs className="h-5 w-5" />,
+      'Respiratory': <Wind className="h-5 w-5" />,
     }
     return icons[category] || <Stethoscope className="h-5 w-5" />
   }

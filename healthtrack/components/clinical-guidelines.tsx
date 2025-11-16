@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import {
-  BookOpen, Heart, Droplet, Brain, Lungs, Activity, Pill,
+  BookOpen, Heart, Droplet, Brain, Activity, Pill,
   CheckCircle, AlertTriangle, Info, Search, FileText, Calendar,
   Target, TrendingUp, Shield, Stethoscope
 } from 'lucide-react'
