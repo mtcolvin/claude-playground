@@ -10,8 +10,11 @@ import {
   ApiError,
 } from "@/lib/api-middleware"
 import { Permission } from "@/lib/rbac"
-import { AppointmentStatus } from "@prisma/client"
 import { z } from "zod"
+
+// Define AppointmentStatus enum locally
+const AppointmentStatus = z.enum(["SCHEDULED", "CONFIRMED", "COMPLETED", "CANCELLED", "NO_SHOW"])
+type AppointmentStatusType = z.infer<typeof AppointmentStatus>
 
 // Validation schemas
 const createAppointmentSchema = z.object({
@@ -22,7 +25,7 @@ const createAppointmentSchema = z.object({
   specialty: z.string().optional(),
   location: z.string().optional(),
   type: z.enum(["IN_PERSON", "TELEMEDICINE", "PHONE"]).default("IN_PERSON"),
-  status: z.nativeEnum(AppointmentStatus).default("SCHEDULED"),
+  status: AppointmentStatus.default("SCHEDULED"),
   reason: z.string().optional(),
   notes: z.string().optional(),
   reminderMinutes: z.array(z.number()).optional(),
@@ -45,7 +48,7 @@ export const GET = apiHandler(
     // Filter by status
     const status = searchParams.get("status")
     if (status) {
-      where.status = status as AppointmentStatus
+      where.status = status as AppointmentStatusType
     }
 
     // Filter by type
