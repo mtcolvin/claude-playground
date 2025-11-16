@@ -46,8 +46,20 @@ export const GET = apiHandler(
 
     // Sleep insights
     if (!category || category === "sleep") {
+      // Convert quality strings to numeric values for analysis
+      const qualityToNumber = (quality: string | null): number => {
+        if (!quality) return 0
+        const qualityMap: Record<string, number> = {
+          excellent: 10,
+          good: 7,
+          fair: 5,
+          poor: 3,
+        }
+        return qualityMap[quality.toLowerCase()] || 0
+      }
+
       const avgSleepQuality = sleepData.length > 0
-        ? sleepData.reduce((acc, s) => acc + s.quality, 0) / sleepData.length
+        ? sleepData.reduce((acc, s) => acc + qualityToNumber(s.quality), 0) / sleepData.length
         : 0
 
       if (avgSleepQuality < 6) {
