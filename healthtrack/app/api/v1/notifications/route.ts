@@ -22,9 +22,9 @@ export const GET = apiHandler(
 
     const where: any = { userId: request.user.id }
 
-    const isRead = searchParams.get("isRead")
-    if (isRead !== null) {
-      where.isRead = isRead === "true"
+    const read = searchParams.get("read")
+    if (read !== null) {
+      where.read = read === "true"
     }
 
     const type = searchParams.get("type")
@@ -59,7 +59,7 @@ export const PUT = apiHandler(
         userId: request.user.id,
       },
       data: {
-        isRead: true,
+        read: true,
         readAt: new Date(),
       },
     })

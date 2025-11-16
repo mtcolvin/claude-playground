@@ -45,11 +45,11 @@ export const GET = apiHandler(
       prisma.healthGoal.count({
         where: {
           userId,
-          status: { in: ["IN_PROGRESS", "NOT_STARTED"] },
+          status: "active",
         },
       }),
       prisma.notification.count({
-        where: { userId, isRead: false },
+        where: { userId, read: false },
       }),
       prisma.moodEntry.findMany({
         where: { userId, date: { gte: sevenDaysAgo } },

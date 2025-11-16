@@ -19,14 +19,9 @@ const createHealthGoalSchema = z.object({
   currentValue: z.number().optional(),
   unit: z.string().optional(),
   startDate: z.string().datetime(),
-  targetDate: z.string().datetime(),
-  status: z.enum(["NOT_STARTED", "IN_PROGRESS", "COMPLETED", "ABANDONED"]).default("NOT_STARTED"),
-  priority: z.enum(["LOW", "MEDIUM", "HIGH"]).default("MEDIUM"),
-  milestones: z.array(z.object({
-    title: z.string(),
-    targetDate: z.string(),
-    completed: z.boolean(),
-  })).optional(),
+  targetDate: z.string().datetime().optional(),
+  status: z.enum(["active", "completed", "abandoned"]).default("active"),
+  progress: z.number().min(0).max(100).default(0),
 })
 
 // GET /api/v1/health-goals - List health goals
@@ -79,10 +74,9 @@ export const POST = apiHandler(
         currentValue: data.currentValue,
         unit: data.unit,
         startDate: new Date(data.startDate),
-        targetDate: new Date(data.targetDate),
+        targetDate: data.targetDate ? new Date(data.targetDate) : undefined,
         status: data.status,
-        priority: data.priority,
-        milestones: data.milestones || [],
+        progress: data.progress,
       },
     })
 
