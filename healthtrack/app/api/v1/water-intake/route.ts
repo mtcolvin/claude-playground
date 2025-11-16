@@ -14,8 +14,7 @@ import { z } from "zod"
 const createWaterIntakeSchema = z.object({
   date: z.string().datetime(),
   amount: z.number().positive(),
-  unit: z.string().default("ml"),
-  notes: z.string().optional(),
+  time: z.string(),
 })
 
 // GET /api/v1/water-intake - List water intake entries
@@ -61,8 +60,7 @@ export const POST = apiHandler(
         userId: request.user.id,
         date: new Date(data.date),
         amount: data.amount,
-        unit: data.unit,
-        notes: data.notes,
+        time: data.time,
       },
     })
 

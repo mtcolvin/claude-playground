@@ -14,16 +14,13 @@ import { z } from "zod"
 const createExerciseSessionSchema = z.object({
   date: z.string().datetime(),
   type: z.string().min(1),
+  activity: z.string().min(1),
   duration: z.number().positive(),
-  intensity: z.enum(["LOW", "MODERATE", "HIGH"]),
   caloriesBurned: z.number().optional(),
   distance: z.number().optional(),
-  distanceUnit: z.string().optional(),
-  heartRateAvg: z.number().optional(),
-  heartRateMax: z.number().optional(),
-  steps: z.number().optional(),
+  avgHeartRate: z.number().int().optional(),
+  maxHeartRate: z.number().int().optional(),
   notes: z.string().optional(),
-  route: z.string().optional(),
 })
 
 // GET /api/v1/exercise - List exercise sessions
@@ -38,11 +35,6 @@ export const GET = apiHandler(
     const type = searchParams.get("type")
     if (type) {
       where.type = { contains: type, mode: "insensitive" }
-    }
-
-    const intensity = searchParams.get("intensity")
-    if (intensity) {
-      where.intensity = intensity
     }
 
     const startDate = searchParams.get("startDate")
@@ -79,16 +71,13 @@ export const POST = apiHandler(
         userId: request.user.id,
         date: new Date(data.date),
         type: data.type,
+        activity: data.activity,
         duration: data.duration,
-        intensity: data.intensity,
         caloriesBurned: data.caloriesBurned,
         distance: data.distance,
-        distanceUnit: data.distanceUnit,
-        heartRateAvg: data.heartRateAvg,
-        heartRateMax: data.heartRateMax,
-        steps: data.steps,
+        avgHeartRate: data.avgHeartRate,
+        maxHeartRate: data.maxHeartRate,
         notes: data.notes,
-        route: data.route,
       },
     })
 

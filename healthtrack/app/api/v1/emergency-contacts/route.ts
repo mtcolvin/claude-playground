@@ -15,7 +15,6 @@ const createEmergencyContactSchema = z.object({
   email: z.string().email().optional(),
   address: z.string().optional(),
   isPrimary: z.boolean().default(false),
-  notes: z.string().optional(),
 })
 
 // GET /api/v1/emergency-contacts - List emergency contacts
@@ -46,7 +45,6 @@ export const POST = apiHandler(
         email: data.email,
         address: data.address,
         isPrimary: data.isPrimary,
-        notes: data.notes,
       },
     })
 

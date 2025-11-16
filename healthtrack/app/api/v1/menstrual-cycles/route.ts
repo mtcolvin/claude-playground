@@ -14,13 +14,10 @@ import { z } from "zod"
 const createMenstrualCycleSchema = z.object({
   startDate: z.string().datetime(),
   endDate: z.string().datetime().optional(),
-  cycleLength: z.number().positive().optional(),
-  periodLength: z.number().positive().optional(),
-  flow: z.enum(["LIGHT", "MEDIUM", "HEAVY"]).optional(),
+  duration: z.number().int().optional(),
+  flowLevel: z.string().optional(),
   symptoms: z.array(z.string()).optional(),
-  mood: z.string().optional(),
   notes: z.string().optional(),
-  ovulationDate: z.string().datetime().optional(),
 })
 
 // GET /api/v1/menstrual-cycles - List menstrual cycles
@@ -66,13 +63,10 @@ export const POST = apiHandler(
         userId: request.user.id,
         startDate: new Date(data.startDate),
         endDate: data.endDate ? new Date(data.endDate) : undefined,
-        cycleLength: data.cycleLength,
-        periodLength: data.periodLength,
-        flow: data.flow,
+        duration: data.duration,
+        flowLevel: data.flowLevel,
         symptoms: data.symptoms || [],
-        mood: data.mood,
         notes: data.notes,
-        ovulationDate: data.ovulationDate ? new Date(data.ovulationDate) : undefined,
       },
     })
 

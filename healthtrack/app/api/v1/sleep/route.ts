@@ -13,21 +13,16 @@ import { z } from "zod"
 
 const createSleepSessionSchema = z.object({
   date: z.string().datetime(),
-  bedTime: z.string().datetime(),
+  bedtime: z.string().datetime(),
   wakeTime: z.string().datetime(),
-  duration: z.number().positive(),
-  quality: z.number().min(1).max(10),
+  totalMinutes: z.number().positive(),
+  quality: z.string().optional(),
   deepSleep: z.number().optional(),
   lightSleep: z.number().optional(),
   remSleep: z.number().optional(),
-  awakeTime: z.number().optional(),
-  interruptions: z.number().optional(),
+  awake: z.number().optional(),
+  efficiency: z.number().optional(),
   notes: z.string().optional(),
-  environment: z.object({
-    temperature: z.number().optional(),
-    noise: z.string().optional(),
-    light: z.string().optional(),
-  }).optional(),
 })
 
 // GET /api/v1/sleep - List sleep sessions
@@ -45,11 +40,6 @@ export const GET = apiHandler(
       where.date = {}
       if (startDate) where.date.gte = new Date(startDate)
       if (endDate) where.date.lte = new Date(endDate)
-    }
-
-    const minQuality = searchParams.get("minQuality")
-    if (minQuality) {
-      where.quality = { gte: parseInt(minQuality) }
     }
 
     const [sessions, total] = await Promise.all([
@@ -77,21 +67,20 @@ export const POST = apiHandler(
       data: {
         userId: request.user.id,
         date: new Date(data.date),
-        bedTime: new Date(data.bedTime),
+        bedtime: new Date(data.bedtime),
         wakeTime: new Date(data.wakeTime),
-        duration: data.duration,
+        totalMinutes: data.totalMinutes,
         quality: data.quality,
         deepSleep: data.deepSleep,
         lightSleep: data.lightSleep,
         remSleep: data.remSleep,
-        awakeTime: data.awakeTime,
-        interruptions: data.interruptions,
+        awake: data.awake,
+        efficiency: data.efficiency,
         notes: data.notes,
-        environment: data.environment,
       },
     })
 
-    await logAuditTrail(request.user.id, "CREATE", "SleepSession", session.id, { duration: data.duration, quality: data.quality }, request)
+    await logAuditTrail(request.user.id, "CREATE", "SleepSession", session.id, { totalMinutes: data.totalMinutes, quality: data.quality }, request)
     return successResponse(session, 201)
   },
   { requirePermission: Permission.WRITE_OWN_DATA }

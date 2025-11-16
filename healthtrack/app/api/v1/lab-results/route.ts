@@ -15,19 +15,18 @@ import { z } from "zod"
 // Validation schemas
 const createLabResultSchema = z.object({
   testName: z.string().min(1),
-  testDate: z.string().datetime(),
-  category: z.string().optional(),
+  loincCode: z.string().optional(),
+  date: z.string().datetime(),
+  value: z.number().optional(),
+  textValue: z.string().optional(),
+  unit: z.string().optional(),
+  referenceRangeLow: z.number().optional(),
+  referenceRangeHigh: z.number().optional(),
+  status: z.string().optional(),
   orderedBy: z.string().optional(),
-  facility: z.string().optional(),
-  results: z.array(z.object({
-    name: z.string(),
-    value: z.string(),
-    unit: z.string().optional(),
-    referenceRange: z.string().optional(),
-    status: z.enum(["NORMAL", "ABNORMAL", "CRITICAL"]).optional(),
-  })),
+  performedBy: z.string().optional(),
   notes: z.string().optional(),
-  attachments: z.array(z.string()).optional(),
+  fileId: z.string().optional(),
 })
 
 const updateLabResultSchema = createLabResultSchema.partial()
@@ -36,7 +35,7 @@ const updateLabResultSchema = createLabResultSchema.partial()
 export const GET = apiHandler(
   async (request) => {
     const { page, limit, skip } = getPaginationParams(request)
-    const { sortBy, sortOrder } = getSortParams(request, "testDate")
+    const { sortBy, sortOrder } = getSortParams(request, "date")
     const searchParams = request.nextUrl.searchParams
 
     // Build filter query
@@ -44,19 +43,13 @@ export const GET = apiHandler(
       userId: request.user.id,
     }
 
-    // Filter by category
-    const category = searchParams.get("category")
-    if (category) {
-      where.category = category
-    }
-
     // Filter by date range
     const startDate = searchParams.get("startDate")
     const endDate = searchParams.get("endDate")
     if (startDate || endDate) {
-      where.testDate = {}
-      if (startDate) where.testDate.gte = new Date(startDate)
-      if (endDate) where.testDate.lte = new Date(endDate)
+      where.date = {}
+      if (startDate) where.date.gte = new Date(startDate)
+      if (endDate) where.date.lte = new Date(endDate)
     }
 
     // Search by test name
@@ -91,13 +84,18 @@ export const POST = apiHandler(
       data: {
         userId: request.user.id,
         testName: data.testName,
-        testDate: new Date(data.testDate),
-        category: data.category,
+        loincCode: data.loincCode,
+        date: new Date(data.date),
+        value: data.value,
+        textValue: data.textValue,
+        unit: data.unit,
+        referenceRangeLow: data.referenceRangeLow,
+        referenceRangeHigh: data.referenceRangeHigh,
+        status: data.status,
         orderedBy: data.orderedBy,
-        facility: data.facility,
-        results: data.results,
+        performedBy: data.performedBy,
         notes: data.notes,
-        attachments: data.attachments || [],
+        fileId: data.fileId,
       },
     })
 
@@ -107,7 +105,7 @@ export const POST = apiHandler(
       "CREATE",
       "LabResult",
       labResult.id,
-      { testName: data.testName, testDate: data.testDate },
+      { testName: data.testName, date: data.date },
       request
     )
 

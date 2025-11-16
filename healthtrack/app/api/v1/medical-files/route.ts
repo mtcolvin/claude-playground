@@ -14,16 +14,14 @@ import { z } from "zod"
 
 // Validation schemas
 const createMedicalFileSchema = z.object({
-  name: z.string().min(1),
-  type: z.enum(["DICOM", "PDF", "IMAGE", "LAB_REPORT", "PRESCRIPTION", "SCAN", "OTHER"]),
+  fileName: z.string().min(1),
+  fileType: z.string(),
   category: z.string().optional(),
   description: z.string().optional(),
-  url: z.string().url(),
-  size: z.number().positive(),
-  mimeType: z.string(),
+  fileUrl: z.string().url(),
+  fileSize: z.number().positive(),
   uploadDate: z.string().datetime().optional(),
   tags: z.array(z.string()).optional(),
-  encryptionKey: z.string().optional(),
   metadata: z.record(z.any()).optional(),
 })
 
@@ -42,9 +40,9 @@ export const GET = apiHandler(
     }
 
     // Filter by type
-    const type = searchParams.get("type")
-    if (type) {
-      where.type = type
+    const fileType = searchParams.get("fileType")
+    if (fileType) {
+      where.fileType = fileType
     }
 
     // Filter by category
@@ -53,11 +51,11 @@ export const GET = apiHandler(
       where.category = category
     }
 
-    // Search by name or description
+    // Search by fileName or description
     const search = searchParams.get("search")
     if (search) {
       where.OR = [
-        { name: { contains: search, mode: "insensitive" } },
+        { fileName: { contains: search, mode: "insensitive" } },
         { description: { contains: search, mode: "insensitive" } },
       ]
     }
@@ -95,16 +93,14 @@ export const POST = apiHandler(
     const file = await prisma.medicalFile.create({
       data: {
         userId: request.user.id,
-        name: data.name,
-        type: data.type,
+        fileName: data.fileName,
+        fileType: data.fileType,
         category: data.category,
         description: data.description,
-        url: data.url,
-        size: data.size,
-        mimeType: data.mimeType,
+        fileUrl: data.fileUrl,
+        fileSize: data.fileSize,
         uploadDate: data.uploadDate ? new Date(data.uploadDate) : new Date(),
         tags: data.tags || [],
-        encryptionKey: data.encryptionKey,
         metadata: data.metadata,
       },
     })
@@ -115,7 +111,7 @@ export const POST = apiHandler(
       "CREATE",
       "MedicalFile",
       file.id,
-      { name: data.name, type: data.type, size: data.size },
+      { fileName: data.fileName, fileType: data.fileType, fileSize: data.fileSize },
       request
     )
 
