@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 /**
  * Server-Sent Events endpoint for real-time updates
@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
   const userId = request.nextUrl.searchParams.get('userId')
 
   if (!userId) {
-    return new Response('User ID required', { status: 400 })
+    return NextResponse.json({ error: 'User ID required' }, { status: 400 })
   }
 
   // Create SSE stream
@@ -48,7 +48,7 @@ export async function GET(request: NextRequest) {
     },
   })
 
-  return new Response(stream, {
+  return new NextResponse(stream, {
     headers: {
       'Content-Type': 'text/event-stream',
       'Cache-Control': 'no-cache',
