@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getSession } from "@/lib/session"
-import { Permission, roleHasPermission, canAccessResource } from "@/lib/rbac"
-import { UserRole } from "@prisma/client"
+import { Permission, roleHasPermission, canAccessResource, UserRole } from "@/lib/rbac"
 import { prisma } from "@/lib/prisma"
 
 export interface AuthenticatedRequest extends NextRequest {

@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs"
 import { prisma } from "@/lib/prisma"
 import { z } from "zod"
-import { UserRole } from "@prisma/client"
+import { UserRole } from "@/lib/rbac"
 
 // Validation schemas
 export const registerSchema = z.object({

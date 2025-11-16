@@ -1,4 +1,10 @@
-import { UserRole } from "@prisma/client"
+// Define UserRole enum locally
+export enum UserRole {
+  PATIENT = "PATIENT",
+  CAREGIVER = "CAREGIVER",
+  PROVIDER = "PROVIDER",
+  ADMIN = "ADMIN",
+}
 
 // Define all possible permissions in the system
 export enum Permission {

@@ -7,7 +7,11 @@ import {
   getPaginationParams,
   getSortParams,
 } from "@/lib/api-middleware"
-import { NotificationType } from "@prisma/client"
+import { z } from "zod"
+
+// Define NotificationType locally
+const NotificationType = z.enum(["MEDICATION_REMINDER", "APPOINTMENT_REMINDER", "HEALTH_ALERT", "SYSTEM", "OTHER"])
+type NotificationTypeEnum = z.infer<typeof NotificationType>
 
 // GET /api/v1/notifications - List notifications
 export const GET = apiHandler(
@@ -25,7 +29,7 @@ export const GET = apiHandler(
 
     const type = searchParams.get("type")
     if (type) {
-      where.type = type as NotificationType
+      where.type = type as NotificationTypeEnum
     }
 
     const [notifications, total] = await Promise.all([
