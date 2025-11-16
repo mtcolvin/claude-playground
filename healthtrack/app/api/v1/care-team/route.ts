@@ -12,11 +12,10 @@ const createCareTeamMemberSchema = z.object({
   name: z.string().min(1),
   role: z.string().min(1),
   specialty: z.string().optional(),
-  organization: z.string().optional(),
+  facility: z.string().optional(),
   phone: z.string().optional(),
   email: z.string().email().optional(),
   address: z.string().optional(),
-  isPrimary: z.boolean().default(false),
   notes: z.string().optional(),
 })
 
@@ -25,7 +24,7 @@ export const GET = apiHandler(
   async (request) => {
     const careTeam = await prisma.careTeamMember.findMany({
       where: { userId: request.user.id },
-      orderBy: [{ isPrimary: "desc" }, { name: "asc" }],
+      orderBy: { name: "asc" },
     })
 
     return successResponse(careTeam)
@@ -45,11 +44,10 @@ export const POST = apiHandler(
         name: data.name,
         role: data.role,
         specialty: data.specialty,
-        organization: data.organization,
+        facility: data.facility,
         phone: data.phone,
         email: data.email,
         address: data.address,
-        isPrimary: data.isPrimary,
         notes: data.notes,
       },
     })
