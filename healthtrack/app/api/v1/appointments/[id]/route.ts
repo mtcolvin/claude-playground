@@ -14,7 +14,7 @@ const AppointmentStatus = z.enum(["SCHEDULED", "CONFIRMED", "COMPLETED", "CANCEL
 
 const updateAppointmentSchema = z.object({
   title: z.string().min(1).optional(),
-  dateTime: z.string().datetime().optional(),
+  date: z.string().datetime().optional(),
   duration: z.number().positive().optional(),
   provider: z.string().min(1).optional(),
   specialty: z.string().optional(),
@@ -23,7 +23,6 @@ const updateAppointmentSchema = z.object({
   status: AppointmentStatus.optional(),
   reason: z.string().optional(),
   notes: z.string().optional(),
-  reminderMinutes: z.array(z.number()).optional(),
 })
 
 // GET /api/v1/appointments/:id - Get specific appointment
@@ -73,7 +72,7 @@ export const PUT = apiHandler(
       where: { id },
       data: {
         ...(data.title && { title: data.title }),
-        ...(data.dateTime && { dateTime: new Date(data.dateTime) }),
+        ...(data.date && { date: new Date(data.date) }),
         ...(data.duration && { duration: data.duration }),
         ...(data.provider && { provider: data.provider }),
         ...(data.specialty !== undefined && { specialty: data.specialty }),
@@ -82,7 +81,6 @@ export const PUT = apiHandler(
         ...(data.status && { status: data.status }),
         ...(data.reason !== undefined && { reason: data.reason }),
         ...(data.notes !== undefined && { notes: data.notes }),
-        ...(data.reminderMinutes && { reminderMinutes: data.reminderMinutes }),
       },
     })
 

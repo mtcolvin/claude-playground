@@ -19,7 +19,7 @@ type AppointmentStatusType = z.infer<typeof AppointmentStatus>
 // Validation schemas
 const createAppointmentSchema = z.object({
   title: z.string().min(1),
-  dateTime: z.string().datetime(),
+  date: z.string().datetime(),
   duration: z.number().positive(),
   provider: z.string().min(1),
   specialty: z.string().optional(),
@@ -28,7 +28,6 @@ const createAppointmentSchema = z.object({
   status: AppointmentStatus.default("SCHEDULED"),
   reason: z.string().optional(),
   notes: z.string().optional(),
-  reminderMinutes: z.array(z.number()).optional(),
 })
 
 const updateAppointmentSchema = createAppointmentSchema.partial()
@@ -37,7 +36,7 @@ const updateAppointmentSchema = createAppointmentSchema.partial()
 export const GET = apiHandler(
   async (request) => {
     const { page, limit, skip } = getPaginationParams(request)
-    const { sortBy, sortOrder } = getSortParams(request, "dateTime")
+    const { sortBy, sortOrder } = getSortParams(request, "date")
     const searchParams = request.nextUrl.searchParams
 
     // Build filter query
@@ -61,9 +60,9 @@ export const GET = apiHandler(
     const startDate = searchParams.get("startDate")
     const endDate = searchParams.get("endDate")
     if (startDate || endDate) {
-      where.dateTime = {}
-      if (startDate) where.dateTime.gte = new Date(startDate)
-      if (endDate) where.dateTime.lte = new Date(endDate)
+      where.date = {}
+      if (startDate) where.date.gte = new Date(startDate)
+      if (endDate) where.date.lte = new Date(endDate)
     }
 
     // Search by provider or title
@@ -101,7 +100,7 @@ export const POST = apiHandler(
       data: {
         userId: request.user.id,
         title: data.title,
-        dateTime: new Date(data.dateTime),
+        date: new Date(data.date),
         duration: data.duration,
         provider: data.provider,
         specialty: data.specialty,
@@ -110,7 +109,6 @@ export const POST = apiHandler(
         status: data.status,
         reason: data.reason,
         notes: data.notes,
-        reminderMinutes: data.reminderMinutes || [60, 1440], // 1 hour and 1 day before
       },
     })
 
@@ -120,7 +118,7 @@ export const POST = apiHandler(
       "CREATE",
       "Appointment",
       appointment.id,
-      { title: data.title, dateTime: data.dateTime },
+      { title: data.title, date: data.date },
       request
     )
 
