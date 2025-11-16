@@ -6,23 +6,36 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:seed": "tsx prisma/seed.ts",
+    "db:studio": "prisma studio",
+    "db:reset": "prisma migrate reset"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.69.0",
     "@prisma/client": "^6.19.0",
+    "@tanstack/react-query": "^5.64.2",
     "bcryptjs": "^3.0.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "dwv": "^0.35.1",
+    "jspdf": "^2.5.2",
     "lucide-react": "^0.553.0",
     "next": "16.0.3",
+    "next-auth": "^5.0.0-beta.25",
     "pdf-parse": "^2.4.5",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "recharts": "^3.4.1",
-    "tailwind-merge": "^3.4.0"
+    "tailwind-merge": "^3.4.0",
+    "three": "^0.172.0",
+    "xlsx": "^0.18.5",
+    "zod": "^3.24.1",
+    "zustand": "^5.0.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -31,10 +44,12 @@
     "@types/pdf-parse": "^1.1.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/three": "^0.172.0",
     "eslint": "^9",
     "eslint-config-next": "16.0.3",
     "prisma": "^6.19.0",
     "tailwindcss": "^4",
+    "tsx": "^4.19.2",
     "typescript": "^5"
   }
 }
