@@ -4,7 +4,7 @@
 
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 interface MedicalFile {
   id: string
@@ -115,10 +115,13 @@ export function MedicalFileUpload() {
         })
 
         if (!response.ok) {
-          throw new Error('Upload failed')
+          const errorData = await response.json().catch(() => ({ error: 'Unknown error' }))
+          console.error('Upload failed:', response.status, errorData)
+          throw new Error(errorData.error || errorData.message || `Upload failed with status ${response.status}`)
         }
 
         const data = await response.json()
+        console.log('Upload response:', data)
 
         // Update to encrypting
         setUploadProgress(prev => prev.map((p, idx) =>
@@ -137,8 +140,10 @@ export function MedicalFileUpload() {
           setFiles(prev => [data.data, ...prev])
         }
       } catch (error) {
+        console.error('Upload error:', error)
+        const errorMessage = error instanceof Error ? error.message : 'Upload failed'
         setUploadProgress(prev => prev.map((p, idx) =>
-          idx === i ? { ...p, status: 'error', error: 'Upload failed' } : p
+          idx === i ? { ...p, status: 'error', error: errorMessage } : p
         ))
       }
     }
@@ -192,6 +197,11 @@ export function MedicalFileUpload() {
     if (fileType.includes('word') || fileType.includes('document')) return '📝'
     return '📎'
   }
+
+  // Load files on component mount
+  useEffect(() => {
+    loadFiles()
+  }, [])
 
   const filteredFiles = filterCategory === 'all'
     ? files
