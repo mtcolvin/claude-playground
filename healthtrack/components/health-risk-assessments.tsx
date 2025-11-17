@@ -437,7 +437,7 @@ export function HealthRiskAssessments() {
           <Stethoscope className="h-8 w-8 text-blue-600" />
           Health Risk Assessments
         </h1>
-        <p className="text-muted-foreground">
+        <p className="text-gray-800">
           Evidence-based risk calculators using validated clinical scoring systems
         </p>
       </div>
@@ -449,7 +449,7 @@ export function HealthRiskAssessments() {
           onClick={() => setActiveAssessment('cardiovascular')}
         >
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground flex items-center gap-2">
+            <CardTitle className="text-sm text-gray-800 flex items-center gap-2">
               <Heart className="h-4 w-4" />
               Cardiovascular
             </CardTitle>
@@ -458,7 +458,7 @@ export function HealthRiskAssessments() {
             <div className="space-y-2">
               <div className="text-2xl font-bold">{cvdRisk.riskPercentage}%</div>
               <RiskBadge risk={cvdRisk.risk} />
-              <p className="text-xs text-muted-foreground">10-year risk</p>
+              <p className="text-xs text-gray-800">10-year risk</p>
             </div>
           </CardContent>
         </Card>
@@ -468,7 +468,7 @@ export function HealthRiskAssessments() {
           onClick={() => setActiveAssessment('diabetes')}
         >
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground flex items-center gap-2">
+            <CardTitle className="text-sm text-gray-800 flex items-center gap-2">
               <Droplet className="h-4 w-4" />
               Type 2 Diabetes
             </CardTitle>
@@ -476,7 +476,7 @@ export function HealthRiskAssessments() {
           <CardContent>
             <div className="space-y-2">
               <RiskBadge risk={diabetesRisk.risk} />
-              <p className="text-xs text-muted-foreground">Lifetime risk</p>
+              <p className="text-xs text-gray-800">Lifetime risk</p>
             </div>
           </CardContent>
         </Card>
@@ -486,7 +486,7 @@ export function HealthRiskAssessments() {
           onClick={() => setActiveAssessment('falls')}
         >
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground flex items-center gap-2">
+            <CardTitle className="text-sm text-gray-800 flex items-center gap-2">
               <Activity className="h-4 w-4" />
               Falls
             </CardTitle>
@@ -495,7 +495,7 @@ export function HealthRiskAssessments() {
             <div className="space-y-2">
               <div className="text-2xl font-bold">{fallRisk.riskPercentage}%</div>
               <RiskBadge risk={fallRisk.risk} />
-              <p className="text-xs text-muted-foreground">1-year risk</p>
+              <p className="text-xs text-gray-800">1-year risk</p>
             </div>
           </CardContent>
         </Card>
@@ -505,7 +505,7 @@ export function HealthRiskAssessments() {
           onClick={() => setActiveAssessment('osteoporosis')}
         >
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground flex items-center gap-2">
+            <CardTitle className="text-sm text-gray-800 flex items-center gap-2">
               <Bone className="h-4 w-4" />
               Osteoporosis
             </CardTitle>
@@ -514,7 +514,7 @@ export function HealthRiskAssessments() {
             <div className="space-y-2">
               <div className="text-2xl font-bold">{osteoporosisRisk.riskPercentage}%</div>
               <RiskBadge risk={osteoporosisRisk.risk} />
-              <p className="text-xs text-muted-foreground">10-year risk</p>
+              <p className="text-xs text-gray-800">10-year risk</p>
             </div>
           </CardContent>
         </Card>
@@ -572,7 +572,7 @@ export function HealthRiskAssessments() {
                       style={{ width: `${Math.min(100, cvdRisk.riskPercentage)}%` }}
                     />
                   </div>
-                  <p className="text-sm text-muted-foreground mt-2">
+                  <p className="text-sm text-gray-800 mt-2">
                     {cvdRisk.interpretation}
                   </p>
                 </div>
@@ -682,7 +682,7 @@ export function HealthRiskAssessments() {
             <CardContent>
               <div className="space-y-6">
                 <div>
-                  <p className="text-muted-foreground mb-4">{diabetesRisk.interpretation}</p>
+                  <p className="text-gray-800 mb-4">{diabetesRisk.interpretation}</p>
 
                   <h4 className="font-semibold mb-3">Prevention Recommendations:</h4>
                   <ul className="space-y-2">
@@ -730,7 +730,7 @@ export function HealthRiskAssessments() {
             <CardContent>
               <div className="space-y-6">
                 <div>
-                  <p className="text-muted-foreground mb-4">{fallRisk.interpretation}</p>
+                  <p className="text-gray-800 mb-4">{fallRisk.interpretation}</p>
 
                   <h4 className="font-semibold mb-3">Fall Prevention Strategies:</h4>
                   <ul className="space-y-2">
@@ -767,7 +767,7 @@ export function HealthRiskAssessments() {
             <CardContent>
               <div className="space-y-6">
                 <div>
-                  <p className="text-muted-foreground mb-4">{osteoporosisRisk.interpretation}</p>
+                  <p className="text-gray-800 mb-4">{osteoporosisRisk.interpretation}</p>
 
                   <h4 className="font-semibold mb-3">Bone Health Recommendations:</h4>
                   <ul className="space-y-2">
@@ -794,7 +794,7 @@ export function HealthRiskAssessments() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-2 text-sm text-muted-foreground">
+          <div className="space-y-2 text-sm text-gray-800">
             <p>
               <strong>Validated Risk Calculators:</strong> These assessments use clinically validated
               scoring systems including Framingham Risk Score (CVD), ADA Risk Test (Diabetes),

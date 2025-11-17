@@ -190,7 +190,7 @@ export function AppointmentScheduler() {
             <Calendar className="h-8 w-8 text-blue-600" />
             Appointments & Scheduling
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-gray-800">
             Manage your healthcare appointments and reminders
           </p>
         </div>
@@ -204,7 +204,7 @@ export function AppointmentScheduler() {
       <div className="grid gap-4 md:grid-cols-4">
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground">
+            <CardTitle className="text-sm text-gray-800">
               Total Appointments
             </CardTitle>
           </CardHeader>
@@ -215,7 +215,7 @@ export function AppointmentScheduler() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground">
+            <CardTitle className="text-sm text-gray-800">
               Upcoming
             </CardTitle>
           </CardHeader>
@@ -228,7 +228,7 @@ export function AppointmentScheduler() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground">
+            <CardTitle className="text-sm text-gray-800">
               This Month
             </CardTitle>
           </CardHeader>
@@ -244,7 +244,7 @@ export function AppointmentScheduler() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground">
+            <CardTitle className="text-sm text-gray-800">
               Reminders Active
             </CardTitle>
           </CardHeader>
@@ -391,11 +391,11 @@ export function AppointmentScheduler() {
                     <div className="grid gap-3 md:grid-cols-2">
                       <div className="space-y-2">
                         <div className="flex items-center gap-2 text-sm">
-                          <Calendar className="h-4 w-4 text-muted-foreground" />
+                          <Calendar className="h-4 w-4 text-gray-800" />
                           {dateTime.date}
                         </div>
                         <div className="flex items-center gap-2 text-sm">
-                          <Clock className="h-4 w-4 text-muted-foreground" />
+                          <Clock className="h-4 w-4 text-gray-800" />
                           {dateTime.time} ({apt.duration} minutes)
                         </div>
                         <div className="flex items-center gap-2 text-sm">
@@ -404,7 +404,7 @@ export function AppointmentScheduler() {
                         </div>
                         {apt.location && (
                           <div className="flex items-center gap-2 text-sm">
-                            <MapPin className="h-4 w-4 text-muted-foreground" />
+                            <MapPin className="h-4 w-4 text-gray-800" />
                             {apt.location}
                           </div>
                         )}
@@ -412,7 +412,7 @@ export function AppointmentScheduler() {
 
                       {apt.notes && (
                         <div className="p-3 bg-gray-50 rounded">
-                          <p className="text-sm text-muted-foreground flex items-start gap-2">
+                          <p className="text-sm text-gray-800 flex items-start gap-2">
                             <FileText className="h-4 w-4 mt-0.5 flex-shrink-0" />
                             {apt.notes}
                           </p>
@@ -427,7 +427,7 @@ export function AppointmentScheduler() {
             {upcomingAppointments.length === 0 && (
               <Card>
                 <CardContent className="pt-6">
-                  <p className="text-center text-muted-foreground">
+                  <p className="text-center text-gray-800">
                     No upcoming appointments scheduled
                   </p>
                 </CardContent>
@@ -456,7 +456,7 @@ export function AppointmentScheduler() {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                    <div className="flex items-center gap-4 text-sm text-gray-800">
                       <div className="flex items-center gap-2">
                         <Calendar className="h-4 w-4" />
                         {dateTime.date}
@@ -491,7 +491,7 @@ export function AppointmentScheduler() {
                 <div className="flex items-center justify-between p-4 bg-blue-50 border border-blue-200 rounded-lg">
                   <div>
                     <h4 className="font-semibold">Appointment Reminders</h4>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-gray-800">
                       Receive notifications before your appointments
                     </p>
                   </div>
@@ -511,7 +511,7 @@ export function AppointmentScheduler() {
                       <div className="space-y-3">
                         <div className="flex items-center justify-between p-3 border rounded">
                           <div className="flex items-center gap-2">
-                            <Mail className="h-4 w-4 text-muted-foreground" />
+                            <Mail className="h-4 w-4 text-gray-800" />
                             <span>Email</span>
                           </div>
                           <Button
@@ -524,7 +524,7 @@ export function AppointmentScheduler() {
                         </div>
                         <div className="flex items-center justify-between p-3 border rounded">
                           <div className="flex items-center gap-2">
-                            <Phone className="h-4 w-4 text-muted-foreground" />
+                            <Phone className="h-4 w-4 text-gray-800" />
                             <span>SMS Text</span>
                           </div>
                           <Button
@@ -537,7 +537,7 @@ export function AppointmentScheduler() {
                         </div>
                         <div className="flex items-center justify-between p-3 border rounded">
                           <div className="flex items-center gap-2">
-                            <Bell className="h-4 w-4 text-muted-foreground" />
+                            <Bell className="h-4 w-4 text-gray-800" />
                             <span>Push Notifications</span>
                           </div>
                           <Button

@@ -301,9 +301,9 @@ const WidgetContent: React.FC<{ widget: Widget }> = ({ widget }) => {
 
   return (
     <div className="h-full flex flex-col items-center justify-center p-6 text-center">
-      <div className="text-muted-foreground mb-3">{meta.icon}</div>
+      <div className="text-gray-800 mb-3">{meta.icon}</div>
       <h3 className="font-semibold mb-1">{meta.title}</h3>
-      <p className="text-xs text-muted-foreground">{meta.description}</p>
+      <p className="text-xs text-gray-800">{meta.description}</p>
       <Badge variant="outline" className="mt-3">
         {widget.size}
       </Badge>
@@ -428,7 +428,7 @@ export function DashboardBuilder() {
             <LayoutGrid className="h-8 w-8 text-blue-600" />
             Dashboard Builder
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-gray-800">
             Customize your dashboard with drag-and-drop widgets
           </p>
         </div>
@@ -493,10 +493,10 @@ export function DashboardBuilder() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-xs text-muted-foreground mb-2">
+                  <p className="text-xs text-gray-800 mb-2">
                     {layout.description}
                   </p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs text-gray-800">
                     {layout.widgets.length} widgets
                   </p>
                 </CardContent>
@@ -573,7 +573,7 @@ export function DashboardBuilder() {
                               <h4 className="font-semibold text-sm mb-1">
                                 {widget.title}
                               </h4>
-                              <p className="text-xs text-muted-foreground">
+                              <p className="text-xs text-gray-800">
                                 {widget.description}
                               </p>
                               <Badge variant="outline" className="mt-2 text-xs">
@@ -593,9 +593,9 @@ export function DashboardBuilder() {
           {/* Dashboard Grid */}
           {activeLayout.widgets.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 text-center">
-              <LayoutGrid className="h-12 w-12 text-muted-foreground mb-3" />
+              <LayoutGrid className="h-12 w-12 text-gray-800 mb-3" />
               <h3 className="font-semibold mb-1">Empty Dashboard</h3>
-              <p className="text-sm text-muted-foreground mb-4">
+              <p className="text-sm text-gray-800 mb-4">
                 Add widgets from the library to get started
               </p>
               {!showWidgetLibrary && (
@@ -637,7 +637,7 @@ export function DashboardBuilder() {
 
                     {isEditMode && (
                       <div className="absolute top-2 left-2 cursor-move">
-                        <GripVertical className="h-5 w-5 text-muted-foreground" />
+                        <GripVertical className="h-5 w-5 text-gray-800" />
                       </div>
                     )}
 
@@ -661,7 +661,7 @@ export function DashboardBuilder() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <ul className="text-sm space-y-1 text-muted-foreground">
+            <ul className="text-sm space-y-1 text-gray-800">
               <li>• Click "Add Widget" to browse available widgets</li>
               <li>• Click a widget in the library to add it to your dashboard</li>
               <li>• Use the gear icon to resize widgets (small → medium → large → full)</li>
@@ -685,10 +685,10 @@ export function DashboardBuilder() {
           <div className="grid gap-4 md:grid-cols-2 text-sm">
             <div>
               <h4 className="font-semibold mb-2">Overview Dashboard</h4>
-              <p className="text-muted-foreground mb-2">
+              <p className="text-gray-800 mb-2">
                 Include quick stats, recent metrics, and alerts for a comprehensive daily view.
               </p>
-              <ul className="text-muted-foreground space-y-1">
+              <ul className="text-gray-800 space-y-1">
                 <li>• Quick Stats (full width)</li>
                 <li>• Health Metrics + Medications</li>
                 <li>• Anomaly Alerts + Appointments</li>
@@ -697,10 +697,10 @@ export function DashboardBuilder() {
 
             <div>
               <h4 className="font-semibold mb-2">Analytics Dashboard</h4>
-              <p className="text-muted-foreground mb-2">
+              <p className="text-gray-800 mb-2">
                 Focus on trends, correlations, and predictive insights for deep analysis.
               </p>
-              <ul className="text-muted-foreground space-y-1">
+              <ul className="text-gray-800 space-y-1">
                 <li>• Trends Chart (large)</li>
                 <li>• Correlations (large)</li>
                 <li>• Goals Progress (large)</li>
@@ -709,10 +709,10 @@ export function DashboardBuilder() {
 
             <div>
               <h4 className="font-semibold mb-2">Wellness Dashboard</h4>
-              <p className="text-muted-foreground mb-2">
+              <p className="text-gray-800 mb-2">
                 Emphasize mental health, sleep, nutrition, and exercise for lifestyle tracking.
               </p>
-              <ul className="text-muted-foreground space-y-1">
+              <ul className="text-gray-800 space-y-1">
                 <li>• Mood Tracker (large)</li>
                 <li>• Sleep + Nutrition</li>
                 <li>• Exercise + Goals</li>
@@ -721,10 +721,10 @@ export function DashboardBuilder() {
 
             <div>
               <h4 className="font-semibold mb-2">Medical Dashboard</h4>
-              <p className="text-muted-foreground mb-2">
+              <p className="text-gray-800 mb-2">
                 Prioritize medications, appointments, lab results, and medical files.
               </p>
-              <ul className="text-muted-foreground space-y-1">
+              <ul className="text-gray-800 space-y-1">
                 <li>• Medications (medium)</li>
                 <li>• Appointments (medium)</li>
                 <li>• Lab Results + Anomaly Alerts</li>
@@ -738,7 +738,7 @@ export function DashboardBuilder() {
       <div className="grid gap-4 md:grid-cols-4">
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground">
+            <CardTitle className="text-sm text-gray-800">
               Total Dashboards
             </CardTitle>
           </CardHeader>
@@ -749,7 +749,7 @@ export function DashboardBuilder() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground">
+            <CardTitle className="text-sm text-gray-800">
               Active Widgets
             </CardTitle>
           </CardHeader>
@@ -762,7 +762,7 @@ export function DashboardBuilder() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground">
+            <CardTitle className="text-sm text-gray-800">
               Available Widgets
             </CardTitle>
           </CardHeader>
@@ -775,7 +775,7 @@ export function DashboardBuilder() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground">
+            <CardTitle className="text-sm text-gray-800">
               Widget Categories
             </CardTitle>
           </CardHeader>

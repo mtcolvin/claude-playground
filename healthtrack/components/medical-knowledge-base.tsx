@@ -322,7 +322,7 @@ export function MedicalKnowledgeBase() {
           <BookOpen className="h-8 w-8 text-blue-600" />
           Medical Knowledge Base
         </h1>
-        <p className="text-muted-foreground">
+        <p className="text-gray-800">
           Evidence-based health information for patient education
         </p>
       </div>
@@ -331,7 +331,7 @@ export function MedicalKnowledgeBase() {
       <Card>
         <CardContent className="pt-6">
           <div className="relative">
-            <Search className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
+            <Search className="absolute left-3 top-3 h-5 w-5 text-gray-800" />
             <input
               type="text"
               placeholder="Search health topics, symptoms, or conditions..."
@@ -368,7 +368,7 @@ export function MedicalKnowledgeBase() {
                       {getCategoryIcon(topic.category)}
                       <div>
                         <div className="font-semibold text-sm">{topic.title}</div>
-                        <div className="text-xs text-muted-foreground mt-1">
+                        <div className="text-xs text-gray-800 mt-1">
                           {topic.category}
                         </div>
                       </div>
@@ -427,7 +427,7 @@ export function MedicalKnowledgeBase() {
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-muted-foreground leading-relaxed mb-6">
+                      <p className="text-gray-800 leading-relaxed mb-6">
                         {selectedTopic.overview}
                       </p>
 
@@ -456,7 +456,7 @@ export function MedicalKnowledgeBase() {
                               </li>
                             ))}
                             {selectedTopic.riskFactors.length > 6 && (
-                              <li className="text-sm text-muted-foreground pl-6">
+                              <li className="text-sm text-gray-800 pl-6">
                                 +{selectedTopic.riskFactors.length - 6} more risk factors
                               </li>
                             )}
@@ -600,7 +600,7 @@ export function MedicalKnowledgeBase() {
                             <h4 className="font-semibold mb-2 text-blue-900">
                               Q: {qa.question}
                             </h4>
-                            <p className="text-sm text-muted-foreground leading-relaxed">
+                            <p className="text-sm text-gray-800 leading-relaxed">
                               A: {qa.answer}
                             </p>
                           </div>
@@ -639,7 +639,7 @@ export function MedicalKnowledgeBase() {
               {/* Disclaimer */}
               <Card className="bg-gray-50">
                 <CardContent className="pt-6">
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-gray-800">
                     <strong>Medical Disclaimer:</strong> This information is for educational purposes only and
                     is not a substitute for professional medical advice, diagnosis, or treatment. Always seek
                     the advice of your physician or other qualified health provider with any questions you may

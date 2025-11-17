@@ -141,7 +141,7 @@ export function CareTeamManagement() {
             <Users className="h-8 w-8 text-blue-600" />
             My Care Team
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-gray-800">
             Manage your healthcare providers and support network
           </p>
         </div>
@@ -155,7 +155,7 @@ export function CareTeamManagement() {
       <div className="grid gap-4 md:grid-cols-4">
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground">
+            <CardTitle className="text-sm text-gray-800">
               Total Providers
             </CardTitle>
           </CardHeader>
@@ -166,7 +166,7 @@ export function CareTeamManagement() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground">
+            <CardTitle className="text-sm text-gray-800">
               Primary Care
             </CardTitle>
           </CardHeader>
@@ -179,7 +179,7 @@ export function CareTeamManagement() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground">
+            <CardTitle className="text-sm text-gray-800">
               Specialists
             </CardTitle>
           </CardHeader>
@@ -192,7 +192,7 @@ export function CareTeamManagement() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground">
+            <CardTitle className="text-sm text-gray-800">
               Care Team
             </CardTitle>
           </CardHeader>
@@ -265,22 +265,22 @@ export function CareTeamManagement() {
                   {/* Contact Info */}
                   <div className="space-y-2">
                     <div className="flex items-center gap-2 text-sm">
-                      <Phone className="h-4 w-4 text-muted-foreground" />
+                      <Phone className="h-4 w-4 text-gray-800" />
                       <a href={`tel:${provider.phone}`} className="text-blue-600 hover:underline">
                         {provider.phone}
                       </a>
                     </div>
                     {provider.email && (
                       <div className="flex items-center gap-2 text-sm">
-                        <Mail className="h-4 w-4 text-muted-foreground" />
+                        <Mail className="h-4 w-4 text-gray-800" />
                         <a href={`mailto:${provider.email}`} className="text-blue-600 hover:underline">
                           {provider.email}
                         </a>
                       </div>
                     )}
                     <div className="flex items-start gap-2 text-sm">
-                      <MapPin className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-                      <span className="text-muted-foreground">{provider.address}</span>
+                      <MapPin className="h-4 w-4 text-gray-800 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-800">{provider.address}</span>
                     </div>
                   </div>
 
@@ -289,7 +289,7 @@ export function CareTeamManagement() {
                     <div className="pt-3 border-t space-y-2">
                       {provider.lastVisit && (
                         <div className="flex items-center justify-between text-sm">
-                          <span className="text-muted-foreground">Last Visit:</span>
+                          <span className="text-gray-800">Last Visit:</span>
                           <span className="font-medium">
                             {provider.lastVisit.toLocaleDateString()}
                           </span>
@@ -297,7 +297,7 @@ export function CareTeamManagement() {
                       )}
                       {provider.nextAppointment && (
                         <div className="flex items-center justify-between text-sm">
-                          <span className="text-muted-foreground">Next Appointment:</span>
+                          <span className="text-gray-800">Next Appointment:</span>
                           <Badge className="bg-green-600 text-white">
                             <Calendar className="h-3 w-3 mr-1" />
                             {provider.nextAppointment.toLocaleDateString()}
@@ -310,7 +310,7 @@ export function CareTeamManagement() {
                   {/* Notes */}
                   {provider.notes && (
                     <div className="pt-3 border-t">
-                      <p className="text-sm text-muted-foreground flex items-start gap-2">
+                      <p className="text-sm text-gray-800 flex items-start gap-2">
                         <FileText className="h-4 w-4 mt-0.5 flex-shrink-0" />
                         {provider.notes}
                       </p>
@@ -376,14 +376,14 @@ export function CareTeamManagement() {
                   {/* Contact Info */}
                   <div className="space-y-2">
                     <div className="flex items-center gap-2 text-sm">
-                      <Phone className="h-4 w-4 text-muted-foreground" />
+                      <Phone className="h-4 w-4 text-gray-800" />
                       <a href={`tel:${member.phone}`} className="text-blue-600 hover:underline">
                         {member.phone}
                       </a>
                     </div>
                     {member.email && (
                       <div className="flex items-center gap-2 text-sm">
-                        <Mail className="h-4 w-4 text-muted-foreground" />
+                        <Mail className="h-4 w-4 text-gray-800" />
                         <a href={`mailto:${member.email}`} className="text-blue-600 hover:underline">
                           {member.email}
                         </a>
@@ -394,7 +394,7 @@ export function CareTeamManagement() {
                   {/* Permissions */}
                   <div className="pt-3 border-t space-y-2">
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Record Access:</span>
+                      <span className="text-gray-800">Record Access:</span>
                       <Badge variant={member.canAccessRecords ? 'default' : 'secondary'}>
                         {member.canAccessRecords ? 'Granted' : 'Not Granted'}
                       </Badge>
@@ -404,7 +404,7 @@ export function CareTeamManagement() {
                   {/* Notes */}
                   {member.notes && (
                     <div className="pt-3 border-t">
-                      <p className="text-sm text-muted-foreground flex items-start gap-2">
+                      <p className="text-sm text-gray-800 flex items-start gap-2">
                         <FileText className="h-4 w-4 mt-0.5 flex-shrink-0" />
                         {member.notes}
                       </p>
@@ -438,7 +438,7 @@ export function CareTeamManagement() {
           <div className="grid gap-4 md:grid-cols-2 text-sm">
             <div>
               <h4 className="font-semibold mb-2">Healthcare Provider Types:</h4>
-              <ul className="space-y-1 text-muted-foreground">
+              <ul className="space-y-1 text-gray-800">
                 <li>• <strong>Primary Care:</strong> Your main doctor for general health</li>
                 <li>• <strong>Specialist:</strong> Doctors focused on specific conditions</li>
                 <li>• <strong>Therapist:</strong> Mental health or physical therapy providers</li>
@@ -446,7 +446,7 @@ export function CareTeamManagement() {
             </div>
             <div>
               <h4 className="font-semibold mb-2">Care Team Roles:</h4>
-              <ul className="space-y-1 text-muted-foreground">
+              <ul className="space-y-1 text-gray-800">
                 <li>• <strong>Emergency Contact:</strong> Called in medical emergencies</li>
                 <li>• <strong>Caregiver:</strong> Assists with daily health management</li>
                 <li>• <strong>Healthcare Advocate:</strong> Helps navigate healthcare system</li>

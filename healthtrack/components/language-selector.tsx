@@ -46,7 +46,7 @@ export function LanguageSelector() {
           <Globe className="h-8 w-8 text-blue-600" />
           Language Settings
         </h1>
-        <p className="text-muted-foreground">
+        <p className="text-gray-800">
           Choose your preferred language and regional settings
         </p>
       </div>
@@ -62,13 +62,13 @@ export function LanguageSelector() {
         <CardContent>
           <div className="grid gap-4 md:grid-cols-3">
             <div className="p-4 border rounded-lg">
-              <p className="text-sm text-muted-foreground mb-1">Language</p>
+              <p className="text-sm text-gray-800 mb-1">Language</p>
               <p className="font-semibold text-lg">{localeInfo[currentLocale].nativeName}</p>
-              <p className="text-xs text-muted-foreground">{localeInfo[currentLocale].name}</p>
+              <p className="text-xs text-gray-800">{localeInfo[currentLocale].name}</p>
             </div>
 
             <div className="p-4 border rounded-lg">
-              <p className="text-sm text-muted-foreground mb-1">Text Direction</p>
+              <p className="text-sm text-gray-800 mb-1">Text Direction</p>
               <p className="font-semibold text-lg">
                 {localeInfo[currentLocale].direction === 'rtl' ? 'Right-to-Left (RTL)' : 'Left-to-Right (LTR)'}
               </p>
@@ -78,11 +78,11 @@ export function LanguageSelector() {
             </div>
 
             <div className="p-4 border rounded-lg">
-              <p className="text-sm text-muted-foreground mb-1">Measurement System</p>
+              <p className="text-sm text-gray-800 mb-1">Measurement System</p>
               <p className="font-semibold text-lg capitalize">
                 {localeInfo[currentLocale].measurementSystem}
               </p>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-gray-800">
                 {localeInfo[currentLocale].measurementSystem === 'metric'
                   ? 'kg, cm, °C'
                   : 'lbs, inches, °F'}
@@ -120,7 +120,7 @@ export function LanguageSelector() {
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex-1">
                       <p className="font-semibold text-lg">{info.nativeName}</p>
-                      <p className="text-xs text-muted-foreground">{info.name}</p>
+                      <p className="text-xs text-gray-800">{info.name}</p>
                     </div>
                     {isSelected && (
                       <Check className="h-5 w-5 text-blue-600 flex-shrink-0" />
@@ -162,19 +162,19 @@ export function LanguageSelector() {
               <h4 className="font-semibold mb-3">Date & Time</h4>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Date Format:</span>
+                  <span className="text-gray-800">Date Format:</span>
                   <span className="font-mono">{localeInfo[currentLocale].dateFormat}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Time Format:</span>
+                  <span className="text-gray-800">Time Format:</span>
                   <span className="font-mono">{localeInfo[currentLocale].timeFormat}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Example Date:</span>
+                  <span className="text-gray-800">Example Date:</span>
                   <span className="font-medium">{i18n.formatDate(new Date())}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Example Time:</span>
+                  <span className="text-gray-800">Example Time:</span>
                   <span className="font-medium">{i18n.formatTime(new Date())}</span>
                 </div>
               </div>
@@ -185,19 +185,19 @@ export function LanguageSelector() {
               <h4 className="font-semibold mb-3">Numbers & Currency</h4>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Currency:</span>
+                  <span className="text-gray-800">Currency:</span>
                   <span className="font-mono">{localeInfo[currentLocale].currency}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Number (1234.56):</span>
+                  <span className="text-gray-800">Number (1234.56):</span>
                   <span className="font-medium">{i18n.formatNumber(1234.56, 2)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Currency ($99.99):</span>
+                  <span className="text-gray-800">Currency ($99.99):</span>
                   <span className="font-medium">{i18n.formatCurrency(99.99)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Large Number:</span>
+                  <span className="text-gray-800">Large Number:</span>
                   <span className="font-medium">{i18n.formatNumber(1234567.89, 2)}</span>
                 </div>
               </div>
@@ -208,7 +208,7 @@ export function LanguageSelector() {
               <h4 className="font-semibold mb-3">Weight & Height</h4>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">70 kg:</span>
+                  <span className="text-gray-800">70 kg:</span>
                   <span className="font-medium">
                     {localeInfo[currentLocale].measurementSystem === 'metric'
                       ? '70.0 kg'
@@ -216,7 +216,7 @@ export function LanguageSelector() {
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">175 cm:</span>
+                  <span className="text-gray-800">175 cm:</span>
                   <span className="font-medium">
                     {localeInfo[currentLocale].measurementSystem === 'metric'
                       ? '175.0 cm'
@@ -224,7 +224,7 @@ export function LanguageSelector() {
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">System:</span>
+                  <span className="text-gray-800">System:</span>
                   <Badge variant="outline" className="capitalize">
                     {localeInfo[currentLocale].measurementSystem}
                   </Badge>
@@ -237,7 +237,7 @@ export function LanguageSelector() {
               <h4 className="font-semibold mb-3">Temperature</h4>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Body Temp (37°C):</span>
+                  <span className="text-gray-800">Body Temp (37°C):</span>
                   <span className="font-medium">
                     {localeInfo[currentLocale].measurementSystem === 'metric'
                       ? '37.0°C'
@@ -245,7 +245,7 @@ export function LanguageSelector() {
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Room Temp (20°C):</span>
+                  <span className="text-gray-800">Room Temp (20°C):</span>
                   <span className="font-medium">
                     {localeInfo[currentLocale].measurementSystem === 'metric'
                       ? '20.0°C'
@@ -253,7 +253,7 @@ export function LanguageSelector() {
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Unit:</span>
+                  <span className="text-gray-800">Unit:</span>
                   <Badge variant="outline">
                     {localeInfo[currentLocale].measurementSystem === 'metric' ? '°C' : '°F'}
                   </Badge>
@@ -279,7 +279,7 @@ export function LanguageSelector() {
                 <Check className="h-4 w-4 text-green-600 flex-shrink-0" />
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium truncate">{i18n.t(key)}</p>
-                  <p className="text-xs text-muted-foreground capitalize">{key.split('.')[1]}</p>
+                  <p className="text-xs text-gray-800 capitalize">{key.split('.')[1]}</p>
                 </div>
               </div>
             ))}
@@ -299,7 +299,7 @@ export function LanguageSelector() {
           <div className="grid gap-4 md:grid-cols-2">
             <div>
               <h4 className="font-semibold mb-2">Language Support:</h4>
-              <ul className="space-y-1 text-sm text-muted-foreground">
+              <ul className="space-y-1 text-sm text-gray-800">
                 <li className="flex items-center gap-2">
                   <Check className="h-4 w-4 text-green-600" />
                   8 languages (EN, ES, FR, DE, ZH, JA, AR, PT)
@@ -321,7 +321,7 @@ export function LanguageSelector() {
 
             <div>
               <h4 className="font-semibold mb-2">Regional Formats:</h4>
-              <ul className="space-y-1 text-sm text-muted-foreground">
+              <ul className="space-y-1 text-sm text-gray-800">
                 <li className="flex items-center gap-2">
                   <Check className="h-4 w-4 text-green-600" />
                   Locale-specific date/time formats

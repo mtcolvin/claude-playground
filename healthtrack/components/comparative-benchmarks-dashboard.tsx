@@ -279,7 +279,7 @@ export function ComparativeBenchmarksDashboard() {
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold mb-2">Health Benchmarks Comparison</h1>
-        <p className="text-muted-foreground">
+        <p className="text-gray-800">
           Compare your health metrics against population averages and healthy ranges for your age group ({userAge} years, {userGender})
         </p>
       </div>
@@ -313,7 +313,7 @@ export function ComparativeBenchmarksDashboard() {
                   style={{ width: `${overallScore}%` }}
                 />
               </div>
-              <p className="text-sm text-muted-foreground mt-2">
+              <p className="text-sm text-gray-800 mt-2">
                 You're performing {overallScore >= 75 ? 'above' : overallScore >= 50 ? 'at' : 'below'} population average across all metrics
               </p>
             </div>
@@ -348,7 +348,7 @@ export function ComparativeBenchmarksDashboard() {
                       style={{ width: `${cat.score}%` }}
                     />
                   </div>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs text-gray-800">
                     {cat.metrics.length} metrics tracked
                   </p>
                 </div>
@@ -475,7 +475,7 @@ export function ComparativeBenchmarksDashboard() {
                       <h4 className="font-semibold">
                         {metricNames[benchmark.metric] || benchmark.metric}
                       </h4>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-gray-800">
                         {benchmark.userValue} {benchmark.unit}
                       </p>
                     </div>
@@ -484,7 +484,7 @@ export function ComparativeBenchmarksDashboard() {
                         {percentile}
                         <span className="text-sm align-super">th</span>
                       </p>
-                      <p className="text-xs text-muted-foreground">percentile</p>
+                      <p className="text-xs text-gray-800">percentile</p>
                     </div>
                   </div>
 
@@ -498,7 +498,7 @@ export function ComparativeBenchmarksDashboard() {
                     <div className="absolute h-5 w-0.5 bg-gray-600" style={{ left: '50%', top: '-2px' }} />
                   </div>
 
-                  <div className="flex items-center justify-between mt-2 text-xs text-muted-foreground">
+                  <div className="flex items-center justify-between mt-2 text-xs text-gray-800">
                     <span>
                       {percentile > 50
                         ? `Better than ${percentile}% of population`
@@ -541,7 +541,7 @@ export function ComparativeBenchmarksDashboard() {
           <div className="space-y-4 text-sm">
             <div>
               <h4 className="font-semibold mb-1">What are population benchmarks?</h4>
-              <p className="text-muted-foreground">
+              <p className="text-gray-800">
                 Population benchmarks represent average health metric values from large-scale health studies
                 (CDC, WHO) for people in your age group and gender. They help contextualize your health data.
               </p>
@@ -549,7 +549,7 @@ export function ComparativeBenchmarksDashboard() {
 
             <div>
               <h4 className="font-semibold mb-1">How are percentiles calculated?</h4>
-              <p className="text-muted-foreground">
+              <p className="text-gray-800">
                 Your percentile rank shows what percentage of the population has values lower than yours.
                 For example, being in the 75th percentile means you're doing better than 75% of people in your demographic group.
               </p>
@@ -557,7 +557,7 @@ export function ComparativeBenchmarksDashboard() {
 
             <div>
               <h4 className="font-semibold mb-1">What's the difference between "average" and "healthy"?</h4>
-              <p className="text-muted-foreground">
+              <p className="text-gray-800">
                 Population averages represent typical values, while healthy ranges represent optimal values
                 recommended by medical guidelines. It's better to aim for the healthy range rather than the average.
               </p>

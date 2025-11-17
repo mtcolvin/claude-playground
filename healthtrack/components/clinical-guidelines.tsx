@@ -460,7 +460,7 @@ export function ClinicalGuidelines() {
           <BookOpen className="h-8 w-8 text-blue-600" />
           Clinical Guidelines & Treatment Protocols
         </h1>
-        <p className="text-muted-foreground">
+        <p className="text-gray-800">
           Evidence-based treatment recommendations from leading medical organizations
         </p>
       </div>
@@ -469,7 +469,7 @@ export function ClinicalGuidelines() {
       <Card>
         <CardContent className="pt-6">
           <div className="relative">
-            <Search className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
+            <Search className="absolute left-3 top-3 h-5 w-5 text-gray-800" />
             <input
               type="text"
               placeholder="Search conditions or categories..."
@@ -503,7 +503,7 @@ export function ClinicalGuidelines() {
                         <Badge variant="outline" className="text-xs">
                           {guideline.category}
                         </Badge>
-                        <span className="text-xs text-muted-foreground">
+                        <span className="text-xs text-gray-800">
                           {guideline.lastUpdated}
                         </span>
                       </div>
@@ -761,7 +761,7 @@ export function ClinicalGuidelines() {
                 <CardContent>
                   <ul className="space-y-2 text-sm">
                     {selectedGuideline.references.map((ref, idx) => (
-                      <li key={idx} className="text-muted-foreground">
+                      <li key={idx} className="text-gray-800">
                         {idx + 1}. {ref}
                       </li>
                     ))}

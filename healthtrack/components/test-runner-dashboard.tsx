@@ -472,7 +472,7 @@ export function TestRunnerDashboard() {
             <TestTube2 className="h-8 w-8 text-blue-600" />
             Test Runner Dashboard
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-gray-800">
             Comprehensive testing suite for quality assurance
           </p>
         </div>
@@ -493,21 +493,21 @@ export function TestRunnerDashboard() {
         <div className="grid gap-4 md:grid-cols-4">
           <Card>
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm text-muted-foreground">Total Tests</CardTitle>
+              <CardTitle className="text-sm text-gray-800">Total Tests</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{totalTests}</div>
-              <p className="text-xs text-muted-foreground">Across {testSuites.length} suites</p>
+              <p className="text-xs text-gray-800">Across {testSuites.length} suites</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm text-muted-foreground">Passed</CardTitle>
+              <CardTitle className="text-sm text-gray-800">Passed</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-green-600">{passedTests}</div>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-gray-800">
                 {totalTests > 0 ? Math.round((passedTests / totalTests) * 100) : 0}% success rate
               </p>
             </CardContent>
@@ -515,11 +515,11 @@ export function TestRunnerDashboard() {
 
           <Card>
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm text-muted-foreground">Failed</CardTitle>
+              <CardTitle className="text-sm text-gray-800">Failed</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-red-600">{failedTests}</div>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-gray-800">
                 {totalTests > 0 ? Math.round((failedTests / totalTests) * 100) : 0}% failure rate
               </p>
             </CardContent>
@@ -527,11 +527,11 @@ export function TestRunnerDashboard() {
 
           <Card>
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm text-muted-foreground">Duration</CardTitle>
+              <CardTitle className="text-sm text-gray-800">Duration</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{totalDuration.toFixed(0)}ms</div>
-              <p className="text-xs text-muted-foreground">Total execution time</p>
+              <p className="text-xs text-gray-800">Total execution time</p>
             </CardContent>
           </Card>
         </div>
@@ -576,8 +576,8 @@ export function TestRunnerDashboard() {
                     </CardDescription>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-sm text-muted-foreground">
+                    <Clock className="h-4 w-4 text-gray-800" />
+                    <span className="text-sm text-gray-800">
                       {(suite.duration / suite.totalTests).toFixed(1)}ms avg
                     </span>
                   </div>
@@ -611,7 +611,7 @@ export function TestRunnerDashboard() {
                             <p className="text-sm text-red-600 mt-1">{test.error}</p>
                           )}
                           {test.details && !test.error && (
-                            <p className="text-sm text-muted-foreground mt-1">{test.details}</p>
+                            <p className="text-sm text-gray-800 mt-1">{test.details}</p>
                           )}
                         </div>
                       </div>
@@ -632,9 +632,9 @@ export function TestRunnerDashboard() {
         <Card>
           <CardContent className="py-12">
             <div className="text-center">
-              <TestTube2 className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+              <TestTube2 className="h-12 w-12 text-gray-800 mx-auto mb-4" />
               <p className="text-lg font-semibold mb-2">No Tests Run Yet</p>
-              <p className="text-muted-foreground mb-4">
+              <p className="text-gray-800 mb-4">
                 Click "Run All Tests" to start the comprehensive testing suite
               </p>
             </div>
@@ -657,10 +657,10 @@ export function TestRunnerDashboard() {
                 <Code className="h-4 w-4 text-green-600" />
                 Unit Tests
               </h4>
-              <p className="text-sm text-muted-foreground mb-2">
+              <p className="text-sm text-gray-800 mb-2">
                 Test individual functions and components in isolation
               </p>
-              <ul className="text-sm text-muted-foreground space-y-1">
+              <ul className="text-sm text-gray-800 space-y-1">
                 <li className="flex items-center gap-2">
                   <ChevronRight className="h-3 w-3" />
                   Data validation logic
@@ -681,10 +681,10 @@ export function TestRunnerDashboard() {
                 <Database className="h-4 w-4 text-purple-600" />
                 Integration Tests
               </h4>
-              <p className="text-sm text-muted-foreground mb-2">
+              <p className="text-sm text-gray-800 mb-2">
                 Test interactions between multiple components
               </p>
-              <ul className="text-sm text-muted-foreground space-y-1">
+              <ul className="text-sm text-gray-800 space-y-1">
                 <li className="flex items-center gap-2">
                   <ChevronRight className="h-3 w-3" />
                   Database operations
@@ -705,10 +705,10 @@ export function TestRunnerDashboard() {
                 <Zap className="h-4 w-4 text-yellow-600" />
                 Performance Tests
               </h4>
-              <p className="text-sm text-muted-foreground mb-2">
+              <p className="text-sm text-gray-800 mb-2">
                 Measure execution speed and resource usage
               </p>
-              <ul className="text-sm text-muted-foreground space-y-1">
+              <ul className="text-sm text-gray-800 space-y-1">
                 <li className="flex items-center gap-2">
                   <ChevronRight className="h-3 w-3" />
                   Function execution time
@@ -729,10 +729,10 @@ export function TestRunnerDashboard() {
                 <Eye className="h-4 w-4 text-pink-600" />
                 Accessibility Tests
               </h4>
-              <p className="text-sm text-muted-foreground mb-2">
+              <p className="text-sm text-gray-800 mb-2">
                 Ensure WCAG 2.1 AAA compliance
               </p>
-              <ul className="text-sm text-muted-foreground space-y-1">
+              <ul className="text-sm text-gray-800 space-y-1">
                 <li className="flex items-center gap-2">
                   <ChevronRight className="h-3 w-3" />
                   Keyboard navigation
@@ -753,10 +753,10 @@ export function TestRunnerDashboard() {
                 <Shield className="h-4 w-4 text-red-600" />
                 Security Tests
               </h4>
-              <p className="text-sm text-muted-foreground mb-2">
+              <p className="text-sm text-gray-800 mb-2">
                 Identify security vulnerabilities
               </p>
-              <ul className="text-sm text-muted-foreground space-y-1">
+              <ul className="text-sm text-gray-800 space-y-1">
                 <li className="flex items-center gap-2">
                   <ChevronRight className="h-3 w-3" />
                   XSS protection
@@ -777,10 +777,10 @@ export function TestRunnerDashboard() {
                 <Globe className="h-4 w-4 text-indigo-600" />
                 API Tests
               </h4>
-              <p className="text-sm text-muted-foreground mb-2">
+              <p className="text-sm text-gray-800 mb-2">
                 Validate API endpoints and responses
               </p>
-              <ul className="text-sm text-muted-foreground space-y-1">
+              <ul className="text-sm text-gray-800 space-y-1">
                 <li className="flex items-center gap-2">
                   <ChevronRight className="h-3 w-3" />
                   Request/response validation

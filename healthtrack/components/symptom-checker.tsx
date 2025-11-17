@@ -415,7 +415,7 @@ export function SymptomChecker() {
           <Stethoscope className="h-8 w-8 text-blue-600" />
           Symptom Checker
         </h1>
-        <p className="text-muted-foreground">
+        <p className="text-gray-800">
           Answer a few questions about your symptoms to get personalized health guidance
         </p>
       </div>
@@ -440,21 +440,21 @@ export function SymptomChecker() {
 
       {/* Steps */}
       <div className="flex items-center justify-center gap-4">
-        <div className={`flex items-center gap-2 ${currentStep === 'select' ? 'text-blue-600 font-semibold' : 'text-muted-foreground'}`}>
+        <div className={`flex items-center gap-2 ${currentStep === 'select' ? 'text-blue-600 font-semibold' : 'text-gray-800'}`}>
           <div className={`w-8 h-8 rounded-full flex items-center justify-center ${currentStep === 'select' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}>
             1
           </div>
           <span>Select Symptoms</span>
         </div>
-        <ChevronRight className="h-5 w-5 text-muted-foreground" />
-        <div className={`flex items-center gap-2 ${currentStep === 'details' ? 'text-blue-600 font-semibold' : 'text-muted-foreground'}`}>
+        <ChevronRight className="h-5 w-5 text-gray-800" />
+        <div className={`flex items-center gap-2 ${currentStep === 'details' ? 'text-blue-600 font-semibold' : 'text-gray-800'}`}>
           <div className={`w-8 h-8 rounded-full flex items-center justify-center ${currentStep === 'details' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}>
             2
           </div>
           <span>Add Details</span>
         </div>
-        <ChevronRight className="h-5 w-5 text-muted-foreground" />
-        <div className={`flex items-center gap-2 ${currentStep === 'results' ? 'text-blue-600 font-semibold' : 'text-muted-foreground'}`}>
+        <ChevronRight className="h-5 w-5 text-gray-800" />
+        <div className={`flex items-center gap-2 ${currentStep === 'results' ? 'text-blue-600 font-semibold' : 'text-gray-800'}`}>
           <div className={`w-8 h-8 rounded-full flex items-center justify-center ${currentStep === 'results' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}>
             3
           </div>
@@ -508,7 +508,7 @@ export function SymptomChecker() {
             </CardHeader>
             <CardContent>
               <div className="relative">
-                <Search className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
+                <Search className="absolute left-3 top-3 h-5 w-5 text-gray-800" />
                 <input
                   type="text"
                   placeholder="Search symptoms (e.g., headache, fever, cough)..."
@@ -683,7 +683,7 @@ export function SymptomChecker() {
                         </div>
                         <div className="text-right">
                           <div className="text-2xl font-bold text-blue-600">{condition.probability}%</div>
-                          <p className="text-xs text-muted-foreground">Match</p>
+                          <p className="text-xs text-gray-800">Match</p>
                         </div>
                       </div>
                     </CardHeader>

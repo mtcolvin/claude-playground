@@ -57,7 +57,7 @@ export function AccessibilitySettings() {
           <Eye className="h-8 w-8 text-blue-600" />
           Accessibility Settings
         </h1>
-        <p className="text-muted-foreground">
+        <p className="text-gray-800">
           Customize your experience for optimal accessibility (WCAG 2.1 AAA)
         </p>
       </div>
@@ -66,7 +66,7 @@ export function AccessibilitySettings() {
       <div className="grid gap-4 md:grid-cols-4">
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground">
+            <CardTitle className="text-sm text-gray-800">
               Text Size
             </CardTitle>
           </CardHeader>
@@ -77,7 +77,7 @@ export function AccessibilitySettings() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground">
+            <CardTitle className="text-sm text-gray-800">
               Contrast Mode
             </CardTitle>
           </CardHeader>
@@ -90,7 +90,7 @@ export function AccessibilitySettings() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground">
+            <CardTitle className="text-sm text-gray-800">
               Motion
             </CardTitle>
           </CardHeader>
@@ -103,7 +103,7 @@ export function AccessibilitySettings() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground">
+            <CardTitle className="text-sm text-gray-800">
               WCAG Level
             </CardTitle>
           </CardHeader>
@@ -144,7 +144,7 @@ export function AccessibilitySettings() {
                 </Button>
                 <div className="flex-1 text-center">
                   <p className="text-3xl font-bold">{textSize}px</p>
-                  <p className="text-sm text-muted-foreground">Current Size</p>
+                  <p className="text-sm text-gray-800">Current Size</p>
                 </div>
                 <Button
                   variant="outline"
@@ -179,7 +179,7 @@ export function AccessibilitySettings() {
               <div className="flex items-center justify-between p-4 border rounded-lg">
                 <div className="flex-1">
                   <p className="font-medium">High Contrast Mode</p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-gray-800">
                     Increases color contrast for better visibility (7:1 ratio minimum)
                   </p>
                 </div>
@@ -195,7 +195,7 @@ export function AccessibilitySettings() {
               <div className="grid gap-3 md:grid-cols-3 mt-4">
                 <div className="p-4 bg-white border rounded text-center">
                   <p className="text-black font-semibold mb-1">Normal Text</p>
-                  <p className="text-xs text-muted-foreground">7:1 contrast ratio</p>
+                  <p className="text-xs text-gray-800">7:1 contrast ratio</p>
                   <Badge className="mt-2 bg-green-600 text-white">AAA</Badge>
                 </div>
                 <div className="p-4 bg-blue-600 border rounded text-center">
@@ -220,7 +220,7 @@ export function AccessibilitySettings() {
               <div className="flex items-center justify-between p-4 border rounded-lg">
                 <div className="flex-1">
                   <p className="font-medium">Reduce Motion</p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-gray-800">
                     Minimizes animations and transitions for users sensitive to motion
                   </p>
                 </div>
@@ -253,7 +253,7 @@ export function AccessibilitySettings() {
             <div className="flex items-center justify-between p-4 border rounded-lg">
               <div className="flex-1">
                 <p className="font-medium">Visible Keyboard Focus</p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-gray-800">
                   Shows clear outline around focused elements when using keyboard
                 </p>
               </div>
@@ -269,7 +269,7 @@ export function AccessibilitySettings() {
             <div className="flex items-center justify-between p-4 border rounded-lg">
               <div className="flex-1">
                 <p className="font-medium">Screen Reader Optimized</p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-gray-800">
                   Enhanced ARIA labels and live region announcements
                 </p>
               </div>
@@ -340,7 +340,7 @@ export function AccessibilitySettings() {
                 {!testResults.passed && testResults.issues.map((category: any, idx: number) => (
                   <div key={idx} className="p-4 border rounded-lg">
                     <h5 className="font-semibold mb-2">{category.category}</h5>
-                    <ul className="space-y-1 text-sm text-muted-foreground">
+                    <ul className="space-y-1 text-sm text-gray-800">
                       {category.problems.map((problem: string, pIdx: number) => (
                         <li key={pIdx} className="flex items-start gap-2">
                           <ChevronRight className="h-4 w-4 mt-0.5 flex-shrink-0" />
@@ -368,7 +368,7 @@ export function AccessibilitySettings() {
           <div className="grid gap-4 md:grid-cols-2">
             <div>
               <h4 className="font-semibold mb-2">Perceivable:</h4>
-              <ul className="space-y-1 text-sm text-muted-foreground">
+              <ul className="space-y-1 text-sm text-gray-800">
                 <li className="flex items-center gap-2">
                   <CheckCircle className="h-4 w-4 text-green-600" />
                   Alt text for all images
@@ -390,7 +390,7 @@ export function AccessibilitySettings() {
 
             <div>
               <h4 className="font-semibold mb-2">Operable:</h4>
-              <ul className="space-y-1 text-sm text-muted-foreground">
+              <ul className="space-y-1 text-sm text-gray-800">
                 <li className="flex items-center gap-2">
                   <CheckCircle className="h-4 w-4 text-green-600" />
                   Full keyboard accessibility
@@ -412,7 +412,7 @@ export function AccessibilitySettings() {
 
             <div>
               <h4 className="font-semibold mb-2">Understandable:</h4>
-              <ul className="space-y-1 text-sm text-muted-foreground">
+              <ul className="space-y-1 text-sm text-gray-800">
                 <li className="flex items-center gap-2">
                   <CheckCircle className="h-4 w-4 text-green-600" />
                   Clear page titles
@@ -434,7 +434,7 @@ export function AccessibilitySettings() {
 
             <div>
               <h4 className="font-semibold mb-2">Robust:</h4>
-              <ul className="space-y-1 text-sm text-muted-foreground">
+              <ul className="space-y-1 text-sm text-gray-800">
                 <li className="flex items-center gap-2">
                   <CheckCircle className="h-4 w-4 text-green-600" />
                   Valid HTML markup

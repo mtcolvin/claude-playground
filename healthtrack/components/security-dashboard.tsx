@@ -73,7 +73,7 @@ export function SecurityDashboard() {
           <Shield className="h-8 w-8 text-blue-600" />
           Security Dashboard
         </h1>
-        <p className="text-muted-foreground">
+        <p className="text-gray-800">
           Monitor security events, manage access, and review audit logs
         </p>
       </div>
@@ -91,7 +91,7 @@ export function SecurityDashboard() {
             <div>
               <div className="text-5xl font-bold mb-2">
                 {securityScore}
-                <span className="text-2xl text-muted-foreground">/100</span>
+                <span className="text-2xl text-gray-800">/100</span>
               </div>
               <Badge
                 variant={
@@ -138,14 +138,14 @@ export function SecurityDashboard() {
       <div className="grid gap-4 md:grid-cols-4">
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground flex items-center gap-2">
+            <CardTitle className="text-sm text-gray-800 flex items-center gap-2">
               <Activity className="h-4 w-4" />
               Audit Events (24h)
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{auditLogs.length}</div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-gray-800">
               {auditLogs.filter(log => log.status === 'failure').length} failed
             </p>
           </CardContent>
@@ -153,14 +153,14 @@ export function SecurityDashboard() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground flex items-center gap-2">
+            <CardTitle className="text-sm text-gray-800 flex items-center gap-2">
               <Ban className="h-4 w-4" />
               Blocked IPs
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{blockedIPs.length}</div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-gray-800">
               Suspicious activity detected
             </p>
           </CardContent>
@@ -168,14 +168,14 @@ export function SecurityDashboard() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground flex items-center gap-2">
+            <CardTitle className="text-sm text-gray-800 flex items-center gap-2">
               <Users className="h-4 w-4" />
               Active Sessions
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{activeSessions}</div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-gray-800">
               Currently logged in
             </p>
           </CardContent>
@@ -183,14 +183,14 @@ export function SecurityDashboard() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground flex items-center gap-2">
+            <CardTitle className="text-sm text-gray-800 flex items-center gap-2">
               <Lock className="h-4 w-4" />
               Encryption Status
             </CardTitle>
           </CardHeader>
           <CardContent>
             <Badge className="bg-green-600 text-white">AES-256-GCM</Badge>
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className="text-xs text-gray-800 mt-1">
               All data encrypted
             </p>
           </CardContent>
@@ -211,7 +211,7 @@ export function SecurityDashboard() {
               <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
               <div className="flex-1">
                 <p className="font-medium">Rate Limiting</p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-gray-800">
                   100 requests/minute per user
                 </p>
               </div>
@@ -221,7 +221,7 @@ export function SecurityDashboard() {
               <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
               <div className="flex-1">
                 <p className="font-medium">CSRF Protection</p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-gray-800">
                   Token-based validation
                 </p>
               </div>
@@ -231,7 +231,7 @@ export function SecurityDashboard() {
               <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
               <div className="flex-1">
                 <p className="font-medium">XSS Prevention</p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-gray-800">
                   Input sanitization enabled
                 </p>
               </div>
@@ -241,7 +241,7 @@ export function SecurityDashboard() {
               <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
               <div className="flex-1">
                 <p className="font-medium">SQL Injection Protection</p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-gray-800">
                   Parameterized queries (Prisma)
                 </p>
               </div>
@@ -251,7 +251,7 @@ export function SecurityDashboard() {
               <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
               <div className="flex-1">
                 <p className="font-medium">Password Hashing</p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-gray-800">
                   bcrypt with salt rounds: 10
                 </p>
               </div>
@@ -261,7 +261,7 @@ export function SecurityDashboard() {
               <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
               <div className="flex-1">
                 <p className="font-medium">Session Management</p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-gray-800">
                   30-minute timeout, 30-day max age
                 </p>
               </div>
@@ -271,7 +271,7 @@ export function SecurityDashboard() {
               <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
               <div className="flex-1">
                 <p className="font-medium">Audit Logging</p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-gray-800">
                   All actions logged
                 </p>
               </div>
@@ -281,7 +281,7 @@ export function SecurityDashboard() {
               <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
               <div className="flex-1">
                 <p className="font-medium">HTTPS Enforcement</p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-gray-800">
                   HSTS enabled
                 </p>
               </div>
@@ -323,7 +323,7 @@ export function SecurityDashboard() {
                     <Ban className="h-5 w-5 text-red-600" />
                     <div>
                       <p className="font-medium font-mono">{ip}</p>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-gray-800">
                         Blocked for suspicious activity
                       </p>
                     </div>
@@ -341,7 +341,7 @@ export function SecurityDashboard() {
           ) : (
             <div className="text-center py-8">
               <CheckCircle className="h-12 w-12 text-green-600 mx-auto mb-3" />
-              <p className="text-muted-foreground">No blocked IPs</p>
+              <p className="text-gray-800">No blocked IPs</p>
             </div>
           )}
         </CardContent>
@@ -393,28 +393,28 @@ export function SecurityDashboard() {
                             {log.resource}
                           </Badge>
                         </div>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-gray-800">
                           {log.userId && `User: ${log.userId} • `}
                           {log.resourceId && `Resource: ${log.resourceId} • `}
                           {new Date(log.timestamp).toLocaleString()}
                         </p>
                         {log.details && (
-                          <pre className="text-xs text-muted-foreground mt-2 p-2 bg-gray-100 rounded overflow-x-auto">
+                          <pre className="text-xs text-gray-800 mt-2 p-2 bg-gray-100 rounded overflow-x-auto">
                             {JSON.stringify(log.details, null, 2)}
                           </pre>
                         )}
                       </div>
                     </div>
 
-                    <Clock className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                    <Clock className="h-4 w-4 text-gray-800 flex-shrink-0" />
                   </div>
                 </div>
               ))}
             </div>
           ) : (
             <div className="text-center py-8">
-              <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
-              <p className="text-muted-foreground">No audit logs</p>
+              <FileText className="h-12 w-12 text-gray-800 mx-auto mb-3" />
+              <p className="text-gray-800">No audit logs</p>
             </div>
           )}
         </CardContent>
@@ -438,7 +438,7 @@ export function SecurityDashboard() {
                 <CheckCircle className="h-4 w-4 text-green-600" />
                 <span className="font-semibold">Content-Security-Policy</span>
               </div>
-              <p className="text-xs text-muted-foreground ml-6">
+              <p className="text-xs text-gray-800 ml-6">
                 default-src 'self'; script-src 'self' 'unsafe-inline'
               </p>
             </div>
@@ -448,7 +448,7 @@ export function SecurityDashboard() {
                 <CheckCircle className="h-4 w-4 text-green-600" />
                 <span className="font-semibold">X-Frame-Options</span>
               </div>
-              <p className="text-xs text-muted-foreground ml-6">DENY</p>
+              <p className="text-xs text-gray-800 ml-6">DENY</p>
             </div>
 
             <div className="p-3 bg-gray-50 border rounded font-mono text-sm">
@@ -456,7 +456,7 @@ export function SecurityDashboard() {
                 <CheckCircle className="h-4 w-4 text-green-600" />
                 <span className="font-semibold">Strict-Transport-Security</span>
               </div>
-              <p className="text-xs text-muted-foreground ml-6">
+              <p className="text-xs text-gray-800 ml-6">
                 max-age=31536000; includeSubDomains
               </p>
             </div>
@@ -466,7 +466,7 @@ export function SecurityDashboard() {
                 <CheckCircle className="h-4 w-4 text-green-600" />
                 <span className="font-semibold">X-Content-Type-Options</span>
               </div>
-              <p className="text-xs text-muted-foreground ml-6">nosniff</p>
+              <p className="text-xs text-gray-800 ml-6">nosniff</p>
             </div>
           </div>
         </CardContent>
@@ -487,10 +487,10 @@ export function SecurityDashboard() {
                 <CheckCircle className="h-5 w-5 text-green-600" />
                 <h4 className="font-semibold">HIPAA Compliant</h4>
               </div>
-              <p className="text-sm text-muted-foreground mb-2">
+              <p className="text-sm text-gray-800 mb-2">
                 Health Insurance Portability and Accountability Act
               </p>
-              <ul className="space-y-1 text-sm text-muted-foreground">
+              <ul className="space-y-1 text-sm text-gray-800">
                 <li className="flex items-center gap-2">
                   <ChevronRight className="h-3 w-3" />
                   End-to-end encryption
@@ -511,10 +511,10 @@ export function SecurityDashboard() {
                 <CheckCircle className="h-5 w-5 text-green-600" />
                 <h4 className="font-semibold">GDPR Compliant</h4>
               </div>
-              <p className="text-sm text-muted-foreground mb-2">
+              <p className="text-sm text-gray-800 mb-2">
                 General Data Protection Regulation
               </p>
-              <ul className="space-y-1 text-sm text-muted-foreground">
+              <ul className="space-y-1 text-sm text-gray-800">
                 <li className="flex items-center gap-2">
                   <ChevronRight className="h-3 w-3" />
                   Right to erasure

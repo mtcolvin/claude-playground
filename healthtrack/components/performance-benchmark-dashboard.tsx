@@ -155,7 +155,7 @@ export function PerformanceBenchmarkDashboard() {
             <Zap className="h-8 w-8 text-yellow-600" />
             Performance Benchmarking
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-gray-800">
             Measure and optimize application performance
           </p>
         </div>
@@ -211,7 +211,7 @@ export function PerformanceBenchmarkDashboard() {
                       <span className="text-red-600">
                         Actual: {violation.actual}ms
                       </span>
-                      <span className="text-muted-foreground">
+                      <span className="text-gray-800">
                         Budget: {violation.budget}ms
                       </span>
                       <span className="text-red-600 font-semibold">
@@ -248,19 +248,19 @@ export function PerformanceBenchmarkDashboard() {
           <CardContent>
             <div className="grid gap-4 md:grid-cols-4">
               <div className="p-3 border rounded-lg">
-                <p className="text-sm text-muted-foreground mb-1">Current</p>
+                <p className="text-sm text-gray-800 mb-1">Current</p>
                 <p className="text-2xl font-bold">{formatBytes(memoryTrend.current)}</p>
               </div>
               <div className="p-3 border rounded-lg">
-                <p className="text-sm text-muted-foreground mb-1">Peak</p>
+                <p className="text-sm text-gray-800 mb-1">Peak</p>
                 <p className="text-2xl font-bold">{formatBytes(memoryTrend.peak)}</p>
               </div>
               <div className="p-3 border rounded-lg">
-                <p className="text-sm text-muted-foreground mb-1">Average</p>
+                <p className="text-sm text-gray-800 mb-1">Average</p>
                 <p className="text-2xl font-bold">{formatBytes(memoryTrend.average)}</p>
               </div>
               <div className="p-3 border rounded-lg">
-                <p className="text-sm text-muted-foreground mb-1">Trend</p>
+                <p className="text-sm text-gray-800 mb-1">Trend</p>
                 <div className="flex items-center gap-2">
                   {memoryTrend.trend === 'increasing' && (
                     <>
@@ -307,27 +307,27 @@ export function PerformanceBenchmarkDashboard() {
 
                   <div className="grid gap-3 md:grid-cols-5">
                     <div>
-                      <p className="text-xs text-muted-foreground mb-1">Average</p>
+                      <p className="text-xs text-gray-800 mb-1">Average</p>
                       <p className="text-lg font-bold">{result.average.toFixed(2)}ms</p>
                     </div>
                     <div>
-                      <p className="text-xs text-muted-foreground mb-1">Median</p>
+                      <p className="text-xs text-gray-800 mb-1">Median</p>
                       <p className="text-lg font-bold">{result.median.toFixed(2)}ms</p>
                     </div>
                     <div>
-                      <p className="text-xs text-muted-foreground mb-1">Min / Max</p>
+                      <p className="text-xs text-gray-800 mb-1">Min / Max</p>
                       <p className="text-sm font-medium">
                         {result.min.toFixed(2)} / {result.max.toFixed(2)}ms
                       </p>
                     </div>
                     <div>
-                      <p className="text-xs text-muted-foreground mb-1">P95 / P99</p>
+                      <p className="text-xs text-gray-800 mb-1">P95 / P99</p>
                       <p className="text-sm font-medium">
                         {result.percentile95.toFixed(2)} / {result.percentile99.toFixed(2)}ms
                       </p>
                     </div>
                     <div>
-                      <p className="text-xs text-muted-foreground mb-1">Throughput</p>
+                      <p className="text-xs text-gray-800 mb-1">Throughput</p>
                       <p className="text-lg font-bold">{result.throughput.toFixed(0)} ops/s</p>
                     </div>
                   </div>
@@ -358,9 +358,9 @@ export function PerformanceBenchmarkDashboard() {
         <Card>
           <CardContent className="py-12">
             <div className="text-center">
-              <Zap className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+              <Zap className="h-12 w-12 text-gray-800 mx-auto mb-4" />
               <p className="text-lg font-semibold mb-2">No Benchmarks Run Yet</p>
-              <p className="text-muted-foreground mb-4">
+              <p className="text-gray-800 mb-4">
                 Click "Run Benchmarks" to measure performance
               </p>
             </div>
@@ -383,10 +383,10 @@ export function PerformanceBenchmarkDashboard() {
                 <Cpu className="h-6 w-6 text-blue-600" />
                 <h4 className="font-semibold">Calculation Benchmarks</h4>
               </div>
-              <p className="text-sm text-muted-foreground mb-3">
+              <p className="text-sm text-gray-800 mb-3">
                 Measure JavaScript execution performance
               </p>
-              <ul className="text-sm text-muted-foreground space-y-1">
+              <ul className="text-sm text-gray-800 space-y-1">
                 <li>• Array operations (map, filter, reduce)</li>
                 <li>• Object creation and manipulation</li>
                 <li>• String operations</li>
@@ -400,10 +400,10 @@ export function PerformanceBenchmarkDashboard() {
                 <Database className="h-6 w-6 text-green-600" />
                 <h4 className="font-semibold">Database Performance</h4>
               </div>
-              <p className="text-sm text-muted-foreground mb-3">
+              <p className="text-sm text-gray-800 mb-3">
                 Monitor database query execution times
               </p>
-              <ul className="text-sm text-muted-foreground space-y-1">
+              <ul className="text-sm text-gray-800 space-y-1">
                 <li>• Query execution time tracking</li>
                 <li>• Slow query detection (&gt;1s)</li>
                 <li>• Query count and statistics</li>
@@ -417,10 +417,10 @@ export function PerformanceBenchmarkDashboard() {
                 <Activity className="h-6 w-6 text-purple-600" />
                 <h4 className="font-semibold">Component Rendering</h4>
               </div>
-              <p className="text-sm text-muted-foreground mb-3">
+              <p className="text-sm text-gray-800 mb-3">
                 Track React component render performance
               </p>
-              <ul className="text-sm text-muted-foreground space-y-1">
+              <ul className="text-sm text-gray-800 space-y-1">
                 <li>• Render time measurement</li>
                 <li>• Slow component detection (&gt;16ms)</li>
                 <li>• Re-render frequency tracking</li>
@@ -434,10 +434,10 @@ export function PerformanceBenchmarkDashboard() {
                 <Network className="h-6 w-6 text-orange-600" />
                 <h4 className="font-semibold">Network Performance</h4>
               </div>
-              <p className="text-sm text-muted-foreground mb-3">
+              <p className="text-sm text-gray-800 mb-3">
                 Monitor API and network requests
               </p>
-              <ul className="text-sm text-muted-foreground space-y-1">
+              <ul className="text-sm text-gray-800 space-y-1">
                 <li>• Request/response time tracking</li>
                 <li>• Slow request detection (&gt;1s)</li>
                 <li>• Data transfer size monitoring</li>
@@ -451,10 +451,10 @@ export function PerformanceBenchmarkDashboard() {
                 <HardDrive className="h-6 w-6 text-indigo-600" />
                 <h4 className="font-semibold">Memory Profiling</h4>
               </div>
-              <p className="text-sm text-muted-foreground mb-3">
+              <p className="text-sm text-gray-800 mb-3">
                 Monitor memory usage and detect leaks
               </p>
-              <ul className="text-sm text-muted-foreground space-y-1">
+              <ul className="text-sm text-gray-800 space-y-1">
                 <li>• Heap memory snapshots</li>
                 <li>• Memory trend analysis</li>
                 <li>• Memory leak detection</li>
@@ -468,10 +468,10 @@ export function PerformanceBenchmarkDashboard() {
                 <Zap className="h-6 w-6 text-yellow-600" />
                 <h4 className="font-semibold">Performance Budget</h4>
               </div>
-              <p className="text-sm text-muted-foreground mb-3">
+              <p className="text-sm text-gray-800 mb-3">
                 Enforce performance constraints
               </p>
-              <ul className="text-sm text-muted-foreground space-y-1">
+              <ul className="text-sm text-gray-800 space-y-1">
                 <li>• Page load time limits (3s)</li>
                 <li>• First Contentful Paint (1s)</li>
                 <li>• Time to Interactive (3.5s)</li>

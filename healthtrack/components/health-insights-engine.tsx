@@ -574,7 +574,7 @@ export function HealthInsightsEngine() {
           <Sparkles className="h-8 w-8 text-blue-600" />
           Health Insights & Recommendations
         </h1>
-        <p className="text-muted-foreground">
+        <p className="text-gray-800">
           Personalized insights powered by comprehensive analysis of your health data
         </p>
       </div>
@@ -583,13 +583,13 @@ export function HealthInsightsEngine() {
       <div className="grid gap-4 md:grid-cols-4">
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardTitle className="text-sm font-medium text-gray-800">
               Total Insights
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{insights.length}</div>
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className="text-xs text-gray-800 mt-1">
               Generated from {mockMetrics.length} data points
             </p>
           </CardContent>
@@ -597,13 +597,13 @@ export function HealthInsightsEngine() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardTitle className="text-sm font-medium text-gray-800">
               Needs Attention
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-red-600">{highPriorityCount}</div>
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className="text-xs text-gray-800 mt-1">
               High priority items
             </p>
           </CardContent>
@@ -611,13 +611,13 @@ export function HealthInsightsEngine() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardTitle className="text-sm font-medium text-gray-800">
               Positive Trends
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-green-600">{positiveInsights.length}</div>
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className="text-xs text-gray-800 mt-1">
               Things going well
             </p>
           </CardContent>
@@ -625,13 +625,13 @@ export function HealthInsightsEngine() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardTitle className="text-sm font-medium text-gray-800">
               Recommendations
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-blue-600">{recommendations.length}</div>
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className="text-xs text-gray-800 mt-1">
               Actionable plans
             </p>
           </CardContent>
@@ -652,7 +652,7 @@ export function HealthInsightsEngine() {
           {insights.length === 0 ? (
             <Card>
               <CardContent className="pt-6">
-                <p className="text-center text-muted-foreground">
+                <p className="text-center text-gray-800">
                   No insights available. Start tracking your health metrics to receive personalized insights.
                 </p>
               </CardContent>
@@ -684,7 +684,7 @@ export function HealthInsightsEngine() {
                       </div>
                       <div className="flex flex-col items-end gap-2">
                         {getCategoryBadge(insight.category)}
-                        <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                        <div className="flex items-center gap-1 text-xs text-gray-800">
                           <Star className="h-3 w-3" />
                           {insight.confidence}% confidence
                         </div>
@@ -698,7 +698,7 @@ export function HealthInsightsEngine() {
                         <h4 className="text-sm font-semibold mb-2">Evidence:</h4>
                         <ul className="space-y-1">
                           {insight.evidence.map((ev, idx) => (
-                            <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+                            <li key={idx} className="text-sm text-gray-800 flex items-start gap-2">
                               <CheckCircle className="h-4 w-4 mt-0.5 text-green-600 flex-shrink-0" />
                               {ev}
                             </li>
@@ -712,7 +712,7 @@ export function HealthInsightsEngine() {
                           <h4 className="text-sm font-semibold mb-2">Recommendations:</h4>
                           <ul className="space-y-1">
                             {insight.recommendations.map((rec, idx) => (
-                              <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+                              <li key={idx} className="text-sm text-gray-800 flex items-start gap-2">
                                 <ChevronRight className="h-4 w-4 mt-0.5 text-blue-600 flex-shrink-0" />
                                 {rec}
                               </li>
@@ -787,7 +787,7 @@ export function HealthInsightsEngine() {
                 <div className="space-y-2">
                   <h4 className="text-sm font-semibold">Why this matters:</h4>
                   {insight.evidence.map((ev, idx) => (
-                    <p key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+                    <p key={idx} className="text-sm text-gray-800 flex items-start gap-2">
                       <CheckCircle className="h-4 w-4 mt-0.5 text-green-600 flex-shrink-0" />
                       {ev}
                     </p>
@@ -830,12 +830,12 @@ export function HealthInsightsEngine() {
                   {/* Meta info */}
                   <div className="flex gap-4 text-sm">
                     <div className="flex items-center gap-1">
-                      <Calendar className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-muted-foreground">Timeline: {rec.timeframe}</span>
+                      <Calendar className="h-4 w-4 text-gray-800" />
+                      <span className="text-gray-800">Timeline: {rec.timeframe}</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <Target className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-muted-foreground">Effort: {rec.effort}</span>
+                      <Target className="h-4 w-4 text-gray-800" />
+                      <span className="text-gray-800">Effort: {rec.effort}</span>
                     </div>
                   </div>
 
@@ -892,7 +892,7 @@ export function HealthInsightsEngine() {
               <strong>Personalization:</strong> Recommendations are tailored to your specific health profile,
               age, gender, and current health status.
             </p>
-            <p className="text-muted-foreground">
+            <p className="text-gray-800">
               <strong>Important:</strong> These insights are for informational purposes only and should not
               replace professional medical advice. Always consult your healthcare provider before making
               significant health changes.
