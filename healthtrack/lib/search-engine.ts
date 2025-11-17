@@ -231,7 +231,7 @@ export async function globalSearch(
           ],
         },
         take: limit,
-        orderBy: { dateTime: 'desc' },
+        orderBy: { date: 'desc' },
       }),
       prisma.condition.findMany({
         where: {
