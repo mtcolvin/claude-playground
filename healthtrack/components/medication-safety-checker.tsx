@@ -320,7 +320,7 @@ export function MedicationSafetyChecker() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Medication Safety</h1>
-          <p className="text-gray-600 mt-1">
+          <p className="text-gray-800 mt-1">
             Check for drug interactions and potential safety concerns
           </p>
         </div>
@@ -398,8 +398,8 @@ export function MedicationSafetyChecker() {
           {medications.map((med) => (
             <div key={med.id} className="p-3 bg-gray-50 rounded-lg">
               <div className="font-semibold text-gray-900">{med.name}</div>
-              <div className="text-sm text-gray-600">{med.genericName}</div>
-              <div className="text-xs text-gray-500 mt-1">
+              <div className="text-sm text-gray-800">{med.genericName}</div>
+              <div className="text-xs text-gray-700 mt-1">
                 {med.dosage} • {med.frequency}
               </div>
             </div>
@@ -440,7 +440,7 @@ export function MedicationSafetyChecker() {
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
               {filterSeverity === 'all' ? 'No Interactions Detected' : `No ${filterSeverity} interactions`}
             </h3>
-            <p className="text-gray-500">
+            <p className="text-gray-700">
               {filterSeverity === 'all'
                 ? 'Your current medications appear safe to take together.'
                 : `No ${filterSeverity} severity interactions found. Check other severity levels.`}
@@ -458,7 +458,7 @@ export function MedicationSafetyChecker() {
                 <div className="flex-1">
                   <div className="flex items-start justify-between mb-3">
                     <div>
-                      <div className="text-sm text-gray-600 mb-1">{getTypeLabel(interaction.type)}</div>
+                      <div className="text-sm text-gray-800 mb-1">{getTypeLabel(interaction.type)}</div>
                       <h3 className="text-lg font-semibold text-gray-900 mb-1">
                         {interaction.description}
                       </h3>
@@ -509,7 +509,7 @@ export function MedicationSafetyChecker() {
 
                   {/* References */}
                   {interaction.references && interaction.references.length > 0 && (
-                    <div className="mt-3 text-xs text-gray-600">
+                    <div className="mt-3 text-xs text-gray-800">
                       <span className="font-medium">References:</span> {interaction.references.join(', ')}
                     </div>
                   )}

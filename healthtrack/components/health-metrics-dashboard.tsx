@@ -89,7 +89,7 @@ export function HealthMetricsDashboard() {
             >
               <div className="text-3xl mb-2">{type.icon}</div>
               <div className="text-sm font-medium text-gray-900">{type.label.split('(')[0].trim()}</div>
-              <div className="text-xs text-gray-500 mt-1">{count} records</div>
+              <div className="text-xs text-gray-700 mt-1">{count} records</div>
             </button>
           )
         })}
@@ -128,7 +128,7 @@ export function HealthMetricsDashboard() {
             height={300}
           />
         ) : (
-          <div className="text-center py-12 text-gray-500">
+          <div className="text-center py-12 text-gray-700">
             No data recorded yet. Add your first {metricInfo?.label} reading.
           </div>
         )}
@@ -147,14 +147,14 @@ export function HealthMetricsDashboard() {
                   <div className="font-medium text-gray-900">
                     {metric.value} {metric.unit}
                   </div>
-                  <div className="text-sm text-gray-500">
+                  <div className="text-sm text-gray-700">
                     {new Date(metric.date).toLocaleString()}
                   </div>
                   {metric.notes && (
-                    <div className="text-sm text-gray-600 mt-1">{metric.notes}</div>
+                    <div className="text-sm text-gray-800 mt-1">{metric.notes}</div>
                   )}
                 </div>
-                <button className="text-gray-400 hover:text-gray-600">
+                <button className="text-gray-800 hover:text-gray-800">
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
                   </svg>

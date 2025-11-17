@@ -278,7 +278,7 @@ export function FitnessTracker() {
             height={300}
           />
         ) : (
-          <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center text-gray-500">
+          <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center text-gray-700">
             No workout data yet. Log your first workout to see progress!
           </div>
         )}
@@ -296,7 +296,7 @@ export function FitnessTracker() {
                   <span className="text-3xl">{getActivityIcon(session.activityType)}</span>
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900">{session.activityName}</h3>
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-gray-700">
                       {new Date(session.date).toLocaleDateString('en-US', {
                         weekday: 'short',
                         month: 'short',
@@ -311,18 +311,18 @@ export function FitnessTracker() {
                 {/* Stats Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-3">
                   <div>
-                    <div className="text-xs text-gray-500">Duration</div>
+                    <div className="text-xs text-gray-700">Duration</div>
                     <div className="font-semibold text-gray-900">{session.duration} min</div>
                   </div>
                   {session.caloriesBurned && session.caloriesBurned > 0 && (
                     <div>
-                      <div className="text-xs text-gray-500">Calories</div>
+                      <div className="text-xs text-gray-700">Calories</div>
                       <div className="font-semibold text-gray-900">{session.caloriesBurned} kcal</div>
                     </div>
                   )}
                   {session.distance && session.distance > 0 && (
                     <div>
-                      <div className="text-xs text-gray-500">Distance</div>
+                      <div className="text-xs text-gray-700">Distance</div>
                       <div className="font-semibold text-gray-900">
                         {session.distance} {session.distanceUnit || 'km'}
                       </div>
@@ -330,7 +330,7 @@ export function FitnessTracker() {
                   )}
                   {session.heartRateAvg && (
                     <div>
-                      <div className="text-xs text-gray-500">Heart Rate</div>
+                      <div className="text-xs text-gray-700">Heart Rate</div>
                       <div className="font-semibold text-gray-900">
                         {session.heartRateAvg} bpm
                         {session.heartRateMax && ` / ${session.heartRateMax}`}
@@ -347,7 +347,7 @@ export function FitnessTracker() {
                       {session.exercises.map((exercise, idx) => (
                         <div key={idx} className="flex items-center justify-between bg-gray-50 p-2 rounded">
                           <span className="text-sm text-gray-900">{exercise.name}</span>
-                          <span className="text-sm text-gray-600">
+                          <span className="text-sm text-gray-800">
                             {exercise.sets} × {exercise.reps} reps
                             {exercise.weight && ` @ ${exercise.weight}${exercise.weightUnit || 'kg'}`}
                           </span>
@@ -381,7 +381,7 @@ export function FitnessTracker() {
         ))}
 
         {periodSessions.length === 0 && (
-          <div className="bg-white rounded-lg shadow p-12 text-center text-gray-500">
+          <div className="bg-white rounded-lg shadow p-12 text-center text-gray-700">
             No workouts logged yet. Start tracking your fitness journey today!
           </div>
         )}

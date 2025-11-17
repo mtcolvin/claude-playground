@@ -42,7 +42,7 @@ export default function CorrelationChart({ correlations, onSelectCorrelation }: 
     <div className="space-y-6">
       <div className="bg-white rounded-xl shadow-lg p-6">
         <h3 className="text-xl font-bold text-gray-900 mb-2">Metric Correlations</h3>
-        <p className="text-sm text-gray-600 mb-6">
+        <p className="text-sm text-gray-800 mb-6">
           Discover relationships between your health metrics. Positive correlations (green) mean
           metrics increase together. Negative correlations (red) mean one increases as the other
           decreases.
@@ -94,7 +94,7 @@ export default function CorrelationChart({ correlations, onSelectCorrelation }: 
                     <h4 className="font-semibold text-gray-900">
                       {metric1Label} ↔ {metric2Label}
                     </h4>
-                    <p className="text-xs text-gray-600 mt-1">{corr.interpretation}</p>
+                    <p className="text-xs text-gray-800 mt-1">{corr.interpretation}</p>
                   </div>
                   <div className="text-right ml-4">
                     <div className="flex items-center gap-2">
@@ -112,7 +112,7 @@ export default function CorrelationChart({ correlations, onSelectCorrelation }: 
                         </svg>
                       )}
                     </div>
-                    <p className="text-xs text-gray-600 mt-1">
+                    <p className="text-xs text-gray-800 mt-1">
                       {getCorrelationStrength(corr.correlation)}
                     </p>
                   </div>
@@ -135,11 +135,11 @@ export default function CorrelationChart({ correlations, onSelectCorrelation }: 
 
                 {/* Statistical Significance */}
                 <div className="mt-2 flex items-center justify-between text-xs">
-                  <span className={isSignificant ? 'text-blue-600 font-medium' : 'text-gray-500'}>
+                  <span className={isSignificant ? 'text-blue-600 font-medium' : 'text-gray-700'}>
                     {getSignificanceLabel(corr.pValue)}
                   </span>
                   {corr.sampleSize && (
-                    <span className="text-gray-500">n = {corr.sampleSize} data points</span>
+                    <span className="text-gray-700">n = {corr.sampleSize} data points</span>
                   )}
                 </div>
               </div>
@@ -148,9 +148,9 @@ export default function CorrelationChart({ correlations, onSelectCorrelation }: 
         </div>
 
         {sortedCorrelations.length === 0 && (
-          <div className="text-center py-12 text-gray-500">
+          <div className="text-center py-12 text-gray-700">
             <svg
-              className="w-16 h-16 mx-auto mb-4 text-gray-300"
+              className="w-16 h-16 mx-auto mb-4 text-gray-700"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"

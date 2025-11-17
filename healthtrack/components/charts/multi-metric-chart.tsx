@@ -47,7 +47,7 @@ export function MultiMetricChart({
             })}
           </p>
           {payload.map((entry: any, index: number) => (
-            <p key={index} className="text-sm text-gray-600">
+            <p key={index} className="text-sm text-gray-800">
               {entry.name}: <span className="font-bold" style={{ color: entry.color }}>
                 {entry.value}{entry.unit || ''}
               </span>

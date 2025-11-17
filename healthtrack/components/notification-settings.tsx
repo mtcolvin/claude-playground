@@ -56,7 +56,7 @@ export function NotificationSettings() {
         <div className="flex items-center justify-between">
           <div>
             <h3 className="font-medium text-gray-900">Browser Notifications</h3>
-            <p className="text-sm text-gray-600 mt-1">
+            <p className="text-sm text-gray-800 mt-1">
               Status:{' '}
               <span
                 className={`font-medium ${
@@ -75,7 +75,7 @@ export function NotificationSettings() {
               </span>
             </p>
             {scheduledCount > 0 && (
-              <p className="text-sm text-gray-600 mt-1">
+              <p className="text-sm text-gray-800 mt-1">
                 {scheduledCount} scheduled notification{scheduledCount === 1 ? '' : 's'}
               </p>
             )}
@@ -96,7 +96,7 @@ export function NotificationSettings() {
         <div className="flex items-center justify-between">
           <div>
             <h3 className="font-medium text-gray-900">Medication Reminders</h3>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-800">
               Get notified when it's time to take your medications
             </p>
           </div>
@@ -117,7 +117,7 @@ export function NotificationSettings() {
         <div className="flex items-center justify-between">
           <div>
             <h3 className="font-medium text-gray-900">Appointment Reminders</h3>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-800">
               Reminders for upcoming medical appointments
             </p>
           </div>
@@ -138,7 +138,7 @@ export function NotificationSettings() {
         <div className="flex items-center justify-between">
           <div>
             <h3 className="font-medium text-gray-900">Health Goal Reminders</h3>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-800">
               Stay on track with your health goals
             </p>
           </div>
@@ -159,7 +159,7 @@ export function NotificationSettings() {
         <div className="flex items-center justify-between">
           <div>
             <h3 className="font-medium text-gray-900">Lab Result Alerts</h3>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-800">
               Get notified when new lab results are available
             </p>
           </div>
@@ -180,7 +180,7 @@ export function NotificationSettings() {
         <div className="flex items-center justify-between">
           <div>
             <h3 className="font-medium text-gray-900">System Updates</h3>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-800">
               Notifications about app updates and features
             </p>
           </div>

@@ -67,7 +67,7 @@ export function HealthMetricChart({
               year: 'numeric'
             })}
           </p>
-          <p className="text-sm text-gray-600 mt-1">
+          <p className="text-sm text-gray-800 mt-1">
             {name}: <span className="font-bold" style={{ color }}>{payload[0].value}{unit}</span>
           </p>
         </div>

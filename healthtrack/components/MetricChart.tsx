@@ -25,7 +25,7 @@ export default function MetricChart({ metrics, metricType }: MetricChartProps) {
 
   if (chartData.length === 0) {
     return (
-      <div className="flex items-center justify-center h-64 text-gray-500">
+      <div className="flex items-center justify-center h-64 text-gray-700">
         No data available for {config.label}
       </div>
     );
@@ -90,7 +90,7 @@ export default function MetricChart({ metrics, metricType }: MetricChartProps) {
           />
         </AreaChart>
       </ResponsiveContainer>
-      <div className="mt-2 text-sm text-gray-600">
+      <div className="mt-2 text-sm text-gray-800">
         Normal range: {config.normalRange.min} - {config.normalRange.max} {config.unit}
       </div>
     </div>

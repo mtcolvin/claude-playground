@@ -584,7 +584,7 @@ export function ClinicalGuidelines() {
                           <div className="grid gap-2 md:grid-cols-2">
                             {selectedGuideline.diagnosis.tests.map((test, idx) => (
                               <div key={idx} className="flex items-center gap-2 p-2 bg-gray-50 rounded">
-                                <FileText className="h-4 w-4 text-gray-600" />
+                                <FileText className="h-4 w-4 text-gray-800" />
                                 <span className="text-sm">{test}</span>
                               </div>
                             ))}

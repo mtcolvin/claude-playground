@@ -120,7 +120,7 @@ export function CareTeamManagement() {
       primary: <Stethoscope className="h-5 w-5 text-blue-600" />,
       specialist: <Heart className="h-5 w-5 text-red-600" />,
       therapist: <Brain className="h-5 w-5 text-purple-600" />,
-      other: <Activity className="h-5 w-5 text-gray-600" />
+      other: <Activity className="h-5 w-5 text-gray-800" />
     }
     return icons[type]
   }
