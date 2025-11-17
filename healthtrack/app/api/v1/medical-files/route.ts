@@ -100,7 +100,7 @@ export const POST = apiHandler(
       const description = formData.get("description") as string | null
 
       if (!file) {
-        throw new ApiError(400, "No file provided")
+        throw new ApiError("No file provided", 400)
       }
 
       // In a production environment, you would:
