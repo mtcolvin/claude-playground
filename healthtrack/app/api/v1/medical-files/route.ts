@@ -11,6 +11,9 @@ import {
 } from "@/lib/api-middleware"
 import { Permission } from "@/lib/rbac"
 import { z } from "zod"
+import { writeFile, mkdir } from "fs/promises"
+import { join } from "path"
+import { existsSync } from "fs"
 
 // Validation schemas
 const createMedicalFileSchema = z.object({
@@ -85,39 +88,88 @@ export const GET = apiHandler(
   { requireAuth: true }
 )
 
-// POST /api/v1/medical-files - Create medical file record
+// POST /api/v1/medical-files - Upload and create medical file record
 export const POST = apiHandler(
   async (request) => {
-    const body = await request.json()
-    const data = createMedicalFileSchema.parse(body)
+    try {
+      // Parse FormData
+      const formData = await request.formData()
+      const file = formData.get('file') as File | null
+      const category = formData.get('category') as string || 'other'
+      const description = formData.get('description') as string | undefined
+      const provider = formData.get('provider') as string | undefined
+      const date = formData.get('date') as string | undefined
+      const tags = formData.get('tags') as string | undefined
 
-    const file = await prisma.medicalFile.create({
-      data: {
-        userId: request.user.id,
-        fileName: data.fileName,
-        fileType: data.fileType,
-        category: data.category,
-        description: data.description,
-        fileUrl: data.fileUrl,
-        fileSize: data.fileSize,
-        uploadDate: data.uploadDate ? new Date(data.uploadDate) : new Date(),
-        date: data.date ? new Date(data.date) : undefined,
-        provider: data.provider,
-        tags: data.tags || [],
-      },
-    })
+      if (!file) {
+        throw new ApiError('No file provided', 400)
+      }
 
-    // Log audit trail
-    await logAuditTrail(
-      request.user.id,
-      "CREATE",
-      "MedicalFile",
-      file.id,
-      { fileName: data.fileName, fileType: data.fileType, fileSize: data.fileSize },
-      request
-    )
+      // Validate file
+      const maxSize = 50 * 1024 * 1024 // 50MB
+      if (file.size > maxSize) {
+        throw new ApiError('File size exceeds 50MB limit', 400)
+      }
 
-    return successResponse(file, 201)
+      // Create uploads directory if it doesn't exist
+      const uploadsDir = join(process.cwd(), 'public', 'uploads', 'medical-files')
+      if (!existsSync(uploadsDir)) {
+        await mkdir(uploadsDir, { recursive: true })
+      }
+
+      // Generate unique filename
+      const timestamp = Date.now()
+      const originalName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_')
+      const uniqueFileName = `${timestamp}-${originalName}`
+      const filePath = join(uploadsDir, uniqueFileName)
+
+      // Save file to disk
+      const bytes = await file.arrayBuffer()
+      const buffer = Buffer.from(bytes)
+      await writeFile(filePath, buffer)
+
+      // Generate public URL
+      const fileUrl = `/uploads/medical-files/${uniqueFileName}`
+
+      // Determine file type
+      const fileType = file.type || 'application/octet-stream'
+
+      // Create database record
+      const medicalFile = await prisma.medicalFile.create({
+        data: {
+          userId: request.user.id,
+          fileName: file.name,
+          fileType: fileType,
+          category: category,
+          description: description,
+          fileUrl: fileUrl,
+          fileSize: file.size,
+          uploadDate: new Date(),
+          date: date ? new Date(date) : undefined,
+          provider: provider,
+          tags: tags ? tags.split(',').map(t => t.trim()) : [],
+          encrypted: false,
+        },
+      })
+
+      // Log audit trail
+      await logAuditTrail(
+        request.user.id,
+        "CREATE",
+        "MedicalFile",
+        medicalFile.id,
+        { fileName: file.name, fileType: fileType, fileSize: file.size },
+        request
+      )
+
+      return successResponse(medicalFile, 201)
+    } catch (error) {
+      if (error instanceof ApiError) {
+        throw error
+      }
+      console.error('File upload error:', error)
+      throw new ApiError('Failed to upload file', 500)
+    }
   },
   { requirePermission: Permission.WRITE_OWN_DATA }
 )
