@@ -53,7 +53,7 @@ export const authConfig: NextAuthConfig = {
             email: user.email,
             name: user.name,
             image: user.image,
-            role: user.role,
+            role: user.role as any,
           }
         } catch (error) {
           return null
