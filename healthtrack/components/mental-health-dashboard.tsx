@@ -253,7 +253,7 @@ export function MentalHealthDashboard() {
             height={320}
           />
         ) : (
-          <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center text-gray-500">
+          <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center text-gray-700">
             No mood data to display. Start logging your mood to see trends!
           </div>
         )}
@@ -280,7 +280,7 @@ export function MentalHealthDashboard() {
                           year: 'numeric'
                         })}
                       </div>
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-700">
                         {new Date(entry.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </div>
                     </div>
@@ -289,26 +289,26 @@ export function MentalHealthDashboard() {
                   {/* Metrics Grid */}
                   <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-4">
                     <div>
-                      <div className="text-xs text-gray-500">Mood</div>
+                      <div className="text-xs text-gray-700">Mood</div>
                       <div className={`text-lg font-bold ${getMoodColor(entry.mood)}`}>
                         {entry.mood}/10
                       </div>
                     </div>
                     <div>
-                      <div className="text-xs text-gray-500">Anxiety</div>
+                      <div className="text-xs text-gray-700">Anxiety</div>
                       <div className={`text-lg font-bold ${getAnxietyColor(entry.anxiety)}`}>
                         {entry.anxiety}/10
                       </div>
                     </div>
                     <div>
-                      <div className="text-xs text-gray-500">Stress</div>
+                      <div className="text-xs text-gray-700">Stress</div>
                       <div className={`text-lg font-bold ${getAnxietyColor(entry.stress)}`}>
                         {entry.stress}/10
                       </div>
                     </div>
                     {entry.sleep_quality && (
                       <div>
-                        <div className="text-xs text-gray-500">Sleep</div>
+                        <div className="text-xs text-gray-700">Sleep</div>
                         <div className={`text-lg font-bold ${getMoodColor(entry.sleep_quality)}`}>
                           {entry.sleep_quality}/10
                         </div>
@@ -316,7 +316,7 @@ export function MentalHealthDashboard() {
                     )}
                     {entry.energy && (
                       <div>
-                        <div className="text-xs text-gray-500">Energy</div>
+                        <div className="text-xs text-gray-700">Energy</div>
                         <div className={`text-lg font-bold ${getMoodColor(entry.energy)}`}>
                           {entry.energy}/10
                         </div>
@@ -327,7 +327,7 @@ export function MentalHealthDashboard() {
                   {/* Activities */}
                   {entry.activities && entry.activities.length > 0 && (
                     <div className="mt-3">
-                      <div className="text-xs text-gray-500 mb-1">Activities:</div>
+                      <div className="text-xs text-gray-700 mb-1">Activities:</div>
                       <div className="flex flex-wrap gap-1">
                         {entry.activities.map((activity, idx) => (
                           <span key={idx} className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">
@@ -341,7 +341,7 @@ export function MentalHealthDashboard() {
                   {/* Triggers */}
                   {entry.triggers && entry.triggers.length > 0 && (
                     <div className="mt-3">
-                      <div className="text-xs text-gray-500 mb-1">Triggers:</div>
+                      <div className="text-xs text-gray-700 mb-1">Triggers:</div>
                       <div className="flex flex-wrap gap-1">
                         {entry.triggers.map((trigger, idx) => (
                           <span key={idx} className="px-2 py-1 bg-red-100 text-red-700 text-xs rounded">
@@ -364,7 +364,7 @@ export function MentalHealthDashboard() {
           ))}
 
           {periodEntries.length === 0 && (
-            <div className="p-12 text-center text-gray-500">
+            <div className="p-12 text-center text-gray-700">
               No entries for this period. Start tracking your mental health today!
             </div>
           )}

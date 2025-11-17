@@ -87,11 +87,11 @@ export function LabResultsViewer() {
               }`}
             >
               <div className="font-semibold text-gray-900">{result.testName}</div>
-              <div className="text-sm text-gray-500 mt-1">
+              <div className="text-sm text-gray-700 mt-1">
                 {new Date(result.testDate).toLocaleDateString()}
               </div>
               {result.facility && (
-                <div className="text-sm text-gray-600 mt-1">{result.facility}</div>
+                <div className="text-sm text-gray-800 mt-1">{result.facility}</div>
               )}
               <div className="flex gap-1 mt-2">
                 {result.results.some(r => r.status === 'ABNORMAL') && (
@@ -109,7 +109,7 @@ export function LabResultsViewer() {
           ))}
 
           {filteredResults.length === 0 && (
-            <div className="text-center py-12 text-gray-500">
+            <div className="text-center py-12 text-gray-700">
               No lab results found
             </div>
           )}
@@ -123,24 +123,24 @@ export function LabResultsViewer() {
                 <h2 className="text-2xl font-bold text-gray-900">{selectedResult.testName}</h2>
                 <div className="mt-2 grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <span className="text-gray-500">Test Date:</span>{' '}
+                    <span className="text-gray-700">Test Date:</span>{' '}
                     <span className="font-medium">{new Date(selectedResult.testDate).toLocaleDateString()}</span>
                   </div>
                   {selectedResult.orderedBy && (
                     <div>
-                      <span className="text-gray-500">Ordered By:</span>{' '}
+                      <span className="text-gray-700">Ordered By:</span>{' '}
                       <span className="font-medium">{selectedResult.orderedBy}</span>
                     </div>
                   )}
                   {selectedResult.facility && (
                     <div>
-                      <span className="text-gray-500">Facility:</span>{' '}
+                      <span className="text-gray-700">Facility:</span>{' '}
                       <span className="font-medium">{selectedResult.facility}</span>
                     </div>
                   )}
                   {selectedResult.category && (
                     <div>
-                      <span className="text-gray-500">Category:</span>{' '}
+                      <span className="text-gray-700">Category:</span>{' '}
                       <span className="font-medium">{selectedResult.category}</span>
                     </div>
                   )}
@@ -163,10 +163,10 @@ export function LabResultsViewer() {
                       <div className="flex-1">
                         <div className="font-semibold text-gray-900">{item.name}</div>
                         <div className="text-2xl font-bold mt-1">
-                          {item.value} {item.unit && <span className="text-lg text-gray-600">{item.unit}</span>}
+                          {item.value} {item.unit && <span className="text-lg text-gray-800">{item.unit}</span>}
                         </div>
                         {item.referenceRange && (
-                          <div className="text-sm text-gray-600 mt-1">
+                          <div className="text-sm text-gray-800 mt-1">
                             Reference Range: {item.referenceRange}
                           </div>
                         )}
@@ -186,7 +186,7 @@ export function LabResultsViewer() {
               </div>
             </div>
           ) : (
-            <div className="bg-white rounded-lg shadow p-12 text-center text-gray-500">
+            <div className="bg-white rounded-lg shadow p-12 text-center text-gray-700">
               Select a lab result to view details
             </div>
           )}

@@ -78,7 +78,7 @@ export function HealthAnalyticsDashboard() {
   if (isLoading || !data) {
     return (
       <div className="flex items-center justify-center h-96">
-        <div className="text-gray-500">Loading analytics...</div>
+        <div className="text-gray-700">Loading analytics...</div>
       </div>
     )
   }
@@ -139,7 +139,7 @@ export function HealthAnalyticsDashboard() {
           {/* Key Metrics Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="bg-white rounded-lg shadow p-4">
-              <div className="text-sm text-gray-500">Avg Blood Pressure</div>
+              <div className="text-sm text-gray-700">Avg Blood Pressure</div>
               <div className="text-2xl font-bold text-gray-900 mt-1">
                 {Math.round(data.bloodPressure.reduce((sum, d) => sum + d.systolic, 0) / data.bloodPressure.length)}/
                 {Math.round(data.bloodPressure.reduce((sum, d) => sum + d.diastolic, 0) / data.bloodPressure.length)}
@@ -148,7 +148,7 @@ export function HealthAnalyticsDashboard() {
             </div>
 
             <div className="bg-white rounded-lg shadow p-4">
-              <div className="text-sm text-gray-500">Avg Heart Rate</div>
+              <div className="text-sm text-gray-700">Avg Heart Rate</div>
               <div className="text-2xl font-bold text-gray-900 mt-1">
                 {Math.round(data.heartRate.reduce((sum, d) => sum + d.value, 0) / data.heartRate.length)} bpm
               </div>
@@ -156,7 +156,7 @@ export function HealthAnalyticsDashboard() {
             </div>
 
             <div className="bg-white rounded-lg shadow p-4">
-              <div className="text-sm text-gray-500">Avg Sleep</div>
+              <div className="text-sm text-gray-700">Avg Sleep</div>
               <div className="text-2xl font-bold text-gray-900 mt-1">
                 {Math.floor(data.sleep.reduce((sum, d) => sum + d.duration, 0) / data.sleep.length / 60)}h{' '}
                 {Math.round((data.sleep.reduce((sum, d) => sum + d.duration, 0) / data.sleep.length) % 60)}m
@@ -165,7 +165,7 @@ export function HealthAnalyticsDashboard() {
             </div>
 
             <div className="bg-white rounded-lg shadow p-4">
-              <div className="text-sm text-gray-500">Exercise Days</div>
+              <div className="text-sm text-gray-700">Exercise Days</div>
               <div className="text-2xl font-bold text-gray-900 mt-1">
                 {data.exercise.filter(d => d.duration > 0).length} days
               </div>

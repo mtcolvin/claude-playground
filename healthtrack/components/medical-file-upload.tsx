@@ -267,7 +267,7 @@ export function MedicalFileUpload() {
         }`}
       >
         <svg
-          className="mx-auto h-12 w-12 text-gray-600"
+          className="mx-auto h-12 w-12 text-gray-800"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -397,7 +397,7 @@ export function MedicalFileUpload() {
               </div>
               <button
                 onClick={() => setSelectedFile(null)}
-                className="p-2 text-gray-400 hover:text-gray-600"
+                className="p-2 text-gray-800 hover:text-gray-800"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

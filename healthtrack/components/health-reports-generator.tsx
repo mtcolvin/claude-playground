@@ -215,7 +215,7 @@ export function HealthReportsGenerator() {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold text-gray-900">Health Reports</h1>
-        <p className="text-gray-600 mt-1">
+        <p className="text-gray-800 mt-1">
           Generate comprehensive reports to share with your healthcare provider
         </p>
       </div>
@@ -230,7 +230,7 @@ export function HealthReportsGenerator() {
           >
             <div className="text-4xl mb-3">{template.icon}</div>
             <h3 className="font-semibold text-gray-900 mb-1">{template.name}</h3>
-            <p className="text-sm text-gray-600">{template.description}</p>
+            <p className="text-sm text-gray-800">{template.description}</p>
           </button>
         ))}
       </div>
@@ -285,7 +285,7 @@ export function HealthReportsGenerator() {
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-semibold text-gray-900">Include Sections</h2>
-              <span className="text-sm text-gray-500">{selectedCount} selected</span>
+              <span className="text-sm text-gray-700">{selectedCount} selected</span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -356,7 +356,7 @@ export function HealthReportsGenerator() {
                   />
                   <div className="text-3xl mb-2">{format.icon}</div>
                   <div className="font-medium text-gray-900">{format.label}</div>
-                  <div className="text-xs text-gray-500 mt-1">{format.description}</div>
+                  <div className="text-xs text-gray-700 mt-1">{format.description}</div>
                 </label>
               ))}
             </div>

@@ -279,7 +279,7 @@ export function PredictiveAnalyticsDashboard() {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold text-gray-900">Predictive Analytics</h1>
-        <p className="text-gray-600 mt-1">
+        <p className="text-gray-800 mt-1">
           AI-powered predictions and health risk assessment based on your data
         </p>
       </div>
@@ -298,7 +298,7 @@ export function PredictiveAnalyticsDashboard() {
           >
             <div className="text-3xl mb-2">{metric.icon}</div>
             <div className="font-semibold text-gray-900">{metric.label}</div>
-            <div className="text-sm text-gray-500">{metric.unit}</div>
+            <div className="text-sm text-gray-700">{metric.unit}</div>
           </button>
         ))}
       </div>
@@ -480,12 +480,12 @@ export function PredictiveAnalyticsDashboard() {
                         {factor.severity.toUpperCase()}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-600">{factor.description}</p>
+                    <p className="text-sm text-gray-800">{factor.description}</p>
                   </div>
 
                   <div className="text-center">
                     <div className="text-3xl font-bold text-gray-900">{factor.score}</div>
-                    <div className="text-xs text-gray-500">Risk Score</div>
+                    <div className="text-xs text-gray-700">Risk Score</div>
                   </div>
                 </div>
 
@@ -528,19 +528,19 @@ export function PredictiveAnalyticsDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
           <div>
             <div className="font-medium text-indigo-700 mb-1">📊 Historical Analysis</div>
-            <div className="text-gray-600">
+            <div className="text-gray-800">
               Analyzes your past 90 days of health data to identify patterns, trends, and seasonal variations.
             </div>
           </div>
           <div>
             <div className="font-medium text-purple-700 mb-1">🔮 Trend Projection</div>
-            <div className="text-gray-600">
+            <div className="text-gray-800">
               Uses linear regression and moving averages to forecast future values with 95% confidence intervals.
             </div>
           </div>
           <div>
             <div className="font-medium text-pink-700 mb-1">⚠️ Risk Assessment</div>
-            <div className="text-gray-600">
+            <div className="text-gray-800">
               Evaluates multiple health factors to calculate personalized risk scores and provide actionable recommendations.
             </div>
           </div>

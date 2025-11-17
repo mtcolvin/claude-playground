@@ -76,7 +76,7 @@ export function EncryptionSetup() {
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Initializing encryption...</p>
+          <p className="text-gray-800">Initializing encryption...</p>
         </div>
       </div>
     )
@@ -121,7 +121,7 @@ export function EncryptionSetup() {
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
             Secure Your Health Data
           </h2>
-          <p className="text-gray-600">
+          <p className="text-gray-800">
             Set up end-to-end encryption to protect your sensitive health information
           </p>
         </div>
@@ -193,7 +193,7 @@ export function EncryptionSetup() {
         </form>
 
         <div className="mt-6 pt-6 border-t border-gray-200">
-          <p className="text-xs text-gray-500 text-center">
+          <p className="text-xs text-gray-700 text-center">
             Your encryption password is never sent to our servers. Make sure to store it in a
             secure password manager.
           </p>

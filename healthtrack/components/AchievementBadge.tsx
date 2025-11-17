@@ -67,12 +67,12 @@ export default function AchievementBadge({
 
       <div className="text-center max-w-[150px]">
         <p className="font-semibold text-sm text-gray-900">{achievement.name}</p>
-        <p className="text-xs text-gray-600">{achievement.description}</p>
+        <p className="text-xs text-gray-800">{achievement.description}</p>
         <p className="text-xs font-medium text-blue-600 mt-1">{achievement.points} points</p>
 
         {showProgress && !isUnlocked && (
           <div className="mt-2 w-full">
-            <div className="flex justify-between items-center text-xs text-gray-600 mb-1">
+            <div className="flex justify-between items-center text-xs text-gray-800 mb-1">
               <span>
                 {achievement.current}/{achievement.requirement}
               </span>
@@ -88,7 +88,7 @@ export default function AchievementBadge({
         )}
 
         {isUnlocked && achievement.unlockedAt && (
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-gray-700 mt-1">
             Unlocked {new Date(achievement.unlockedAt).toLocaleDateString()}
           </p>
         )}
@@ -155,7 +155,7 @@ export function AchievementGrid({ achievements, showLockedAchievements = true }:
       </div>
 
       {displayAchievements.length === 0 && (
-        <div className="text-center py-12 text-gray-500">
+        <div className="text-center py-12 text-gray-700">
           <p className="text-lg">No achievements yet.</p>
           <p className="text-sm mt-2">Start tracking your health to unlock achievements!</p>
         </div>
@@ -197,12 +197,12 @@ export function RecentAchievementToast({ achievement, onClose }: RecentAchieveme
               Achievement Unlocked! 🎉
             </p>
             <h4 className="text-lg font-bold text-gray-900 mt-1">{achievement.name}</h4>
-            <p className="text-sm text-gray-600 mt-1">{achievement.description}</p>
+            <p className="text-sm text-gray-800 mt-1">{achievement.description}</p>
             <p className="text-sm font-semibold text-blue-600 mt-2">+{achievement.points} points</p>
           </div>
           <button
             onClick={onClose}
-            className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
+            className="flex-shrink-0 text-gray-800 hover:text-gray-800 transition-colors"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
               <path

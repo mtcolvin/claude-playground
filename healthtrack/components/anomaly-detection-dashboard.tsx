@@ -273,7 +273,7 @@ export function AnomalyDetectionDashboard() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Anomaly Detection</h1>
-          <p className="text-gray-600 mt-1">
+          <p className="text-gray-800 mt-1">
             AI-powered analysis of unusual health patterns and trends
           </p>
         </div>
@@ -304,9 +304,9 @@ export function AnomalyDetectionDashboard() {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         <div className="bg-white rounded-lg shadow p-6">
-          <div className="text-sm text-gray-500">Total Anomalies</div>
+          <div className="text-sm text-gray-700">Total Anomalies</div>
           <div className="text-3xl font-bold text-gray-900 mt-1">{stats.totalAnomalies}</div>
-          <div className="text-xs text-gray-500 mt-1">Detected patterns</div>
+          <div className="text-xs text-gray-700 mt-1">Detected patterns</div>
         </div>
 
         <div className="bg-gradient-to-br from-red-500 to-red-600 rounded-lg shadow p-6 text-white">
@@ -363,7 +363,7 @@ export function AnomalyDetectionDashboard() {
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
               {selectedSeverity === 'all' ? 'No Anomalies Detected' : `No ${selectedSeverity} severity anomalies`}
             </h3>
-            <p className="text-gray-500">
+            <p className="text-gray-700">
               {selectedSeverity === 'all'
                 ? 'Your health metrics are all within expected ranges. Great job!'
                 : `No ${selectedSeverity} severity issues detected. Check other severity levels.`}
@@ -383,7 +383,7 @@ export function AnomalyDetectionDashboard() {
                       <div className="font-semibold text-gray-900 text-lg">
                         {anomaly.message}
                       </div>
-                      <div className="text-sm text-gray-600">
+                      <div className="text-sm text-gray-800">
                         {new Date(anomaly.date).toLocaleDateString('en-US', {
                           weekday: 'long',
                           month: 'long',
@@ -399,17 +399,17 @@ export function AnomalyDetectionDashboard() {
                   {/* Details */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 mb-4">
                     <div>
-                      <div className="text-xs text-gray-600">Recorded Value</div>
+                      <div className="text-xs text-gray-800">Recorded Value</div>
                       <div className="text-lg font-bold text-gray-900">{anomaly.metricValue.toFixed(1)}</div>
                     </div>
                     <div>
-                      <div className="text-xs text-gray-600">Expected Range</div>
+                      <div className="text-xs text-gray-800">Expected Range</div>
                       <div className="text-lg font-bold text-gray-900">
                         {anomaly.expectedRange.min.toFixed(1)} - {anomaly.expectedRange.max.toFixed(1)}
                       </div>
                     </div>
                     <div>
-                      <div className="text-xs text-gray-600">Deviation</div>
+                      <div className="text-xs text-gray-800">Deviation</div>
                       <div className="text-lg font-bold text-gray-900">{anomaly.deviation.toFixed(2)}σ</div>
                     </div>
                   </div>
@@ -441,19 +441,19 @@ export function AnomalyDetectionDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
           <div>
             <div className="font-medium text-purple-700 mb-1">📊 Statistical Analysis</div>
-            <div className="text-gray-600">
+            <div className="text-gray-800">
               Uses Z-score and IQR methods to identify values that fall outside normal statistical ranges based on your historical data.
             </div>
           </div>
           <div>
             <div className="font-medium text-blue-700 mb-1">🎯 Severity Classification</div>
-            <div className="text-gray-600">
+            <div className="text-gray-800">
               Categorizes anomalies by severity using both statistical deviation and clinical thresholds for immediate medical concerns.
             </div>
           </div>
           <div>
             <div className="font-medium text-green-700 mb-1">💡 Smart Recommendations</div>
-            <div className="text-gray-600">
+            <div className="text-gray-800">
               Provides context-aware recommendations based on the type of metric, deviation severity, and clinical guidelines.
             </div>
           </div>

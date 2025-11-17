@@ -138,7 +138,7 @@ export default function DashboardPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading your health data...</p>
+          <p className="text-gray-800">Loading your health data...</p>
         </div>
       </div>
     );
@@ -159,7 +159,7 @@ export default function DashboardPage() {
               <span className="text-2xl font-bold text-gray-900">HealthTrack AI</span>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-gray-600">Welcome, {profile?.name || 'User'}</span>
+              <span className="text-gray-800">Welcome, {profile?.name || 'User'}</span>
               <Link href="/">
                 <Button variant="outline">Home</Button>
               </Link>
@@ -185,7 +185,7 @@ export default function DashboardPage() {
                 className={`flex items-center space-x-2 py-4 border-b-2 transition-colors ${
                   activeTab === tab.id
                     ? 'border-blue-600 text-blue-600'
-                    : 'border-transparent text-gray-600 hover:text-gray-900'
+                    : 'border-transparent text-gray-800 hover:text-gray-900'
                 }`}
               >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -254,7 +254,7 @@ export default function DashboardPage() {
                             }`}>
                               {insight.type.replace('_', ' ').toUpperCase()}
                             </span>
-                            <span className="text-sm text-gray-500">{formatDateShort(insight.date)}</span>
+                            <span className="text-sm text-gray-700">{formatDateShort(insight.date)}</span>
                           </div>
                           <CardTitle className="text-xl">{insight.title}</CardTitle>
                           <CardDescription className="mt-2">{insight.description}</CardDescription>
@@ -290,9 +290,9 @@ export default function DashboardPage() {
                             <CardDescription>{config.label}</CardDescription>
                             <div className="flex items-baseline space-x-2 mt-1">
                               <CardTitle className="text-2xl">{metric.value}</CardTitle>
-                              <span className="text-gray-600">{metric.unit}</span>
+                              <span className="text-gray-800">{metric.unit}</span>
                             </div>
-                            <span className="text-sm text-gray-500">{formatDateShort(metric.date)}</span>
+                            <span className="text-sm text-gray-700">{formatDateShort(metric.date)}</span>
                           </div>
                           <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(status)}`}>
                             {status}
@@ -311,7 +311,7 @@ export default function DashboardPage() {
           <div className="space-y-6">
             <div>
               <h1 className="text-3xl font-bold mb-2">Health Metrics</h1>
-              <p className="text-gray-600">Track and monitor your vital health metrics over time</p>
+              <p className="text-gray-800">Track and monitor your vital health metrics over time</p>
             </div>
 
             {/* Add New Metric */}
@@ -393,17 +393,17 @@ export default function DashboardPage() {
                               <>
                                 <div className="flex items-baseline space-x-2">
                                   <CardTitle className="text-3xl">{latest.value}</CardTitle>
-                                  <span className="text-gray-600">{config.unit}</span>
+                                  <span className="text-gray-800">{config.unit}</span>
                                 </div>
                                 <div className="flex items-center justify-between mt-2">
-                                  <span className="text-sm text-gray-500">{formatDateShort(latest.date)}</span>
+                                  <span className="text-sm text-gray-700">{formatDateShort(latest.date)}</span>
                                   <span className={`px-2 py-1 rounded text-xs font-medium ${
                                     getStatusColor(getValueStatus(latest.value, config.normalRange))
                                   }`}>
                                     {getValueStatus(latest.value, config.normalRange)}
                                   </span>
                                 </div>
-                                <div className="text-xs text-gray-500 mt-2">
+                                <div className="text-xs text-gray-700 mt-2">
                                   Normal range: {config.normalRange.min} - {config.normalRange.max} {config.unit}
                                 </div>
                               </>
@@ -426,7 +426,7 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-3xl font-bold mb-2">Medical Files</h1>
-                <p className="text-gray-600">Upload and manage your medical documents, scans, and lab reports</p>
+                <p className="text-gray-800">Upload and manage your medical documents, scans, and lab reports</p>
               </div>
               <Button variant="primary">Upload File</Button>
             </div>
@@ -441,14 +441,14 @@ export default function DashboardPage() {
               </CardHeader>
               <CardContent>
                 <div className="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center hover:border-blue-500 transition-colors cursor-pointer">
-                  <svg className="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-12 h-12 text-gray-800 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                   </svg>
                   <p className="text-lg font-medium mb-2">Drag and drop files here</p>
-                  <p className="text-gray-600 mb-4">or click to browse</p>
+                  <p className="text-gray-800 mb-4">or click to browse</p>
                   <Button variant="outline">Select Files</Button>
                 </div>
-                <p className="text-sm text-gray-500 mt-4">
+                <p className="text-sm text-gray-700 mt-4">
                   This is a demo interface. In production, files would be uploaded to secure cloud storage.
                 </p>
               </CardContent>
@@ -477,7 +477,7 @@ export default function DashboardPage() {
                             <span className="font-medium">{item.biomarker}</span>
                             <div className="flex items-center space-x-4">
                               <span>{item.value} {item.unit}</span>
-                              <span className="text-sm text-gray-500">{item.normalRange}</span>
+                              <span className="text-sm text-gray-700">{item.normalRange}</span>
                               <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(item.status)}`}>
                                 {item.status}
                               </span>
@@ -498,7 +498,7 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-3xl font-bold mb-2">AI-Powered Health Insights</h1>
-                <p className="text-gray-600">Personalized analysis and recommendations based on your health data</p>
+                <p className="text-gray-800">Personalized analysis and recommendations based on your health data</p>
               </div>
               <Button variant="primary" onClick={handleGenerateInsight}>
                 Generate New Insight
@@ -527,7 +527,7 @@ export default function DashboardPage() {
                           }`}>
                             {insight.severity.toUpperCase()}
                           </span>
-                          <span className="text-sm text-gray-500">{formatDateShort(insight.date)}</span>
+                          <span className="text-sm text-gray-700">{formatDateShort(insight.date)}</span>
                         </div>
                         <CardTitle className="text-2xl mb-2">{insight.title}</CardTitle>
                         <CardDescription className="text-base">{insight.description}</CardDescription>
@@ -566,7 +566,7 @@ export default function DashboardPage() {
           <div className="space-y-6">
             <div>
               <h1 className="text-3xl font-bold mb-2">Patient Profile</h1>
-              <p className="text-gray-600">View and manage your personal health information</p>
+              <p className="text-gray-800">View and manage your personal health information</p>
             </div>
 
             {/* Basic Information */}
@@ -632,10 +632,10 @@ export default function DashboardPage() {
                         <div key={med.id} className="p-4 bg-gray-50 rounded-lg">
                           <div className="flex items-center justify-between mb-2">
                             <h3 className="font-semibold text-lg">{med.name}</h3>
-                            <span className="text-sm text-gray-600">Since {formatDateShort(med.startDate)}</span>
+                            <span className="text-sm text-gray-800">Since {formatDateShort(med.startDate)}</span>
                           </div>
-                          <p className="text-gray-600">{med.dosage} • {med.frequency}</p>
-                          {med.notes && <p className="text-sm text-gray-500 mt-1">{med.notes}</p>}
+                          <p className="text-gray-800">{med.dosage} • {med.frequency}</p>
+                          {med.notes && <p className="text-sm text-gray-700 mt-1">{med.notes}</p>}
                         </div>
                       ))}
                     </div>

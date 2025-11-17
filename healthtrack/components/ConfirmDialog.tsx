@@ -59,7 +59,7 @@ export default function ConfirmDialog({
             <h3 id="dialog-title" className="text-lg font-semibold text-gray-900 mb-2">
               {title}
             </h3>
-            <p id="dialog-description" className="text-gray-600 mb-6">
+            <p id="dialog-description" className="text-gray-800 mb-6">
               {message}
             </p>
             <div className="flex justify-end space-x-3">

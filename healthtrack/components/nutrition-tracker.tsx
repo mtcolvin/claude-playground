@@ -209,11 +209,11 @@ export function NutritionTracker() {
         {/* Calories */}
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center justify-between mb-2">
-            <div className="text-sm font-medium text-gray-500">Calories</div>
+            <div className="text-sm font-medium text-gray-700">Calories</div>
             <div className="text-2xl">🔥</div>
           </div>
           <div className="text-3xl font-bold text-gray-900">{dailyTotals.calories}</div>
-          <div className="text-sm text-gray-500 mt-1">of {dailyGoals.calories} kcal</div>
+          <div className="text-sm text-gray-700 mt-1">of {dailyGoals.calories} kcal</div>
           <div className="mt-3 w-full bg-gray-200 rounded-full h-2">
             <div
               className={`h-2 rounded-full transition-all ${getProgressColor(dailyTotals.calories, dailyGoals.calories)}`}
@@ -225,11 +225,11 @@ export function NutritionTracker() {
         {/* Protein */}
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center justify-between mb-2">
-            <div className="text-sm font-medium text-gray-500">Protein</div>
+            <div className="text-sm font-medium text-gray-700">Protein</div>
             <div className="text-2xl">🥩</div>
           </div>
           <div className="text-3xl font-bold text-gray-900">{dailyTotals.protein.toFixed(1)}g</div>
-          <div className="text-sm text-gray-500 mt-1">of {dailyGoals.protein}g</div>
+          <div className="text-sm text-gray-700 mt-1">of {dailyGoals.protein}g</div>
           <div className="mt-3 w-full bg-gray-200 rounded-full h-2">
             <div
               className={`h-2 rounded-full transition-all ${getProgressColor(dailyTotals.protein, dailyGoals.protein)}`}
@@ -241,11 +241,11 @@ export function NutritionTracker() {
         {/* Carbs */}
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center justify-between mb-2">
-            <div className="text-sm font-medium text-gray-500">Carbs</div>
+            <div className="text-sm font-medium text-gray-700">Carbs</div>
             <div className="text-2xl">🍞</div>
           </div>
           <div className="text-3xl font-bold text-gray-900">{dailyTotals.carbs.toFixed(1)}g</div>
-          <div className="text-sm text-gray-500 mt-1">of {dailyGoals.carbs}g</div>
+          <div className="text-sm text-gray-700 mt-1">of {dailyGoals.carbs}g</div>
           <div className="mt-3 w-full bg-gray-200 rounded-full h-2">
             <div
               className={`h-2 rounded-full transition-all ${getProgressColor(dailyTotals.carbs, dailyGoals.carbs)}`}
@@ -257,11 +257,11 @@ export function NutritionTracker() {
         {/* Fat */}
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center justify-between mb-2">
-            <div className="text-sm font-medium text-gray-500">Fat</div>
+            <div className="text-sm font-medium text-gray-700">Fat</div>
             <div className="text-2xl">🥑</div>
           </div>
           <div className="text-3xl font-bold text-gray-900">{dailyTotals.fat.toFixed(1)}g</div>
-          <div className="text-sm text-gray-500 mt-1">of {dailyGoals.fat}g</div>
+          <div className="text-sm text-gray-700 mt-1">of {dailyGoals.fat}g</div>
           <div className="mt-3 w-full bg-gray-200 rounded-full h-2">
             <div
               className={`h-2 rounded-full transition-all ${getProgressColor(dailyTotals.fat, dailyGoals.fat)}`}
@@ -282,7 +282,7 @@ export function NutritionTracker() {
             height={350}
           />
         ) : (
-          <div className="h-48 bg-gray-50 rounded-lg flex items-center justify-center text-gray-500">
+          <div className="h-48 bg-gray-50 rounded-lg flex items-center justify-center text-gray-700">
             No nutrition data for today. Log your first meal to see macro distribution!
           </div>
         )}
@@ -304,7 +304,7 @@ export function NutritionTracker() {
                   <div>
                     <div className="font-semibold text-gray-900">{mealType}</div>
                     {mealTotal > 0 && (
-                      <div className="text-sm text-gray-500">{mealTotal} calories</div>
+                      <div className="text-sm text-gray-700">{mealTotal} calories</div>
                     )}
                   </div>
                 </div>
@@ -329,13 +329,13 @@ export function NutritionTracker() {
                         <div key={idx} className="flex items-start justify-between">
                           <div className="flex-1">
                             <div className="font-medium text-gray-900">{item.name}</div>
-                            <div className="text-sm text-gray-500">
+                            <div className="text-sm text-gray-700">
                               {item.quantity} {item.unit}
                             </div>
                           </div>
                           <div className="text-right">
                             <div className="font-semibold text-gray-900">{item.calories} cal</div>
-                            <div className="text-xs text-gray-500">
+                            <div className="text-xs text-gray-700">
                               P: {item.protein}g C: {item.carbs}g F: {item.fat}g
                             </div>
                           </div>
@@ -362,7 +362,7 @@ export function NutritionTracker() {
                 ))}
 
                 {mealEntries.length === 0 && (
-                  <div className="p-8 text-center text-gray-500 text-sm">
+                  <div className="p-8 text-center text-gray-700 text-sm">
                     No {mealType.toLowerCase()} logged yet
                   </div>
                 )}
@@ -441,7 +441,7 @@ export function NutritionTracker() {
 
                       <div className="grid grid-cols-3 gap-2">
                         <div>
-                          <label className="text-xs text-gray-600">Quantity</label>
+                          <label className="text-xs text-gray-800">Quantity</label>
                           <input
                             type="number"
                             value={item.quantity}
@@ -450,7 +450,7 @@ export function NutritionTracker() {
                           />
                         </div>
                         <div className="col-span-2">
-                          <label className="text-xs text-gray-600">Unit</label>
+                          <label className="text-xs text-gray-800">Unit</label>
                           <input
                             type="text"
                             value={item.unit}
@@ -462,7 +462,7 @@ export function NutritionTracker() {
 
                       <div className="grid grid-cols-4 gap-2">
                         <div>
-                          <label className="text-xs text-gray-600">Calories</label>
+                          <label className="text-xs text-gray-800">Calories</label>
                           <input
                             type="number"
                             value={item.calories}
@@ -471,7 +471,7 @@ export function NutritionTracker() {
                           />
                         </div>
                         <div>
-                          <label className="text-xs text-gray-600">Protein (g)</label>
+                          <label className="text-xs text-gray-800">Protein (g)</label>
                           <input
                             type="number"
                             value={item.protein}
@@ -480,7 +480,7 @@ export function NutritionTracker() {
                           />
                         </div>
                         <div>
-                          <label className="text-xs text-gray-600">Carbs (g)</label>
+                          <label className="text-xs text-gray-800">Carbs (g)</label>
                           <input
                             type="number"
                             value={item.carbs}
@@ -489,7 +489,7 @@ export function NutritionTracker() {
                           />
                         </div>
                         <div>
-                          <label className="text-xs text-gray-600">Fat (g)</label>
+                          <label className="text-xs text-gray-800">Fat (g)</label>
                           <input
                             type="number"
                             value={item.fat}
