@@ -98,44 +98,70 @@ export const GET = apiHandler(
 // POST /api/v1/medical-files - Create medical file record (handles both JSON and FormData)
 export const POST = apiHandler(
   async (request) => {
+    console.log("=== MEDICAL FILE UPLOAD REQUEST ===")
+    console.log("User ID:", request.user?.id)
+    console.log("User Email:", request.user?.email)
+    console.log("User Role:", request.user?.role)
+
     const contentType = request.headers.get("content-type") || ""
+    console.log("Content-Type:", contentType)
 
     let fileData: FileData
 
     // Handle multipart/form-data (file upload)
     if (contentType.includes("multipart/form-data")) {
-      const formData = await request.formData()
-      const file = formData.get("file") as File
-      const category = formData.get("category") as string
-      const description = formData.get("description") as string | null
+      console.log("Processing as multipart/form-data")
 
-      if (!file) {
-        throw new ApiError("No file provided", 400)
-      }
+      try {
+        const formData = await request.formData()
+        console.log("FormData received, entries:", Array.from(formData.keys()))
 
-      // In a production environment, you would:
-      // 1. Upload the file to a storage service (S3, Azure Blob, etc.)
-      // 2. Encrypt the file
-      // 3. Get back the storage URL
-      // For now, we'll create a placeholder URL
-      const mockFileUrl = `/uploads/${request.user.id}/${Date.now()}_${file.name}`
+        const file = formData.get("file") as File
+        const category = formData.get("category") as string
+        const description = formData.get("description") as string | null
 
-      fileData = {
-        fileName: file.name,
-        fileType: file.type,
-        category: category || 'other',
-        description: description || undefined,
-        fileUrl: mockFileUrl,
-        fileSize: file.size,
-        uploadDate: new Date(),
-        tags: [],
+        console.log("File:", file ? `${file.name} (${file.size} bytes, ${file.type})` : "null")
+        console.log("Category:", category)
+        console.log("Description:", description)
+
+        if (!file) {
+          console.error("No file provided in FormData")
+          throw new ApiError("No file provided", 400)
+        }
+
+        // In a production environment, you would:
+        // 1. Upload the file to a storage service (S3, Azure Blob, etc.)
+        // 2. Encrypt the file
+        // 3. Get back the storage URL
+        // For now, we'll create a placeholder URL
+        const mockFileUrl = `/uploads/${request.user.id}/${Date.now()}_${file.name}`
+        console.log("Generated mock URL:", mockFileUrl)
+
+        fileData = {
+          fileName: file.name,
+          fileType: file.type,
+          category: category || 'other',
+          description: description || undefined,
+          fileUrl: mockFileUrl,
+          fileSize: file.size,
+          uploadDate: new Date(),
+          tags: [],
+        }
+
+        console.log("File data prepared:", fileData)
+      } catch (error) {
+        console.error("Error processing FormData:", error)
+        throw error
       }
     } else {
       // Handle JSON request (existing behavior)
+      console.log("Processing as JSON")
       const body = await request.json()
       fileData = createMedicalFileSchema.parse(body)
+      console.log("JSON data parsed:", fileData)
     }
 
+    console.log("Creating database record...")
     const medicalFile = await prisma.medicalFile.create({
       data: {
         userId: request.user.id,
@@ -151,6 +177,7 @@ export const POST = apiHandler(
         tags: fileData.tags || [],
       },
     })
+    console.log("Database record created successfully:", medicalFile.id)
 
     // Log audit trail
     await logAuditTrail(
@@ -161,7 +188,9 @@ export const POST = apiHandler(
       { fileName: fileData.fileName, fileType: fileData.fileType, fileSize: fileData.fileSize },
       request
     )
+    console.log("Audit trail logged")
 
+    console.log("=== UPLOAD SUCCESSFUL ===")
     return successResponse(medicalFile, 201)
   },
   { requirePermission: Permission.WRITE_OWN_DATA }
