@@ -85,25 +85,60 @@ export const GET = apiHandler(
   { requireAuth: true }
 )
 
-// POST /api/v1/medical-files - Create medical file record
+// POST /api/v1/medical-files - Create medical file record (handles both JSON and FormData)
 export const POST = apiHandler(
   async (request) => {
-    const body = await request.json()
-    const data = createMedicalFileSchema.parse(body)
+    const contentType = request.headers.get("content-type") || ""
 
-    const file = await prisma.medicalFile.create({
+    let fileData: any
+
+    // Handle multipart/form-data (file upload)
+    if (contentType.includes("multipart/form-data")) {
+      const formData = await request.formData()
+      const file = formData.get("file") as File
+      const category = formData.get("category") as string
+      const description = formData.get("description") as string | null
+
+      if (!file) {
+        throw new ApiError(400, "No file provided")
+      }
+
+      // In a production environment, you would:
+      // 1. Upload the file to a storage service (S3, Azure Blob, etc.)
+      // 2. Encrypt the file
+      // 3. Get back the storage URL
+      // For now, we'll create a placeholder URL
+      const mockFileUrl = `/uploads/${request.user.id}/${Date.now()}_${file.name}`
+
+      fileData = {
+        fileName: file.name,
+        fileType: file.type,
+        category: category || 'other',
+        description: description || undefined,
+        fileUrl: mockFileUrl,
+        fileSize: file.size,
+        uploadDate: new Date(),
+        tags: [],
+      }
+    } else {
+      // Handle JSON request (existing behavior)
+      const body = await request.json()
+      fileData = createMedicalFileSchema.parse(body)
+    }
+
+    const medicalFile = await prisma.medicalFile.create({
       data: {
         userId: request.user.id,
-        fileName: data.fileName,
-        fileType: data.fileType,
-        category: data.category,
-        description: data.description,
-        fileUrl: data.fileUrl,
-        fileSize: data.fileSize,
-        uploadDate: data.uploadDate ? new Date(data.uploadDate) : new Date(),
-        date: data.date ? new Date(data.date) : undefined,
-        provider: data.provider,
-        tags: data.tags || [],
+        fileName: fileData.fileName,
+        fileType: fileData.fileType,
+        category: fileData.category,
+        description: fileData.description,
+        fileUrl: fileData.fileUrl,
+        fileSize: fileData.fileSize,
+        uploadDate: fileData.uploadDate ? new Date(fileData.uploadDate) : new Date(),
+        date: fileData.date ? new Date(fileData.date) : undefined,
+        provider: fileData.provider,
+        tags: fileData.tags || [],
       },
     })
 
@@ -112,12 +147,12 @@ export const POST = apiHandler(
       request.user.id,
       "CREATE",
       "MedicalFile",
-      file.id,
-      { fileName: data.fileName, fileType: data.fileType, fileSize: data.fileSize },
+      medicalFile.id,
+      { fileName: fileData.fileName, fileType: fileData.fileType, fileSize: fileData.fileSize },
       request
     )
 
-    return successResponse(file, 201)
+    return successResponse(medicalFile, 201)
   },
   { requirePermission: Permission.WRITE_OWN_DATA }
 )

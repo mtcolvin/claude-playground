@@ -11,12 +11,13 @@ interface MedicalFile {
   fileName: string
   fileType: string
   fileSize: number
-  uploadedAt: string
+  uploadDate: string
   category?: string
   description?: string
   tags?: string[]
   metadata?: Record<string, any>
-  encryptedUrl?: string
+  fileUrl?: string
+  encrypted?: boolean
 }
 
 interface UploadProgress {
@@ -148,7 +149,7 @@ export function MedicalFileUpload() {
 
   const loadFiles = async () => {
     try {
-      const response = await fetch('/api/v1/medical-files?sortBy=uploadedAt&sortOrder=desc')
+      const response = await fetch('/api/v1/medical-files?sortBy=uploadDate&sortOrder=desc')
       const data = await response.json()
       if (data.success) {
         setFiles(data.data)
@@ -227,7 +228,7 @@ export function MedicalFileUpload() {
           {uploadProgress.map((progress, idx) => (
             <div key={idx} className="space-y-1">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-gray-700">{progress.fileName}</span>
+                <span className="text-gray-900">{progress.fileName}</span>
                 <span className={`text-xs font-medium ${
                   progress.status === 'complete' ? 'text-green-600' :
                   progress.status === 'error' ? 'text-red-600' :
@@ -278,17 +279,17 @@ export function MedicalFileUpload() {
             d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
           />
         </svg>
-        <p className="mt-2 text-sm text-gray-600">
+        <p className="mt-2 text-sm text-gray-800">
           <span className="font-semibold">Click to upload</span> or drag and drop
         </p>
-        <p className="mt-1 text-xs text-gray-500">
+        <p className="mt-1 text-xs text-gray-800">
           DICOM, PDF, Images, Documents (up to 50MB each)
         </p>
 
         {/* Supported Formats */}
         <div className="mt-4 grid grid-cols-2 gap-2 max-w-2xl mx-auto text-left">
           {Object.entries(SUPPORTED_FORMATS).map(([category, extensions]) => (
-            <div key={category} className="text-xs text-gray-600">
+            <div key={category} className="text-xs text-gray-800">
               <span className="font-medium">{category}:</span> {extensions.join(', ')}
             </div>
           ))}
@@ -304,7 +305,7 @@ export function MedicalFileUpload() {
             className={`px-4 py-2 rounded-lg whitespace-nowrap flex items-center gap-2 ${
               filterCategory === cat.value
                 ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
             }`}
           >
             <span>{cat.icon}</span>
@@ -331,23 +332,23 @@ export function MedicalFileUpload() {
                     <div className="font-semibold text-gray-900 truncate">
                       {file.fileName}
                     </div>
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-gray-800">
                       {formatFileSize(file.fileSize)}
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-3 text-sm text-gray-600">
+                <div className="mt-3 text-sm text-gray-800">
                   <div className="flex items-center">
                     <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
                     </svg>
-                    {new Date(file.uploadedAt).toLocaleDateString()}
+                    {new Date(file.uploadDate).toLocaleDateString()}
                   </div>
                 </div>
 
                 {file.category && (
-                  <span className="inline-block mt-2 px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
+                  <span className="inline-block mt-2 px-2 py-1 bg-gray-100 text-gray-900 text-xs rounded">
                     {CATEGORIES.find(c => c.value === file.category)?.label || file.category}
                   </span>
                 )}
@@ -380,7 +381,7 @@ export function MedicalFileUpload() {
       </div>
 
       {filteredFiles.length === 0 && (
-        <div className="text-center py-12 text-gray-500">
+        <div className="text-center py-12 text-gray-800">
           No files found. Upload your first medical file to get started.
         </div>
       )}
@@ -392,11 +393,11 @@ export function MedicalFileUpload() {
             <div className="sticky top-0 bg-white border-b p-4 flex items-center justify-between">
               <div>
                 <h2 className="text-xl font-bold text-gray-900">{selectedFile.fileName}</h2>
-                <p className="text-sm text-gray-500">{formatFileSize(selectedFile.fileSize)}</p>
+                <p className="text-sm text-gray-800">{formatFileSize(selectedFile.fileSize)}</p>
               </div>
               <button
                 onClick={() => setSelectedFile(null)}
-                className="p-2 text-gray-400 hover:text-gray-600"
+                className="p-2 text-gray-400 hover:text-gray-800"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -408,18 +409,18 @@ export function MedicalFileUpload() {
               {/* File Metadata */}
               <div className="grid grid-cols-2 gap-4 mb-6 text-sm">
                 <div>
-                  <span className="text-gray-500">File Type:</span>{' '}
+                  <span className="text-gray-800">File Type:</span>{' '}
                   <span className="font-medium">{selectedFile.fileType}</span>
                 </div>
                 <div>
-                  <span className="text-gray-500">Uploaded:</span>{' '}
+                  <span className="text-gray-800">Uploaded:</span>{' '}
                   <span className="font-medium">
-                    {new Date(selectedFile.uploadedAt).toLocaleString()}
+                    {new Date(selectedFile.uploadDate).toLocaleString()}
                   </span>
                 </div>
                 {selectedFile.category && (
                   <div>
-                    <span className="text-gray-500">Category:</span>{' '}
+                    <span className="text-gray-800">Category:</span>{' '}
                     <span className="font-medium">
                       {CATEGORIES.find(c => c.value === selectedFile.category)?.label}
                     </span>
@@ -434,7 +435,7 @@ export function MedicalFileUpload() {
                   <div className="grid grid-cols-2 gap-2 text-sm">
                     {Object.entries(selectedFile.metadata).slice(0, 10).map(([key, value]) => (
                       <div key={key}>
-                        <span className="text-gray-500">{key}:</span>{' '}
+                        <span className="text-gray-800">{key}:</span>{' '}
                         <span className="font-medium">{String(value)}</span>
                       </div>
                     ))}
@@ -445,7 +446,7 @@ export function MedicalFileUpload() {
               {/* File Preview Placeholder */}
               <div className="bg-gray-100 rounded-lg p-12 text-center">
                 <span className="text-6xl">{getFileIcon(selectedFile.fileType)}</span>
-                <p className="mt-4 text-gray-600">
+                <p className="mt-4 text-gray-800">
                   {selectedFile.fileType.includes('dicom') && 'DICOM Viewer integration would render here'}
                   {selectedFile.fileType === 'application/pdf' && 'PDF Viewer would render here'}
                   {selectedFile.fileType.startsWith('image/') && 'Image preview would render here'}
@@ -462,7 +463,7 @@ export function MedicalFileUpload() {
               {selectedFile.description && (
                 <div className="mt-6 p-4 bg-blue-50 rounded-lg">
                   <h4 className="font-semibold text-gray-900 mb-1">Description</h4>
-                  <p className="text-gray-700 text-sm">{selectedFile.description}</p>
+                  <p className="text-gray-900 text-sm">{selectedFile.description}</p>
                 </div>
               )}
             </div>
