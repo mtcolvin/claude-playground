@@ -1,4 +1,3 @@
-import { NextRequest } from "next/server"
 import { prisma } from "@/lib/prisma"
 import { apiHandler, successResponse } from "@/lib/api-middleware"
 
@@ -126,9 +125,10 @@ export const GET = apiHandler(
 
     // Nutrition insights
     if (!category || category === "nutrition") {
-      const dailyCalories = nutritionData
-        .filter((n: any) => n.totalCalories)
-        .reduce((acc: number, n: any) => acc + (n.totalCalories || 0), 0) / Math.max(1, new Set(nutritionData.map((n: any) => n.date.toDateString())).size)
+      const nutritionWithCalories = nutritionData.filter((n: any) => n.totalCalories)
+      const totalCalories = nutritionWithCalories.reduce((acc: number, n: any) => acc + (n.totalCalories || 0), 0)
+      const uniqueDays = new Set(nutritionData.map((n: any) => n.date.toDateString())).size
+      const dailyCalories = totalCalories / Math.max(1, uniqueDays)
 
       if (nutritionData.length < 7) {
         insights.push({

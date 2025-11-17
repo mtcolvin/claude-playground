@@ -1,7 +1,16 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 import { apiHandler } from "@/lib/api-middleware"
 import { exportToCSV, exportToJSON, exportToPDF, exportToExcel } from "@/lib/export"
+
+interface ExportData {
+  metadata?: {
+    exportDate: string;
+    userId: string;
+    version: string;
+  };
+  [key: string]: unknown;
+}
 
 // GET /api/v1/export - Export health data
 export const GET = apiHandler(
@@ -13,14 +22,14 @@ export const GET = apiHandler(
     const endDate = searchParams.get("endDate")
 
     // Build date range filter
-    const dateFilter: any = {}
+    const dateFilter: Record<string, unknown> = {}
     if (startDate) dateFilter.gte = new Date(startDate)
     if (endDate) dateFilter.lte = new Date(endDate)
 
     const userId = request.user.id
 
     // Fetch data based on resource
-    let data: any
+    let data: ExportData | unknown[]
 
     if (resource === "all") {
       // Export all health data
@@ -105,7 +114,8 @@ export const GET = apiHandler(
       }
     } else {
       // Export specific resource
-      const resourceMap: Record<string, any> = {
+      type ResourceFetcher = () => Promise<unknown[]>
+      const resourceMap: Record<string, ResourceFetcher> = {
         metrics: () =>
           prisma.healthMetric.findMany({
             where: {
@@ -160,7 +170,7 @@ export const GET = apiHandler(
         extension = "pdf"
         break
       case "excel":
-        blob = exportToExcel(data)
+        blob = exportToExcel(data as any)
         contentType =
           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         extension = "xlsx"

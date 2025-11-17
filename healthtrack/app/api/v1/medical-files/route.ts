@@ -1,4 +1,3 @@
-import { NextRequest } from "next/server"
 import { prisma } from "@/lib/prisma"
 import {
   apiHandler,
@@ -11,6 +10,19 @@ import {
 } from "@/lib/api-middleware"
 import { Permission } from "@/lib/rbac"
 import { z } from "zod"
+
+interface FileData {
+  fileName: string;
+  fileType: string;
+  category: string;
+  description?: string;
+  fileUrl: string;
+  fileSize: number;
+  uploadDate?: Date | string;
+  date?: string;
+  provider?: string;
+  tags?: string[];
+}
 
 // Validation schemas
 const createMedicalFileSchema = z.object({
@@ -26,8 +38,6 @@ const createMedicalFileSchema = z.object({
   tags: z.array(z.string()).optional(),
 })
 
-const updateMedicalFileSchema = createMedicalFileSchema.partial()
-
 // GET /api/v1/medical-files - List medical files
 export const GET = apiHandler(
   async (request) => {
@@ -36,7 +46,7 @@ export const GET = apiHandler(
     const searchParams = request.nextUrl.searchParams
 
     // Build filter query
-    const where: any = {
+    const where: Record<string, unknown> = {
       userId: request.user.id,
     }
 
@@ -90,7 +100,7 @@ export const POST = apiHandler(
   async (request) => {
     const contentType = request.headers.get("content-type") || ""
 
-    let fileData: any
+    let fileData: FileData
 
     // Handle multipart/form-data (file upload)
     if (contentType.includes("multipart/form-data")) {

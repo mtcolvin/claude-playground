@@ -1,6 +1,40 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Anthropic from '@anthropic-ai/sdk';
 
+interface Medication {
+  name: string;
+  dosage: string;
+}
+
+interface HealthMetric {
+  type: string;
+  value: number;
+  unit: string;
+  date: string;
+  notes?: string;
+}
+
+interface LabResultItem {
+  biomarker: string;
+  value: number;
+  unit: string;
+  normalRange: string;
+  status: string;
+}
+
+interface LabResult {
+  testName: string;
+  date: string;
+  results: LabResultItem[];
+}
+
+interface Profile {
+  dateOfBirth?: string;
+  gender?: string;
+  conditions?: string[];
+  medications?: Medication[];
+}
+
 export async function POST(request: NextRequest) {
   try {
     const { metrics, profile, labResults } = await request.json();
@@ -26,7 +60,7 @@ Demographics:
 - Age: ${profile?.dateOfBirth ? calculateAge(profile.dateOfBirth) : 'Unknown'}
 - Gender: ${profile?.gender || 'Unknown'}
 - Medical Conditions: ${profile?.conditions?.join(', ') || 'None reported'}
-- Current Medications: ${profile?.medications?.map((m: any) => `${m.name} (${m.dosage})`).join(', ') || 'None'}
+- Current Medications: ${profile?.medications?.map((m: Medication) => `${m.name} (${m.dosage})`).join(', ') || 'None'}
 
 Recent Health Metrics (last 30 days):
 ${formatMetricsForAI(metrics)}
@@ -100,38 +134,38 @@ function calculateAge(dateOfBirth: string): number {
   return age;
 }
 
-function formatMetricsForAI(metrics: any[]): string {
+function formatMetricsForAI(metrics: HealthMetric[]): string {
   if (!metrics || metrics.length === 0) return 'No metrics recorded';
 
   // Group by type
-  const grouped = metrics.reduce((acc: any, metric: any) => {
+  const grouped = metrics.reduce((acc: Record<string, HealthMetric[]>, metric: HealthMetric) => {
     if (!acc[metric.type]) {
       acc[metric.type] = [];
     }
     acc[metric.type].push(metric);
     return acc;
-  }, {});
+  }, {} as Record<string, HealthMetric[]>);
 
   return Object.entries(grouped)
-    .map(([type, values]: [string, any]) => {
-      const sortedValues = values.sort((a: any, b: any) =>
+    .map(([type, values]: [string, HealthMetric[]]) => {
+      const sortedValues = values.sort((a: HealthMetric, b: HealthMetric) =>
         new Date(b.date).getTime() - new Date(a.date).getTime()
       ).slice(0, 5); // Last 5 readings
 
-      return `${type}:\n${sortedValues.map((v: any) =>
+      return `${type}:\n${sortedValues.map((v: HealthMetric) =>
         `  - ${v.date}: ${v.value} ${v.unit}${v.notes ? ` (${v.notes})` : ''}`
       ).join('\n')}`;
     })
     .join('\n\n');
 }
 
-function formatLabResultsForAI(labResults: any[]): string {
+function formatLabResultsForAI(labResults: LabResult[]): string {
   if (!labResults || labResults.length === 0) return 'No lab results available';
 
   return labResults
-    .map((result: any) => {
+    .map((result: LabResult) => {
       const items = result.results
-        .map((item: any) =>
+        .map((item: LabResultItem) =>
           `  - ${item.biomarker}: ${item.value} ${item.unit} (Normal: ${item.normalRange}) [${item.status}]`
         )
         .join('\n');

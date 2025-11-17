@@ -1,6 +1,7 @@
-import { NextRequest } from "next/server"
 import { prisma } from "@/lib/prisma"
 import { apiHandler, successResponse } from "@/lib/api-middleware"
+
+type MoodEntry = { mood: string; [key: string]: unknown }
 
 // GET /api/v1/dashboard/stats - Get dashboard statistics
 export const GET = apiHandler(
@@ -66,7 +67,7 @@ export const GET = apiHandler(
 
     // Calculate average mood for the week
     const avgMood = recentMoodEntries.length > 0
-      ? recentMoodEntries.reduce((acc: number, entry: any) => {
+      ? recentMoodEntries.reduce((acc: number, entry: MoodEntry) => {
           const moodValues: Record<string, number> = {
             poor: 1,
             low: 2,

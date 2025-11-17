@@ -1,4 +1,3 @@
-import { NextRequest } from "next/server"
 import { prisma } from "@/lib/prisma"
 import {
   apiHandler,
@@ -29,7 +28,7 @@ export const GET = apiHandler(
     const { sortBy, sortOrder } = getSortParams(request, "diagnosedDate")
     const searchParams = request.nextUrl.searchParams
 
-    const where: any = { userId: request.user.id }
+    const where: Record<string, unknown> = { userId: request.user.id }
 
     const status = searchParams.get("status")
     if (status) {

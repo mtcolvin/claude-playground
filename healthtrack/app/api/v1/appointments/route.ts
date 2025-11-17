@@ -1,4 +1,3 @@
-import { NextRequest } from "next/server"
 import { prisma } from "@/lib/prisma"
 import {
   apiHandler,
@@ -7,7 +6,6 @@ import {
   getPaginationParams,
   getSortParams,
   logAuditTrail,
-  ApiError,
 } from "@/lib/api-middleware"
 import { Permission } from "@/lib/rbac"
 import { z } from "zod"
@@ -30,8 +28,6 @@ const createAppointmentSchema = z.object({
   notes: z.string().optional(),
 })
 
-const updateAppointmentSchema = createAppointmentSchema.partial()
-
 // GET /api/v1/appointments - List appointments
 export const GET = apiHandler(
   async (request) => {
@@ -40,7 +36,7 @@ export const GET = apiHandler(
     const searchParams = request.nextUrl.searchParams
 
     // Build filter query
-    const where: any = {
+    const where: Record<string, unknown> = {
       userId: request.user.id,
     }
 
@@ -60,9 +56,10 @@ export const GET = apiHandler(
     const startDate = searchParams.get("startDate")
     const endDate = searchParams.get("endDate")
     if (startDate || endDate) {
-      where.date = {}
-      if (startDate) where.date.gte = new Date(startDate)
-      if (endDate) where.date.lte = new Date(endDate)
+      const dateFilter: Record<string, Date> = {}
+      if (startDate) dateFilter.gte = new Date(startDate)
+      if (endDate) dateFilter.lte = new Date(endDate)
+      where.date = dateFilter
     }
 
     // Search by provider or title

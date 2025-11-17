@@ -1,4 +1,3 @@
-import { NextRequest } from "next/server"
 import { prisma } from "@/lib/prisma"
 import {
   apiHandler,
@@ -7,11 +6,6 @@ import {
   getPaginationParams,
   getSortParams,
 } from "@/lib/api-middleware"
-import { z } from "zod"
-
-// Define NotificationType locally
-const NotificationType = z.enum(["MEDICATION_REMINDER", "APPOINTMENT_REMINDER", "HEALTH_ALERT", "SYSTEM", "OTHER"])
-type NotificationTypeEnum = z.infer<typeof NotificationType>
 
 // GET /api/v1/notifications - List notifications
 export const GET = apiHandler(
@@ -20,7 +14,7 @@ export const GET = apiHandler(
     const { sortBy, sortOrder } = getSortParams(request, "createdAt")
     const searchParams = request.nextUrl.searchParams
 
-    const where: any = { userId: request.user.id }
+    const where: Record<string, unknown> = { userId: request.user.id }
 
     const read = searchParams.get("read")
     if (read !== null) {
@@ -29,7 +23,7 @@ export const GET = apiHandler(
 
     const type = searchParams.get("type")
     if (type) {
-      where.type = type as NotificationTypeEnum
+      where.type = type
     }
 
     const [notifications, total] = await Promise.all([

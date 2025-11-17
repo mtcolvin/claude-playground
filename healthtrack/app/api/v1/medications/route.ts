@@ -1,4 +1,3 @@
-import { NextRequest } from "next/server"
 import { prisma } from "@/lib/prisma"
 import {
   apiHandler,
@@ -7,7 +6,6 @@ import {
   getPaginationParams,
   getSortParams,
   logAuditTrail,
-  ApiError,
 } from "@/lib/api-middleware"
 import { Permission } from "@/lib/rbac"
 import { z } from "zod"
@@ -32,8 +30,6 @@ const createMedicationSchema = z.object({
   isActive: z.boolean().default(true),
 })
 
-const updateMedicationSchema = createMedicationSchema.partial()
-
 // GET /api/v1/medications - List medications
 export const GET = apiHandler(
   async (request) => {
@@ -42,7 +38,7 @@ export const GET = apiHandler(
     const searchParams = request.nextUrl.searchParams
 
     // Build filter query
-    const where: any = {
+    const where: Record<string, unknown> = {
       userId: request.user.id,
     }
 

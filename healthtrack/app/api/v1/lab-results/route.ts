@@ -1,4 +1,3 @@
-import { NextRequest } from "next/server"
 import { prisma } from "@/lib/prisma"
 import {
   apiHandler,
@@ -7,7 +6,6 @@ import {
   getPaginationParams,
   getSortParams,
   logAuditTrail,
-  ApiError,
 } from "@/lib/api-middleware"
 import { Permission } from "@/lib/rbac"
 import { z } from "zod"
@@ -28,8 +26,6 @@ const createLabResultSchema = z.object({
   notes: z.string().optional(),
   fileId: z.string().optional(),
 })
-
-const updateLabResultSchema = createLabResultSchema.partial()
 
 // GET /api/v1/lab-results - List lab results
 export const GET = apiHandler(

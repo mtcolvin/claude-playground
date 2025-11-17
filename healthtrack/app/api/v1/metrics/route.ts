@@ -1,4 +1,3 @@
-import { NextRequest } from "next/server"
 import { prisma } from "@/lib/prisma"
 import {
   apiHandler,
@@ -7,7 +6,6 @@ import {
   getPaginationParams,
   getSortParams,
   logAuditTrail,
-  ApiError,
 } from "@/lib/api-middleware"
 import { Permission } from "@/lib/rbac"
 import { z } from "zod"
@@ -20,10 +18,8 @@ const createMetricSchema = z.object({
   date: z.string().datetime().optional(),
   notes: z.string().optional(),
   source: z.string().optional(),
-  metadata: z.record(z.any()).optional(),
+  metadata: z.record(z.unknown()).optional(),
 })
-
-const updateMetricSchema = createMetricSchema.partial()
 
 // GET /api/v1/metrics - List health metrics
 export const GET = apiHandler(
