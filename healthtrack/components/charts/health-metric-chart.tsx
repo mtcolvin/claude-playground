@@ -22,7 +22,7 @@ import {
 
 interface DataPoint {
   date: string
-  value: number
+  value?: number
   label?: string
   [key: string]: any
 }
