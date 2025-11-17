@@ -216,11 +216,11 @@ export async function globalSearch(
           userId,
           OR: [
             { testName: { contains: query, mode: 'insensitive' } },
-            { category: { contains: query, mode: 'insensitive' } },
+            { notes: { contains: query, mode: 'insensitive' } },
           ],
         },
         take: limit,
-        orderBy: { testDate: 'desc' },
+        orderBy: { date: 'desc' },
       }),
       prisma.appointment.findMany({
         where: {
