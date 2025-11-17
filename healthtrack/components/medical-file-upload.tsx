@@ -4,7 +4,8 @@
 
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
+import { getMedicalFiles, addMedicalFile, deleteMedicalFile } from '@/lib/storage'
 
 interface MedicalFile {
   id: string
@@ -17,6 +18,7 @@ interface MedicalFile {
   tags?: string[]
   metadata?: Record<string, any>
   encryptedUrl?: string
+  fileUrl?: string
 }
 
 interface UploadProgress {
@@ -34,6 +36,11 @@ export function MedicalFileUpload() {
   const [isUploading, setIsUploading] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // Load files from localStorage on mount
+  useEffect(() => {
+    loadFiles()
+  }, [])
 
   const CATEGORIES = [
     { value: 'all', label: 'All Files', icon: '📁' },
@@ -97,27 +104,11 @@ export function MedicalFileUpload() {
           idx === i ? { ...p, progress: 10, status: 'uploading' } : p
         ))
 
-        // Create FormData
-        const formData = new FormData()
-        formData.append('file', file)
-        formData.append('category', 'other') // Would come from user selection in full implementation
-
         // Simulate upload progress
+        await new Promise(resolve => setTimeout(resolve, 300))
         setUploadProgress(prev => prev.map((p, idx) =>
           idx === i ? { ...p, progress: 50 } : p
         ))
-
-        // Upload file
-        const response = await fetch('/api/v1/medical-files', {
-          method: 'POST',
-          body: formData,
-        })
-
-        if (!response.ok) {
-          throw new Error('Upload failed')
-        }
-
-        const data = await response.json()
 
         // Update to encrypting
         setUploadProgress(prev => prev.map((p, idx) =>
@@ -127,14 +118,24 @@ export function MedicalFileUpload() {
         // Simulate encryption time
         await new Promise(resolve => setTimeout(resolve, 500))
 
+        // Store file metadata in localStorage (demo mode)
+        const newFile = addMedicalFile({
+          fileName: file.name,
+          fileType: file.type || 'application/octet-stream',
+          fileSize: file.size,
+          uploadedAt: new Date().toISOString(),
+          category: 'other', // Default category
+          description: '',
+          tags: [],
+          fileUrl: URL.createObjectURL(file), // Create temporary URL for demo
+        })
+
         // Complete
         setUploadProgress(prev => prev.map((p, idx) =>
           idx === i ? { ...p, progress: 100, status: 'complete' } : p
         ))
 
-        if (data.success) {
-          setFiles(prev => [data.data, ...prev])
-        }
+        setFiles(prev => [newFile, ...prev])
       } catch (error) {
         setUploadProgress(prev => prev.map((p, idx) =>
           idx === i ? { ...p, status: 'error', error: 'Upload failed' } : p
@@ -146,31 +147,23 @@ export function MedicalFileUpload() {
     setTimeout(() => setUploadProgress([]), 3000)
   }
 
-  const loadFiles = async () => {
+  const loadFiles = () => {
     try {
-      const response = await fetch('/api/v1/medical-files?sortBy=uploadedAt&sortOrder=desc')
-      const data = await response.json()
-      if (data.success) {
-        setFiles(data.data)
-      }
+      const loadedFiles = getMedicalFiles()
+      setFiles(loadedFiles)
     } catch (error) {
       console.error('Failed to load files:', error)
     }
   }
 
-  const deleteFile = async (fileId: string) => {
+  const handleDeleteFile = (fileId: string) => {
     if (!confirm('Are you sure you want to delete this file?')) return
 
     try {
-      const response = await fetch(`/api/v1/medical-files/${fileId}`, {
-        method: 'DELETE',
-      })
-
-      if (response.ok) {
-        setFiles(prev => prev.filter(f => f.id !== fileId))
-        if (selectedFile?.id === fileId) {
-          setSelectedFile(null)
-        }
+      deleteMedicalFile(fileId)
+      setFiles(prev => prev.filter(f => f.id !== fileId))
+      if (selectedFile?.id === fileId) {
+        setSelectedFile(null)
       }
     } catch (error) {
       console.error('Failed to delete file:', error)
@@ -367,7 +360,7 @@ export function MedicalFileUpload() {
               <button
                 onClick={(e) => {
                   e.stopPropagation()
-                  deleteFile(file.id)
+                  handleDeleteFile(file.id)
                 }}
                 className="p-1 text-red-400 hover:text-red-600"
               >

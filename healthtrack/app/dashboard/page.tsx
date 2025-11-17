@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { MedicalFileUpload } from '@/components/medical-file-upload';
 import {
   getHealthMetrics,
   addHealthMetric,
@@ -423,36 +424,7 @@ export default function DashboardPage() {
 
         {activeTab === 'files' && (
           <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h1 className="text-3xl font-bold mb-2">Medical Files</h1>
-                <p className="text-gray-800">Upload and manage your medical documents, scans, and lab reports</p>
-              </div>
-              <Button variant="primary">Upload File</Button>
-            </div>
-
-            {/* Upload Area */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Upload Medical Files</CardTitle>
-                <CardDescription>
-                  Supports DICOM scans, PDF lab reports, images, and more
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center hover:border-blue-500 transition-colors cursor-pointer">
-                  <svg className="w-12 h-12 text-gray-800 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                  </svg>
-                  <p className="text-lg font-medium mb-2">Drag and drop files here</p>
-                  <p className="text-gray-800 mb-4">or click to browse</p>
-                  <Button variant="outline">Select Files</Button>
-                </div>
-                <p className="text-sm text-gray-700 mt-4">
-                  This is a demo interface. In production, files would be uploaded to secure cloud storage.
-                </p>
-              </CardContent>
-            </Card>
+            <MedicalFileUpload />
 
             {/* Recent Lab Results */}
             <div>
