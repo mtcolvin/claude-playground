@@ -66,7 +66,7 @@ export const GET = apiHandler(
 
     // Calculate average mood for the week
     const avgMood = recentMoodEntries.length > 0
-      ? recentMoodEntries.reduce((acc, entry) => {
+      ? recentMoodEntries.reduce((acc: number, entry: any) => {
           const moodValues: Record<string, number> = {
             poor: 1,
             low: 2,

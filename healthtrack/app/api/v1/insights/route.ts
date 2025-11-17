@@ -59,7 +59,7 @@ export const GET = apiHandler(
       }
 
       const avgSleepQuality = sleepData.length > 0
-        ? sleepData.reduce((acc, s) => acc + qualityToNumber(s.quality), 0) / sleepData.length
+        ? sleepData.reduce((acc: number, s: any) => acc + qualityToNumber(s.quality), 0) / sleepData.length
         : 0
 
       if (avgSleepQuality < 6) {
@@ -81,7 +81,7 @@ export const GET = apiHandler(
     // Exercise insights
     if (!category || category === "exercise") {
       const weeklyExercise = exerciseData.filter(
-        e => new Date(e.date) >= new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+        (e: any) => new Date(e.date) >= new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
       ).length
 
       if (weeklyExercise < 3) {
@@ -103,7 +103,7 @@ export const GET = apiHandler(
     // Mood insights
     if (!category || category === "mood") {
       const recentMoods = moodData.slice(0, 7)
-      const lowMoodCount = recentMoods.filter(m =>
+      const lowMoodCount = recentMoods.filter((m: any) =>
         m.mood === "BAD" || m.mood === "VERY_BAD"
       ).length
 
@@ -127,8 +127,8 @@ export const GET = apiHandler(
     // Nutrition insights
     if (!category || category === "nutrition") {
       const dailyCalories = nutritionData
-        .filter(n => n.totalCalories)
-        .reduce((acc, n) => acc + (n.totalCalories || 0), 0) / Math.max(1, new Set(nutritionData.map(n => n.date.toDateString())).size)
+        .filter((n: any) => n.totalCalories)
+        .reduce((acc: number, n: any) => acc + (n.totalCalories || 0), 0) / Math.max(1, new Set(nutritionData.map((n: any) => n.date.toDateString())).size)
 
       if (nutritionData.length < 7) {
         insights.push({

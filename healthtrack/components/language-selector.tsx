@@ -44,7 +44,7 @@ export function LanguageSelector() {
       <div>
         <h1 className="text-3xl font-bold mb-2 flex items-center gap-2">
           <Globe className="h-8 w-8 text-blue-600" />
-          {i18n.t('language_settings')}
+          Language Settings
         </h1>
         <p className="text-muted-foreground">
           Choose your preferred language and regional settings
@@ -64,7 +64,7 @@ export function LanguageSelector() {
             <div className="p-4 border rounded-lg">
               <p className="text-sm text-muted-foreground mb-1">Language</p>
               <p className="font-semibold text-lg">{localeInfo[currentLocale].nativeName}</p>
-              <p className="text-xs text-muted-foreground">{localeInfo[currentLocale].englishName}</p>
+              <p className="text-xs text-muted-foreground">{localeInfo[currentLocale].name}</p>
             </div>
 
             <div className="p-4 border rounded-lg">
@@ -120,7 +120,7 @@ export function LanguageSelector() {
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex-1">
                       <p className="font-semibold text-lg">{info.nativeName}</p>
-                      <p className="text-xs text-muted-foreground">{info.englishName}</p>
+                      <p className="text-xs text-muted-foreground">{info.name}</p>
                     </div>
                     {isSelected && (
                       <Check className="h-5 w-5 text-blue-600 flex-shrink-0" />
@@ -220,7 +220,7 @@ export function LanguageSelector() {
                   <span className="font-medium">
                     {localeInfo[currentLocale].measurementSystem === 'metric'
                       ? '175.0 cm'
-                      : `${i18n.convertHeight(175, 'cm', 'in').toFixed(1)} inches`}
+                      : `${i18n.convertHeight(175, 'cm', 'inches').toFixed(1)} inches`}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -274,12 +274,12 @@ export function LanguageSelector() {
         </CardHeader>
         <CardContent>
           <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
-            {(['dashboard', 'appointments', 'medications', 'metrics', 'reports', 'settings'] as (keyof TranslationKeys)[]).map((key) => (
+            {(['nav.dashboard', 'nav.appointments', 'nav.medications', 'nav.metrics', 'nav.reports', 'nav.settings'] as (keyof TranslationKeys)[]).map((key) => (
               <div key={key} className="flex items-center gap-2 p-2 border rounded">
                 <Check className="h-4 w-4 text-green-600 flex-shrink-0" />
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium truncate">{i18n.t(key)}</p>
-                  <p className="text-xs text-muted-foreground capitalize">{key}</p>
+                  <p className="text-xs text-muted-foreground capitalize">{key.split('.')[1]}</p>
                 </div>
               </div>
             ))}
