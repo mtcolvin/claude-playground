@@ -6,20 +6,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { getMedicalFiles, addMedicalFile, deleteMedicalFile } from '@/lib/storage'
-
-interface MedicalFile {
-  id: string
-  fileName: string
-  fileType: string
-  fileSize: number
-  uploadedAt: string
-  category?: string
-  description?: string
-  tags?: string[]
-  metadata?: Record<string, any>
-  encryptedUrl?: string
-  fileUrl?: string
-}
+import type { MedicalFile } from '@/lib/types'
 
 interface UploadProgress {
   fileName: string
@@ -120,14 +107,19 @@ export function MedicalFileUpload() {
 
         // Store file metadata in localStorage (demo mode)
         const newFile = addMedicalFile({
-          fileName: file.name,
-          fileType: file.type || 'application/octet-stream',
+          name: file.name,
+          type: file.type.startsWith('image/') ? 'image' :
+                file.type === 'application/pdf' ? 'pdf' :
+                file.type.includes('dicom') ? 'dicom' : 'other',
           fileSize: file.size,
-          uploadedAt: new Date().toISOString(),
-          category: 'other', // Default category
-          description: '',
-          tags: [],
+          uploadDate: new Date().toISOString(),
           fileUrl: URL.createObjectURL(file), // Create temporary URL for demo
+          metadata: {
+            mimeType: file.type || 'application/octet-stream',
+            category: 'other',
+            tags: [],
+            description: '',
+          },
         })
 
         // Complete
@@ -176,18 +168,19 @@ export function MedicalFileUpload() {
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
   }
 
-  const getFileIcon = (fileType: string): string => {
-    if (fileType.includes('dicom') || fileType === 'application/dicom') return '🏥'
-    if (fileType.startsWith('image/')) return '🖼️'
-    if (fileType === 'application/pdf') return '📄'
-    if (fileType.includes('sheet') || fileType.includes('excel')) return '📊'
-    if (fileType.includes('word') || fileType.includes('document')) return '📝'
+  const getFileIcon = (file: MedicalFile): string => {
+    const mimeType = file.metadata?.mimeType || ''
+    if (file.type === 'dicom' || mimeType.includes('dicom')) return '🏥'
+    if (file.type === 'image' || mimeType.startsWith('image/')) return '🖼️'
+    if (file.type === 'pdf' || mimeType === 'application/pdf') return '📄'
+    if (mimeType.includes('sheet') || mimeType.includes('excel')) return '📊'
+    if (mimeType.includes('word') || mimeType.includes('document')) return '📝'
     return '📎'
   }
 
   const filteredFiles = filterCategory === 'all'
     ? files
-    : files.filter(f => f.category === filterCategory)
+    : files.filter(f => f.metadata?.category === filterCategory)
 
   return (
     <div className="space-y-6">
@@ -320,10 +313,10 @@ export function MedicalFileUpload() {
             <div className="flex items-start justify-between">
               <div className="flex-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-2xl">{getFileIcon(file.fileType)}</span>
+                  <span className="text-2xl">{getFileIcon(file)}</span>
                   <div className="flex-1 min-w-0">
                     <div className="font-semibold text-gray-900 truncate">
-                      {file.fileName}
+                      {file.name}
                     </div>
                     <div className="text-sm text-gray-700">
                       {formatFileSize(file.fileSize)}
@@ -336,19 +329,19 @@ export function MedicalFileUpload() {
                     <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
                     </svg>
-                    {new Date(file.uploadedAt).toLocaleDateString()}
+                    {new Date(file.uploadDate).toLocaleDateString()}
                   </div>
                 </div>
 
-                {file.category && (
+                {file.metadata?.category && (
                   <span className="inline-block mt-2 px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
-                    {CATEGORIES.find(c => c.value === file.category)?.label || file.category}
+                    {CATEGORIES.find(c => c.value === file.metadata?.category)?.label || file.metadata?.category}
                   </span>
                 )}
 
-                {file.tags && file.tags.length > 0 && (
+                {file.metadata?.tags && file.metadata?.tags.length > 0 && (
                   <div className="flex flex-wrap gap-1 mt-2">
-                    {file.tags.map((tag, idx) => (
+                    {file.metadata?.tags.map((tag, idx) => (
                       <span key={idx} className="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded">
                         {tag}
                       </span>
@@ -385,7 +378,7 @@ export function MedicalFileUpload() {
           <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-auto">
             <div className="sticky top-0 bg-white border-b p-4 flex items-center justify-between">
               <div>
-                <h2 className="text-xl font-bold text-gray-900">{selectedFile.fileName}</h2>
+                <h2 className="text-xl font-bold text-gray-900">{selectedFile.name}</h2>
                 <p className="text-sm text-gray-700">{formatFileSize(selectedFile.fileSize)}</p>
               </div>
               <button
@@ -403,26 +396,26 @@ export function MedicalFileUpload() {
               <div className="grid grid-cols-2 gap-4 mb-6 text-sm">
                 <div>
                   <span className="text-gray-700">File Type:</span>{' '}
-                  <span className="font-medium">{selectedFile.fileType}</span>
+                  <span className="font-medium">{selectedFile.type}</span>
                 </div>
                 <div>
                   <span className="text-gray-700">Uploaded:</span>{' '}
                   <span className="font-medium">
-                    {new Date(selectedFile.uploadedAt).toLocaleString()}
+                    {new Date(selectedFile.uploadDate).toLocaleString()}
                   </span>
                 </div>
-                {selectedFile.category && (
+                {selectedFile.metadata?.category && (
                   <div>
                     <span className="text-gray-700">Category:</span>{' '}
                     <span className="font-medium">
-                      {CATEGORIES.find(c => c.value === selectedFile.category)?.label}
+                      {CATEGORIES.find(c => c.value === selectedFile.metadata?.category)?.label}
                     </span>
                   </div>
                 )}
               </div>
 
               {/* DICOM Metadata (if applicable) */}
-              {selectedFile.fileType.includes('dicom') && selectedFile.metadata && (
+              {selectedFile.type === 'dicom' && selectedFile.metadata && (
                 <div className="mb-6 p-4 bg-gray-50 rounded-lg">
                   <h3 className="font-semibold text-gray-900 mb-2">DICOM Metadata</h3>
                   <div className="grid grid-cols-2 gap-2 text-sm">
@@ -438,25 +431,22 @@ export function MedicalFileUpload() {
 
               {/* File Preview Placeholder */}
               <div className="bg-gray-100 rounded-lg p-12 text-center">
-                <span className="text-6xl">{getFileIcon(selectedFile.fileType)}</span>
+                <span className="text-6xl">{getFileIcon(selectedFile)}</span>
                 <p className="mt-4 text-gray-800">
-                  {selectedFile.fileType.includes('dicom') && 'DICOM Viewer integration would render here'}
-                  {selectedFile.fileType === 'application/pdf' && 'PDF Viewer would render here'}
-                  {selectedFile.fileType.startsWith('image/') && 'Image preview would render here'}
-                  {!selectedFile.fileType.includes('dicom') &&
-                   selectedFile.fileType !== 'application/pdf' &&
-                   !selectedFile.fileType.startsWith('image/') &&
-                   'File preview not available for this type'}
+                  {selectedFile.type === 'dicom' && 'DICOM Viewer integration would render here'}
+                  {selectedFile.type === 'pdf' && 'PDF Viewer would render here'}
+                  {selectedFile.type === 'image' && 'Image preview would render here'}
+                  {selectedFile.type === 'other' && 'File preview not available for this type'}
                 </p>
                 <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
                   Download File
                 </button>
               </div>
 
-              {selectedFile.description && (
+              {selectedFile.metadata?.description && (
                 <div className="mt-6 p-4 bg-blue-50 rounded-lg">
                   <h4 className="font-semibold text-gray-900 mb-1">Description</h4>
-                  <p className="text-gray-700 text-sm">{selectedFile.description}</p>
+                  <p className="text-gray-700 text-sm">{selectedFile.metadata?.description}</p>
                 </div>
               )}
             </div>
