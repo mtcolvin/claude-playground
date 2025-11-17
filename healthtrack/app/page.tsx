@@ -33,7 +33,7 @@ export default function HomePage() {
           Your Personal Health Records,
           <span className="text-blue-600"> AI-Powered Insights</span>
         </h1>
-        <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+        <p className="text-xl text-gray-800 mb-8 max-w-2xl mx-auto">
           Store all your medical records, lab results, and DICOM scans in one secure place.
           Get intelligent insights powered by advanced AI to understand your health better.
         </p>
@@ -142,7 +142,7 @@ export default function HomePage() {
       {/* Pricing Section */}
       <section className="container mx-auto px-4 py-20 bg-gray-50 rounded-3xl">
         <h2 className="text-3xl font-bold text-center mb-4">Simple, Transparent Pricing</h2>
-        <p className="text-center text-gray-600 mb-12">Choose the plan that works best for you</p>
+        <p className="text-center text-gray-800 mb-12">Choose the plan that works best for you</p>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {/* Free Plan */}
@@ -151,7 +151,7 @@ export default function HomePage() {
               <CardTitle className="text-2xl">Free</CardTitle>
               <div className="mt-4">
                 <span className="text-4xl font-bold">$0</span>
-                <span className="text-gray-600">/month</span>
+                <span className="text-gray-800">/month</span>
               </div>
             </CardHeader>
             <CardContent>
@@ -198,7 +198,7 @@ export default function HomePage() {
               <CardTitle className="text-2xl">Pro</CardTitle>
               <div className="mt-4">
                 <span className="text-4xl font-bold">$9.99</span>
-                <span className="text-gray-600">/month</span>
+                <span className="text-gray-800">/month</span>
               </div>
             </CardHeader>
             <CardContent>
@@ -254,7 +254,7 @@ export default function HomePage() {
               <CardTitle className="text-2xl">Enterprise</CardTitle>
               <div className="mt-4">
                 <span className="text-4xl font-bold">$29.99</span>
-                <span className="text-gray-600">/month</span>
+                <span className="text-gray-800">/month</span>
               </div>
             </CardHeader>
             <CardContent>
@@ -308,7 +308,7 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="container mx-auto px-4 py-12 mt-20 border-t">
-        <div className="text-center text-gray-600">
+        <div className="text-center text-gray-800">
           <p>&copy; 2024 HealthTrack AI. Your health, intelligently managed.</p>
           <p className="mt-2 text-sm">HIPAA-compliant | Secure | Private</p>
         </div>
