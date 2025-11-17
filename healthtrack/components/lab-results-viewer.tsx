@@ -44,7 +44,7 @@ export function LabResultsViewer() {
     }
   }
 
-  const categories = ['all', ...new Set(labResults.map(r => r.category).filter(Boolean))]
+  const categories = ['all', ...new Set(labResults.map(r => r.category).filter(Boolean) as string[])]
   const filteredResults = filterCategory === 'all'
     ? labResults
     : labResults.filter(r => r.category === filterCategory)
