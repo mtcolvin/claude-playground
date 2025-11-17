@@ -398,10 +398,8 @@ export async function saveSearch(
     data: {
       userId,
       name,
-      query: config.query || '',
-      filters: config.filters as any,
-      sortBy: config.sort?.field,
-      sortOrder: config.sort?.order,
+      query: config as any, // Store entire config as JSON
+      category: config.filters?.categories?.[0], // Store first category if exists
     },
   })
 }
@@ -412,16 +410,16 @@ export async function saveSearch(
 export async function getSavedSearches(userId: string): Promise<any[]> {
   return await prisma.savedSearch.findMany({
     where: { userId },
-    orderBy: { lastUsed: 'desc' },
+    orderBy: { createdAt: 'desc' },
   })
 }
 
 /**
  * Update saved search last used timestamp
+ * Note: SavedSearch model doesn't have lastUsed field, so this is a no-op
  */
 export async function updateSearchUsage(searchId: string): Promise<void> {
-  await prisma.savedSearch.update({
-    where: { id: searchId },
-    data: { lastUsed: new Date() },
-  })
+  // No-op: SavedSearch model doesn't have lastUsed field
+  // This function is kept for API compatibility
+  return Promise.resolve()
 }
