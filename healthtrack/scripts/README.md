@@ -1,6 +1,24 @@
 # Automation Scripts
 
-These scripts help automate error detection and fixing during development.
+These scripts help automate error detection, fixing, and deployment monitoring.
+
+## 🚀 Recommended Workflow
+
+**This prevents deploying broken code to Vercel:**
+
+```bash
+# 1. Check for errors before pushing
+npm run type-check:save
+
+# 2. Tell Claude to fix them
+"check the type errors"
+
+# 3. Claude fixes, commits, and pushes
+# 4. Vercel auto-deploys ✅
+
+# 5. (Optional) Check Vercel deployment status
+./scripts/check-vercel-status.sh
+```
 
 ## Quick Start
 
@@ -21,6 +39,12 @@ Continuously monitors and reports errors as you save files
 ./scripts/auto-fix-loop.sh
 ```
 Runs continuous monitoring and only reports when errors change
+
+### Option 4: Check Vercel Deployment
+```bash
+./scripts/check-vercel-status.sh
+```
+Checks latest Vercel deployment status and saves error logs if failed
 
 ## Git Hooks
 
