@@ -82,7 +82,7 @@ export async function deriveKeyFromPassword(
   const derivedKey = await crypto.subtle.deriveKey(
     {
       name: 'PBKDF2',
-      salt: keySalt,
+      salt: keySalt as any,
       iterations: ENCRYPTION_CONFIG.pbkdf2Iterations,
       hash: 'SHA-256',
     },
@@ -119,7 +119,7 @@ export async function encrypt(
 
   return {
     ciphertext: arrayBufferToBase64(ciphertext),
-    iv: arrayBufferToBase64(iv),
+    iv: arrayBufferToBase64(iv.buffer),
   }
 }
 
@@ -199,7 +199,7 @@ export async function encryptFile(
 
   return {
     encryptedData: new Blob([encryptedBuffer]),
-    iv: arrayBufferToBase64(iv),
+    iv: arrayBufferToBase64(iv.buffer),
     metadata,
   }
 }

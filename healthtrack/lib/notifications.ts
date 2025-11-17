@@ -70,10 +70,10 @@ export async function showNotification(options: NotificationOptions): Promise<vo
       badge: options.badge || '/badge-72.png',
       tag: options.tag,
       requireInteraction: options.requireInteraction || options.priority === 'urgent',
-      vibrate: getVibrationPattern(options.priority),
+      // vibrate: getVibrationPattern(options.priority), // Not supported in TypeScript types
       data: options.data,
       actions: options.actions,
-    })
+    } as any)
   } else {
     // Fallback to basic notification
     new Notification(options.title, {

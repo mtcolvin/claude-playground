@@ -15,7 +15,7 @@ const loginSchema = z.object({
 })
 
 export const authConfig: NextAuthConfig = {
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma) as any,
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -93,7 +93,7 @@ export const authConfig: NextAuthConfig = {
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string
-        session.user.role = token.role as string
+        session.user.role = token.role as any
       }
       return session
     },
@@ -114,8 +114,9 @@ export const authConfig: NextAuthConfig = {
         },
       })
     },
-    async signOut({ token }) {
+    async signOut(message: any) {
       // Log audit trail
+      const token = message?.token
       if (token?.id) {
         await prisma.auditLog.create({
           data: {

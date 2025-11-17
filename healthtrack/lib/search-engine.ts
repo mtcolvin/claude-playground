@@ -11,7 +11,6 @@
  */
 
 import { prisma } from './prisma'
-import type { Prisma } from '@prisma/client'
 
 // Search configuration
 export interface SearchConfig {
@@ -66,7 +65,7 @@ export async function searchHealthMetrics(
   userId: string,
   config: SearchConfig
 ): Promise<SearchResult<any>> {
-  const where: Prisma.HealthMetricWhereInput = {
+  const where: any = {
     userId,
   }
 
@@ -88,7 +87,7 @@ export async function searchHealthMetrics(
   const skip = (page - 1) * limit
 
   // Sort
-  const orderBy: Prisma.HealthMetricOrderByWithRelationInput = config.sort
+  const orderBy: any = config.sort
     ? { [config.sort.field]: config.sort.order }
     : { date: 'desc' }
 
@@ -125,7 +124,7 @@ export async function searchMedications(
   userId: string,
   config: SearchConfig
 ): Promise<SearchResult<any>> {
-  const where: Prisma.MedicationWhereInput = {
+  const where: any = {
     userId,
   }
 
@@ -143,7 +142,7 @@ export async function searchMedications(
   const limit = config.pagination?.limit || 10
   const skip = (page - 1) * limit
 
-  const orderBy: Prisma.MedicationOrderByWithRelationInput = config.sort
+  const orderBy: any = config.sort
     ? { [config.sort.field]: config.sort.order }
     : { startDate: 'desc' }
 
@@ -282,7 +281,7 @@ export async function getSearchSuggestions(
     select: { name: true },
     take: limit,
   })
-  medications.forEach((m) => suggestions.add(m.name))
+  medications.forEach((m: any) => suggestions.add(m.name))
 
   // Get metric types
   const metrics = await prisma.healthMetric.findMany({
@@ -294,7 +293,7 @@ export async function getSearchSuggestions(
     distinct: ['type'],
     take: limit,
   })
-  metrics.forEach((m) => suggestions.add(m.type))
+  metrics.forEach((m: any) => suggestions.add(m.type))
 
   // Get condition names
   const conditions = await prisma.condition.findMany({
@@ -305,7 +304,7 @@ export async function getSearchSuggestions(
     select: { name: true },
     take: limit,
   })
-  conditions.forEach((c) => suggestions.add(c.name))
+  conditions.forEach((c: any) => suggestions.add(c.name))
 
   return Array.from(suggestions).slice(0, limit)
 }
@@ -329,7 +328,7 @@ async function getFacets(
         where: { userId },
         _count: true,
       })
-      facets.type = types.map((t) => ({
+      facets.type = types.map((t: any) => ({
         value: t.type,
         count: t._count,
       }))

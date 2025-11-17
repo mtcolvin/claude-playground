@@ -258,7 +258,7 @@ export async function checkPermission(userId: string, permission: string): Promi
     ],
   }
 
-  const permissions = rolePermissions[user.role] || []
+  const permissions = rolePermissions[user.role as UserRole] || []
   return permissions.includes("*") || permissions.includes(permission)
 }
 

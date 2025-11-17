@@ -32,9 +32,9 @@ export async function encryptFields<T extends Record<string, any>>(
   for (const field of fieldsToEncrypt) {
     const value = obj[field]
     if (value !== undefined && value !== null) {
-      const encrypted = await encrypt(String(value), key)
-      result[`${String(field)}_encrypted`] = serializeEncryptedField(encrypted)
-      delete result[field] // Remove plaintext
+      const encrypted = await encrypt(String(value), key);
+      (result as any)[`${String(field)}_encrypted`] = serializeEncryptedField(encrypted)
+      delete (result as any)[field] // Remove plaintext
     }
   }
 
@@ -59,9 +59,9 @@ export async function decryptFields<T extends Record<string, any>>(
     if (encryptedValue) {
       try {
         const encrypted = deserializeEncryptedField(encryptedValue)
-        const decrypted = await decrypt(encrypted.ciphertext, encrypted.iv, key)
-        result[field] = decrypted
-        delete result[encryptedField] // Remove encrypted version
+        const decrypted = await decrypt(encrypted.ciphertext, encrypted.iv, key);
+        (result as any)[field] = decrypted
+        delete (result as any)[encryptedField] // Remove encrypted version
       } catch (error) {
         console.error(`Failed to decrypt field ${field}:`, error)
       }

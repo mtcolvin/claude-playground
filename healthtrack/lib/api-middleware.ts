@@ -87,11 +87,11 @@ export function paginatedResponse<T>(
 export async function requireAuth(request: NextRequest): Promise<AuthenticatedRequest["user"]> {
   const session = await getSession()
 
-  if (!session?.user) {
+  if (!session?.user || !session.user.email) {
     throw new ApiError("Authentication required", 401)
   }
 
-  return session.user
+  return session.user as AuthenticatedRequest["user"]
 }
 
 // Middleware: Require specific permission
@@ -317,7 +317,7 @@ export function apiHandler(
     // Check rate limit
     if (options.rateLimit) {
       const identifier = request.headers.get("x-forwarded-for") || "anonymous"
-      requireRateLimit(identifier, identifier, options.rateLimit.limit, options.rateLimit.windowMs)
+      requireRateLimit(request, identifier, options.rateLimit.limit, options.rateLimit.windowMs)
     }
 
     // Check authentication

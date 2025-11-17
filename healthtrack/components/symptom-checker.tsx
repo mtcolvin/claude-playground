@@ -153,7 +153,7 @@ const matchConditions = (symptoms: Symptom[]): Condition[] => {
         'Honey for cough (if >1 year old)'
       ],
       whenToSeekCare: 'See doctor if symptoms worsen or persist >10 days.',
-      urgency: 'self-care'
+      urgency: 'routine'
     })
   }
 
@@ -393,14 +393,14 @@ export function SymptomChecker() {
     if (!searchQuery) return SYMPTOM_DATABASE
 
     const query = searchQuery.toLowerCase()
-    const filtered: typeof SYMPTOM_DATABASE = {}
+    const filtered: Partial<typeof SYMPTOM_DATABASE> = {}
 
     Object.entries(SYMPTOM_DATABASE).forEach(([category, symptoms]) => {
       const matchingSymptoms = symptoms.filter(s =>
         s.name.toLowerCase().includes(query)
       )
       if (matchingSymptoms.length > 0) {
-        filtered[category] = matchingSymptoms
+        (filtered as any)[category] = matchingSymptoms
       }
     })
 

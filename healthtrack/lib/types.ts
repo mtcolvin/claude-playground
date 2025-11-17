@@ -7,6 +7,7 @@ export interface HealthMetric {
   unit: string;
   date: string;
   notes?: string;
+  source?: string;
 }
 
 export type MetricType =
