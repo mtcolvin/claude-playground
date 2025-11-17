@@ -65,7 +65,7 @@ export function LabResultsViewer() {
             className={`px-4 py-2 rounded-lg whitespace-nowrap ${
               filterCategory === cat
                 ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
             }`}
           >
             {cat === 'all' ? 'All Tests' : cat}
@@ -87,7 +87,7 @@ export function LabResultsViewer() {
               }`}
             >
               <div className="font-semibold text-gray-900">{result.testName}</div>
-              <div className="text-sm text-gray-700 mt-1">
+              <div className="text-sm text-gray-900 mt-1">
                 {new Date(result.testDate).toLocaleDateString()}
               </div>
               {result.facility && (
@@ -109,7 +109,7 @@ export function LabResultsViewer() {
           ))}
 
           {filteredResults.length === 0 && (
-            <div className="text-center py-12 text-gray-700">
+            <div className="text-center py-12 text-gray-900">
               No lab results found
             </div>
           )}
@@ -123,24 +123,24 @@ export function LabResultsViewer() {
                 <h2 className="text-2xl font-bold text-gray-900">{selectedResult.testName}</h2>
                 <div className="mt-2 grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <span className="text-gray-700">Test Date:</span>{' '}
+                    <span className="text-gray-900">Test Date:</span>{' '}
                     <span className="font-medium">{new Date(selectedResult.testDate).toLocaleDateString()}</span>
                   </div>
                   {selectedResult.orderedBy && (
                     <div>
-                      <span className="text-gray-700">Ordered By:</span>{' '}
+                      <span className="text-gray-900">Ordered By:</span>{' '}
                       <span className="font-medium">{selectedResult.orderedBy}</span>
                     </div>
                   )}
                   {selectedResult.facility && (
                     <div>
-                      <span className="text-gray-700">Facility:</span>{' '}
+                      <span className="text-gray-900">Facility:</span>{' '}
                       <span className="font-medium">{selectedResult.facility}</span>
                     </div>
                   )}
                   {selectedResult.category && (
                     <div>
-                      <span className="text-gray-700">Category:</span>{' '}
+                      <span className="text-gray-900">Category:</span>{' '}
                       <span className="font-medium">{selectedResult.category}</span>
                     </div>
                   )}
@@ -186,7 +186,7 @@ export function LabResultsViewer() {
               </div>
             </div>
           ) : (
-            <div className="bg-white rounded-lg shadow p-12 text-center text-gray-700">
+            <div className="bg-white rounded-lg shadow p-12 text-center text-gray-900">
               Select a lab result to view details
             </div>
           )}

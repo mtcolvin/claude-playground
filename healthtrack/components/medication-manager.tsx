@@ -67,7 +67,7 @@ export function MedicationManager() {
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-gray-700 text-sm">Active Medications</div>
+              <div className="text-gray-900 text-sm">Active Medications</div>
               <div className="text-3xl font-bold text-gray-900 mt-1">{activeMeds.length}</div>
             </div>
             <div className="text-4xl">💊</div>
@@ -77,7 +77,7 @@ export function MedicationManager() {
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-gray-700 text-sm">Upcoming Today</div>
+              <div className="text-gray-900 text-sm">Upcoming Today</div>
               <div className="text-3xl font-bold text-gray-900 mt-1">{upcomingDoses.length}</div>
             </div>
             <div className="text-4xl">⏰</div>
@@ -87,7 +87,7 @@ export function MedicationManager() {
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-gray-700 text-sm">Adherence Rate</div>
+              <div className="text-gray-900 text-sm">Adherence Rate</div>
               <div className="text-3xl font-bold text-green-600 mt-1">94%</div>
             </div>
             <div className="text-4xl">✓</div>
@@ -124,7 +124,7 @@ export function MedicationManager() {
             className={`px-4 py-2 font-medium capitalize ${
               filter === tab
                 ? 'text-blue-600 border-b-2 border-blue-600'
-                : 'text-gray-700 hover:text-gray-700'
+                : 'text-gray-900 hover:text-gray-900'
             }`}
           >
             {tab}
@@ -135,7 +135,7 @@ export function MedicationManager() {
       {/* Medications List */}
       <div className="bg-white rounded-lg shadow divide-y">
         {medications.length === 0 ? (
-          <div className="p-12 text-center text-gray-700">
+          <div className="p-12 text-center text-gray-900">
             No medications found. Add your first medication to get started.
           </div>
         ) : (
@@ -156,20 +156,20 @@ export function MedicationManager() {
 
                   <div className="mt-2 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                     <div>
-                      <div className="text-gray-700">Dosage</div>
+                      <div className="text-gray-900">Dosage</div>
                       <div className="font-medium">{med.dosage}</div>
                     </div>
                     <div>
-                      <div className="text-gray-700">Frequency</div>
+                      <div className="text-gray-900">Frequency</div>
                       <div className="font-medium">{med.frequency}</div>
                     </div>
                     <div>
-                      <div className="text-gray-700">Start Date</div>
+                      <div className="text-gray-900">Start Date</div>
                       <div className="font-medium">{new Date(med.startDate).toLocaleDateString()}</div>
                     </div>
                     {med.prescribedBy && (
                       <div>
-                        <div className="text-gray-700">Prescribed By</div>
+                        <div className="text-gray-900">Prescribed By</div>
                         <div className="font-medium">{med.prescribedBy}</div>
                       </div>
                     )}
@@ -177,7 +177,7 @@ export function MedicationManager() {
 
                   {med.reminderTimes.length > 0 && (
                     <div className="mt-3">
-                      <div className="text-gray-700 text-sm mb-1">Reminder Times</div>
+                      <div className="text-gray-900 text-sm mb-1">Reminder Times</div>
                       <div className="flex gap-2">
                         {med.reminderTimes.map((time, i) => (
                           <span key={i} className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">
@@ -278,7 +278,7 @@ function AddMedicationModal({ onClose, onSuccess }: { onClose: () => void; onSuc
         <h2 className="text-xl font-semibold mb-4">Add Medication</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Medication Name</label>
+            <label className="block text-sm font-medium text-gray-900 mb-1">Medication Name</label>
             <input
               type="text"
               value={formData.name}
@@ -289,7 +289,7 @@ function AddMedicationModal({ onClose, onSuccess }: { onClose: () => void; onSuc
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Dosage</label>
+            <label className="block text-sm font-medium text-gray-900 mb-1">Dosage</label>
             <input
               type="text"
               placeholder="e.g., 500mg"
@@ -301,7 +301,7 @@ function AddMedicationModal({ onClose, onSuccess }: { onClose: () => void; onSuc
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Frequency</label>
+            <label className="block text-sm font-medium text-gray-900 mb-1">Frequency</label>
             <select
               value={formData.frequency}
               onChange={(e) => setFormData({ ...formData, frequency: e.target.value })}
@@ -319,7 +319,7 @@ function AddMedicationModal({ onClose, onSuccess }: { onClose: () => void; onSuc
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+            <label className="block text-sm font-medium text-gray-900 mb-1">Start Date</label>
             <input
               type="date"
               value={formData.startDate}
@@ -330,7 +330,7 @@ function AddMedicationModal({ onClose, onSuccess }: { onClose: () => void; onSuc
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Prescribed By (Optional)</label>
+            <label className="block text-sm font-medium text-gray-900 mb-1">Prescribed By (Optional)</label>
             <input
               type="text"
               value={formData.prescribedBy}

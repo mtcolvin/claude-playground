@@ -52,23 +52,23 @@ export default function CorrelationChart({ correlations, onSelectCorrelation }: 
         <div className="flex items-center gap-6 mb-6 p-4 bg-gray-50 rounded-lg">
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 bg-green-600 rounded"></div>
-            <span className="text-xs text-gray-700">Strong Positive</span>
+            <span className="text-xs text-gray-900">Strong Positive</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 bg-green-400 rounded"></div>
-            <span className="text-xs text-gray-700">Moderate Positive</span>
+            <span className="text-xs text-gray-900">Moderate Positive</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 bg-gray-400 rounded"></div>
-            <span className="text-xs text-gray-700">Weak</span>
+            <span className="text-xs text-gray-900">Weak</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 bg-red-400 rounded"></div>
-            <span className="text-xs text-gray-700">Moderate Negative</span>
+            <span className="text-xs text-gray-900">Moderate Negative</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 bg-red-600 rounded"></div>
-            <span className="text-xs text-gray-700">Strong Negative</span>
+            <span className="text-xs text-gray-900">Strong Negative</span>
           </div>
         </div>
 
@@ -135,11 +135,11 @@ export default function CorrelationChart({ correlations, onSelectCorrelation }: 
 
                 {/* Statistical Significance */}
                 <div className="mt-2 flex items-center justify-between text-xs">
-                  <span className={isSignificant ? 'text-blue-600 font-medium' : 'text-gray-700'}>
+                  <span className={isSignificant ? 'text-blue-600 font-medium' : 'text-gray-900'}>
                     {getSignificanceLabel(corr.pValue)}
                   </span>
                   {corr.sampleSize && (
-                    <span className="text-gray-700">n = {corr.sampleSize} data points</span>
+                    <span className="text-gray-900">n = {corr.sampleSize} data points</span>
                   )}
                 </div>
               </div>
@@ -148,9 +148,9 @@ export default function CorrelationChart({ correlations, onSelectCorrelation }: 
         </div>
 
         {sortedCorrelations.length === 0 && (
-          <div className="text-center py-12 text-gray-700">
+          <div className="text-center py-12 text-gray-900">
             <svg
-              className="w-16 h-16 mx-auto mb-4 text-gray-700"
+              className="w-16 h-16 mx-auto mb-4 text-gray-900"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -225,7 +225,7 @@ export function CorrelationHeatmap({ correlations, metrics }: CorrelationHeatmap
       return correlation > 0 ? 'bg-green-500 text-white' : 'bg-red-500 text-white';
     if (absCorr >= 0.3)
       return correlation > 0 ? 'bg-green-300 text-gray-900' : 'bg-red-300 text-gray-900';
-    return 'bg-gray-200 text-gray-700';
+    return 'bg-gray-200 text-gray-900';
   };
 
   return (
@@ -239,7 +239,7 @@ export function CorrelationHeatmap({ correlations, metrics }: CorrelationHeatmap
               {metrics.map((metric) => (
                 <th
                   key={metric}
-                  className="p-2 border border-gray-300 bg-gray-50 text-xs font-semibold text-gray-700 min-w-[80px]"
+                  className="p-2 border border-gray-300 bg-gray-50 text-xs font-semibold text-gray-900 min-w-[80px]"
                 >
                   <div className="transform -rotate-45 origin-left whitespace-nowrap">
                     {METRIC_CONFIGS[metric as keyof typeof METRIC_CONFIGS]?.label || metric}
@@ -251,7 +251,7 @@ export function CorrelationHeatmap({ correlations, metrics }: CorrelationHeatmap
           <tbody>
             {metrics.map((metric1) => (
               <tr key={metric1}>
-                <th className="p-2 border border-gray-300 bg-gray-50 text-xs font-semibold text-gray-700 text-left sticky left-0 z-10">
+                <th className="p-2 border border-gray-300 bg-gray-50 text-xs font-semibold text-gray-900 text-left sticky left-0 z-10">
                   {METRIC_CONFIGS[metric1 as keyof typeof METRIC_CONFIGS]?.label || metric1}
                 </th>
                 {metrics.map((metric2) => {

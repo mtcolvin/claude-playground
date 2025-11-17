@@ -111,21 +111,21 @@ export function MacroPieChart({
       <div className="grid grid-cols-3 gap-4 mt-4 w-full">
         <div className="text-center">
           <div className="w-4 h-4 rounded-full mx-auto mb-1" style={{ backgroundColor: COLORS.protein }}></div>
-          <div className="text-xs text-gray-700">Protein</div>
+          <div className="text-xs text-gray-900">Protein</div>
           <div className="text-lg font-bold text-gray-900">{protein}g</div>
-          <div className="text-xs text-gray-700">{((protein / total) * 100).toFixed(0)}%</div>
+          <div className="text-xs text-gray-900">{((protein / total) * 100).toFixed(0)}%</div>
         </div>
         <div className="text-center">
           <div className="w-4 h-4 rounded-full mx-auto mb-1" style={{ backgroundColor: COLORS.carbs }}></div>
-          <div className="text-xs text-gray-700">Carbs</div>
+          <div className="text-xs text-gray-900">Carbs</div>
           <div className="text-lg font-bold text-gray-900">{carbs}g</div>
-          <div className="text-xs text-gray-700">{((carbs / total) * 100).toFixed(0)}%</div>
+          <div className="text-xs text-gray-900">{((carbs / total) * 100).toFixed(0)}%</div>
         </div>
         <div className="text-center">
           <div className="w-4 h-4 rounded-full mx-auto mb-1" style={{ backgroundColor: COLORS.fat }}></div>
-          <div className="text-xs text-gray-700">Fat</div>
+          <div className="text-xs text-gray-900">Fat</div>
           <div className="text-lg font-bold text-gray-900">{fat}g</div>
-          <div className="text-xs text-gray-700">{((fat / total) * 100).toFixed(0)}%</div>
+          <div className="text-xs text-gray-900">{((fat / total) * 100).toFixed(0)}%</div>
         </div>
       </div>
     </div>

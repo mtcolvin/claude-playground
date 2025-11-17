@@ -249,7 +249,7 @@ export function HealthReportsGenerator() {
                   className={`px-4 py-2 rounded-lg capitalize ${
                     config.dateRange === range
                       ? 'bg-blue-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                   }`}
                 >
                   {range === 'week' ? '7 Days' : range === 'quarter' ? '90 Days' : range}
@@ -260,7 +260,7 @@ export function HealthReportsGenerator() {
             {config.dateRange === 'custom' && (
               <div className="grid grid-cols-2 gap-4 mt-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">Start Date</label>
                   <input
                     type="date"
                     value={config.customStartDate || ''}
@@ -269,7 +269,7 @@ export function HealthReportsGenerator() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">End Date</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">End Date</label>
                   <input
                     type="date"
                     value={config.customEndDate || ''}
@@ -285,7 +285,7 @@ export function HealthReportsGenerator() {
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-semibold text-gray-900">Include Sections</h2>
-              <span className="text-sm text-gray-700">{selectedCount} selected</span>
+              <span className="text-sm text-gray-900">{selectedCount} selected</span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -356,14 +356,14 @@ export function HealthReportsGenerator() {
                   />
                   <div className="text-3xl mb-2">{format.icon}</div>
                   <div className="font-medium text-gray-900">{format.label}</div>
-                  <div className="text-xs text-gray-700 mt-1">{format.description}</div>
+                  <div className="text-xs text-gray-900 mt-1">{format.description}</div>
                 </label>
               ))}
             </div>
 
             {config.format === 'email' && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-900 mb-1">
                   Recipient Email
                 </label>
                 <input
@@ -436,7 +436,7 @@ export function HealthReportsGenerator() {
 
             <button
               onClick={() => setShowPreview(true)}
-              className="w-full px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 font-medium flex items-center justify-center"
+              className="w-full px-6 py-3 bg-gray-100 text-gray-900 rounded-lg hover:bg-gray-200 font-medium flex items-center justify-center"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />

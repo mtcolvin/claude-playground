@@ -146,7 +146,7 @@ export function ExportButton({
             <div className="py-1">
               <button
                 onClick={() => handleExport('pdf')}
-                className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+                className="w-full text-left px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 flex items-center"
               >
                 <svg className="w-4 h-4 mr-2 text-red-600" fill="currentColor" viewBox="0 0 20 20">
                   <path
@@ -159,7 +159,7 @@ export function ExportButton({
               </button>
               <button
                 onClick={() => handleExport('csv')}
-                className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+                className="w-full text-left px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 flex items-center"
               >
                 <svg className="w-4 h-4 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
                   <path
@@ -172,7 +172,7 @@ export function ExportButton({
               </button>
               <button
                 onClick={() => handleExport('excel')}
-                className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+                className="w-full text-left px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 flex items-center"
               >
                 <svg className="w-4 h-4 mr-2 text-green-700" fill="currentColor" viewBox="0 0 20 20">
                   <path
@@ -185,7 +185,7 @@ export function ExportButton({
               </button>
               <button
                 onClick={() => handleExport('json')}
-                className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+                className="w-full text-left px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 flex items-center"
               >
                 <svg className="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
                   <path

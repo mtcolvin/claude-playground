@@ -236,9 +236,9 @@ export function HealthGoalsDashboard() {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="bg-white rounded-lg shadow p-6">
-          <div className="text-sm text-gray-700">Total Goals</div>
+          <div className="text-sm text-gray-900">Total Goals</div>
           <div className="text-3xl font-bold text-gray-900 mt-1">{stats.total}</div>
-          <div className="text-xs text-gray-700 mt-1">All time</div>
+          <div className="text-xs text-gray-900 mt-1">All time</div>
         </div>
 
         <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg shadow p-6 text-white">
@@ -269,7 +269,7 @@ export function HealthGoalsDashboard() {
             className={`px-4 py-2 rounded-lg capitalize ${
               filterStatus === status
                 ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
             }`}
           >
             {status.replace('_', ' ')}
@@ -330,15 +330,15 @@ export function HealthGoalsDashboard() {
               {/* Current vs Target */}
               <div className="grid grid-cols-3 gap-4 mb-4 text-sm">
                 <div>
-                  <div className="text-gray-700">Start</div>
+                  <div className="text-gray-900">Start</div>
                   <div className="font-bold text-gray-900">{goal.startValue} {goal.unit}</div>
                 </div>
                 <div>
-                  <div className="text-gray-700">Current</div>
+                  <div className="text-gray-900">Current</div>
                   <div className="font-bold text-blue-600">{goal.currentValue} {goal.unit}</div>
                 </div>
                 <div>
-                  <div className="text-gray-700">Target</div>
+                  <div className="text-gray-900">Target</div>
                   <div className="font-bold text-green-600">{goal.targetValue} {goal.unit}</div>
                 </div>
               </div>
@@ -376,7 +376,7 @@ export function HealthGoalsDashboard() {
         <div className="bg-white rounded-lg shadow p-12 text-center">
           <div className="text-6xl mb-4">🎯</div>
           <h3 className="text-xl font-semibold text-gray-900 mb-2">No Goals Yet</h3>
-          <p className="text-gray-700 mb-6">
+          <p className="text-gray-900 mb-6">
             {filterStatus === 'all'
               ? 'Start your health journey by setting your first goal!'
               : `No ${filterStatus.replace('_', ' ')} goals found.`}
@@ -464,7 +464,7 @@ export function HealthGoalsDashboard() {
                         <div className="font-medium text-gray-900">
                           Reach {milestone.value} {selectedGoal.unit}
                         </div>
-                        <div className="text-sm text-gray-700">
+                        <div className="text-sm text-gray-900">
                           Target: {new Date(milestone.date).toLocaleDateString()}
                         </div>
                       </div>

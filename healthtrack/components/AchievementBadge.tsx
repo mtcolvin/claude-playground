@@ -88,7 +88,7 @@ export default function AchievementBadge({
         )}
 
         {isUnlocked && achievement.unlockedAt && (
-          <p className="text-xs text-gray-700 mt-1">
+          <p className="text-xs text-gray-900 mt-1">
             Unlocked {new Date(achievement.unlockedAt).toLocaleDateString()}
           </p>
         )}
@@ -155,7 +155,7 @@ export function AchievementGrid({ achievements, showLockedAchievements = true }:
       </div>
 
       {displayAchievements.length === 0 && (
-        <div className="text-center py-12 text-gray-700">
+        <div className="text-center py-12 text-gray-900">
           <p className="text-lg">No achievements yet.</p>
           <p className="text-sm mt-2">Start tracking your health to unlock achievements!</p>
         </div>

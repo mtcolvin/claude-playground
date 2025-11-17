@@ -172,7 +172,7 @@ export function MentalHealthDashboard() {
             className={`px-4 py-2 rounded-lg capitalize ${
               selectedPeriod === period
                 ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
             }`}
           >
             {period}
@@ -253,7 +253,7 @@ export function MentalHealthDashboard() {
             height={320}
           />
         ) : (
-          <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center text-gray-700">
+          <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center text-gray-900">
             No mood data to display. Start logging your mood to see trends!
           </div>
         )}
@@ -280,7 +280,7 @@ export function MentalHealthDashboard() {
                           year: 'numeric'
                         })}
                       </div>
-                      <div className="text-sm text-gray-700">
+                      <div className="text-sm text-gray-900">
                         {new Date(entry.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </div>
                     </div>
@@ -289,26 +289,26 @@ export function MentalHealthDashboard() {
                   {/* Metrics Grid */}
                   <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-4">
                     <div>
-                      <div className="text-xs text-gray-700">Mood</div>
+                      <div className="text-xs text-gray-900">Mood</div>
                       <div className={`text-lg font-bold ${getMoodColor(entry.mood)}`}>
                         {entry.mood}/10
                       </div>
                     </div>
                     <div>
-                      <div className="text-xs text-gray-700">Anxiety</div>
+                      <div className="text-xs text-gray-900">Anxiety</div>
                       <div className={`text-lg font-bold ${getAnxietyColor(entry.anxiety)}`}>
                         {entry.anxiety}/10
                       </div>
                     </div>
                     <div>
-                      <div className="text-xs text-gray-700">Stress</div>
+                      <div className="text-xs text-gray-900">Stress</div>
                       <div className={`text-lg font-bold ${getAnxietyColor(entry.stress)}`}>
                         {entry.stress}/10
                       </div>
                     </div>
                     {entry.sleep_quality && (
                       <div>
-                        <div className="text-xs text-gray-700">Sleep</div>
+                        <div className="text-xs text-gray-900">Sleep</div>
                         <div className={`text-lg font-bold ${getMoodColor(entry.sleep_quality)}`}>
                           {entry.sleep_quality}/10
                         </div>
@@ -316,7 +316,7 @@ export function MentalHealthDashboard() {
                     )}
                     {entry.energy && (
                       <div>
-                        <div className="text-xs text-gray-700">Energy</div>
+                        <div className="text-xs text-gray-900">Energy</div>
                         <div className={`text-lg font-bold ${getMoodColor(entry.energy)}`}>
                           {entry.energy}/10
                         </div>
@@ -327,7 +327,7 @@ export function MentalHealthDashboard() {
                   {/* Activities */}
                   {entry.activities && entry.activities.length > 0 && (
                     <div className="mt-3">
-                      <div className="text-xs text-gray-700 mb-1">Activities:</div>
+                      <div className="text-xs text-gray-900 mb-1">Activities:</div>
                       <div className="flex flex-wrap gap-1">
                         {entry.activities.map((activity, idx) => (
                           <span key={idx} className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">
@@ -341,7 +341,7 @@ export function MentalHealthDashboard() {
                   {/* Triggers */}
                   {entry.triggers && entry.triggers.length > 0 && (
                     <div className="mt-3">
-                      <div className="text-xs text-gray-700 mb-1">Triggers:</div>
+                      <div className="text-xs text-gray-900 mb-1">Triggers:</div>
                       <div className="flex flex-wrap gap-1">
                         {entry.triggers.map((trigger, idx) => (
                           <span key={idx} className="px-2 py-1 bg-red-100 text-red-700 text-xs rounded">
@@ -354,7 +354,7 @@ export function MentalHealthDashboard() {
 
                   {/* Notes */}
                   {entry.notes && (
-                    <div className="mt-3 p-3 bg-gray-50 rounded text-sm text-gray-700">
+                    <div className="mt-3 p-3 bg-gray-50 rounded text-sm text-gray-900">
                       {entry.notes}
                     </div>
                   )}
@@ -364,7 +364,7 @@ export function MentalHealthDashboard() {
           ))}
 
           {periodEntries.length === 0 && (
-            <div className="p-12 text-center text-gray-700">
+            <div className="p-12 text-center text-gray-900">
               No entries for this period. Start tracking your mental health today!
             </div>
           )}
@@ -382,7 +382,7 @@ export function MentalHealthDashboard() {
             <div className="p-6 space-y-6">
               {/* Mood Slider */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-900 mb-2">
                   Mood: {newEntry.mood}/10 {getMoodEmoji(newEntry.mood)} {getMoodLabel(newEntry.mood)}
                 </label>
                 <input
@@ -397,7 +397,7 @@ export function MentalHealthDashboard() {
 
               {/* Anxiety Slider */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-900 mb-2">
                   Anxiety: {newEntry.anxiety}/10
                 </label>
                 <input
@@ -412,7 +412,7 @@ export function MentalHealthDashboard() {
 
               {/* Stress Slider */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-900 mb-2">
                   Stress: {newEntry.stress}/10
                 </label>
                 <input
@@ -427,7 +427,7 @@ export function MentalHealthDashboard() {
 
               {/* Sleep Quality Slider */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-900 mb-2">
                   Sleep Quality: {newEntry.sleep_quality}/10
                 </label>
                 <input
@@ -442,7 +442,7 @@ export function MentalHealthDashboard() {
 
               {/* Energy Slider */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-900 mb-2">
                   Energy Level: {newEntry.energy}/10
                 </label>
                 <input
@@ -457,7 +457,7 @@ export function MentalHealthDashboard() {
 
               {/* Activities */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-900 mb-2">
                   Activities Today
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -476,7 +476,7 @@ export function MentalHealthDashboard() {
                       className={`px-3 py-1 rounded text-sm ${
                         newEntry.activities.includes(activity)
                           ? 'bg-blue-600 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                       }`}
                     >
                       {activity}
@@ -487,7 +487,7 @@ export function MentalHealthDashboard() {
 
               {/* Triggers */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-900 mb-2">
                   Triggers or Stressors
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -506,7 +506,7 @@ export function MentalHealthDashboard() {
                       className={`px-3 py-1 rounded text-sm ${
                         newEntry.triggers.includes(trigger)
                           ? 'bg-red-600 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                       }`}
                     >
                       {trigger}
@@ -517,7 +517,7 @@ export function MentalHealthDashboard() {
 
               {/* Notes */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-900 mb-2">
                   Notes (Optional)
                 </label>
                 <textarea
@@ -533,7 +533,7 @@ export function MentalHealthDashboard() {
             <div className="sticky bottom-0 bg-gray-50 px-6 py-4 flex gap-3 justify-end">
               <button
                 onClick={() => setShowAddModal(false)}
-                className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
+                className="px-4 py-2 text-gray-900 hover:bg-gray-100 rounded-lg"
               >
                 Cancel
               </button>

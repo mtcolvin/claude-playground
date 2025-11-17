@@ -194,7 +194,7 @@ export function WomensHealthTracker() {
             className={`px-4 py-2 font-medium flex items-center gap-2 ${
               view === tab.id
                 ? 'text-blue-600 border-b-2 border-blue-600'
-                : 'text-gray-700 hover:text-gray-700'
+                : 'text-gray-900 hover:text-gray-900'
             }`}
           >
             <span>{tab.icon}</span>
@@ -237,7 +237,7 @@ export function WomensHealthTracker() {
           {/* Calendar Placeholder */}
           <div className="bg-white rounded-lg shadow p-6">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">Cycle Calendar</h2>
-            <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center text-gray-700">
+            <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center text-gray-900">
               Interactive calendar showing periods, ovulation, and fertile window would render here
               <br />
               (Full calendar will be enhanced in Phase 21)
@@ -272,7 +272,7 @@ export function WomensHealthTracker() {
                             })}`}
                           </div>
                           {duration && (
-                            <div className="text-sm text-gray-700">{duration} days duration</div>
+                            <div className="text-sm text-gray-900">{duration} days duration</div>
                           )}
                         </div>
                       </div>
@@ -288,7 +288,7 @@ export function WomensHealthTracker() {
                   {/* Stats */}
                   {cycle.painLevel && (
                     <div className="mb-3">
-                      <div className="text-xs text-gray-700 mb-1">Pain Level</div>
+                      <div className="text-xs text-gray-900 mb-1">Pain Level</div>
                       <div className="flex items-center gap-2">
                         <div className="flex-1 bg-gray-200 rounded-full h-2">
                           <div
@@ -306,7 +306,7 @@ export function WomensHealthTracker() {
                   {/* Symptoms */}
                   {cycle.symptoms && cycle.symptoms.length > 0 && (
                     <div className="mb-3">
-                      <div className="text-xs text-gray-700 mb-1">Symptoms</div>
+                      <div className="text-xs text-gray-900 mb-1">Symptoms</div>
                       <div className="flex flex-wrap gap-1">
                         {cycle.symptoms.map((symptom, idx) => (
                           <span key={idx} className="px-2 py-1 bg-red-100 text-red-700 text-xs rounded">
@@ -320,7 +320,7 @@ export function WomensHealthTracker() {
                   {/* Mood */}
                   {cycle.mood && cycle.mood.length > 0 && (
                     <div className="mb-3">
-                      <div className="text-xs text-gray-700 mb-1">Mood</div>
+                      <div className="text-xs text-gray-900 mb-1">Mood</div>
                       <div className="flex flex-wrap gap-1">
                         {cycle.mood.map((mood, idx) => (
                           <span key={idx} className="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded">
@@ -333,7 +333,7 @@ export function WomensHealthTracker() {
 
                   {/* Notes */}
                   {cycle.notes && (
-                    <div className="p-3 bg-gray-50 rounded text-sm text-gray-700">
+                    <div className="p-3 bg-gray-50 rounded text-sm text-gray-900">
                       {cycle.notes}
                     </div>
                   )}
@@ -342,7 +342,7 @@ export function WomensHealthTracker() {
             })}
 
             {cycles.length === 0 && (
-              <div className="bg-white rounded-lg shadow p-12 text-center text-gray-700">
+              <div className="bg-white rounded-lg shadow p-12 text-center text-gray-900">
                 Start tracking your menstrual cycle today
               </div>
             )}
@@ -391,7 +391,7 @@ export function WomensHealthTracker() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {pregnancy.weight && (
                   <div className="bg-white rounded-lg shadow p-6">
-                    <div className="text-sm text-gray-700">Weight</div>
+                    <div className="text-sm text-gray-900">Weight</div>
                     <div className="text-3xl font-bold text-gray-900 mt-1">
                       {pregnancy.weight} kg
                     </div>
@@ -399,7 +399,7 @@ export function WomensHealthTracker() {
                 )}
                 {pregnancy.bloodPressureSystolic && pregnancy.bloodPressureDiastolic && (
                   <div className="bg-white rounded-lg shadow p-6">
-                    <div className="text-sm text-gray-700">Blood Pressure</div>
+                    <div className="text-sm text-gray-900">Blood Pressure</div>
                     <div className="text-3xl font-bold text-gray-900 mt-1">
                       {pregnancy.bloodPressureSystolic}/{pregnancy.bloodPressureDiastolic}
                     </div>
@@ -430,7 +430,7 @@ export function WomensHealthTracker() {
                       <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 rounded">
                         <div>
                           <div className="font-medium text-gray-900">{apt.type}</div>
-                          <div className="text-sm text-gray-700">
+                          <div className="text-sm text-gray-900">
                             {new Date(apt.date).toLocaleDateString()}
                           </div>
                         </div>
@@ -446,7 +446,7 @@ export function WomensHealthTracker() {
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
                 Track Your Pregnancy
               </h3>
-              <p className="text-gray-700 mb-6">
+              <p className="text-gray-900 mb-6">
                 Monitor your pregnancy journey with personalized insights
               </p>
               <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
@@ -461,7 +461,7 @@ export function WomensHealthTracker() {
       {view === 'symptoms' && (
         <div className="bg-white rounded-lg shadow p-6">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">Symptom Analysis</h2>
-          <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center text-gray-700">
+          <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center text-gray-900">
             Charts showing symptom patterns across menstrual cycle would render here
             <br />
             (Will be implemented with Recharts in Phase 21)
@@ -481,7 +481,7 @@ export function WomensHealthTracker() {
               {/* Dates */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Start Date</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-2">Start Date</label>
                   <input
                     type="date"
                     value={newCycle.startDate}
@@ -490,7 +490,7 @@ export function WomensHealthTracker() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-900 mb-2">
                     End Date (Optional)
                   </label>
                   <input
@@ -504,7 +504,7 @@ export function WomensHealthTracker() {
 
               {/* Flow Intensity */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Flow Intensity</label>
+                <label className="block text-sm font-medium text-gray-900 mb-2">Flow Intensity</label>
                 <div className="grid grid-cols-4 gap-2">
                   {(['SPOTTING', 'LIGHT', 'MEDIUM', 'HEAVY'] as const).map((intensity) => (
                     <button
@@ -513,7 +513,7 @@ export function WomensHealthTracker() {
                       className={`px-4 py-2 rounded-lg text-sm ${
                         newCycle.flowIntensity === intensity
                           ? 'bg-red-600 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                       }`}
                     >
                       {intensity}
@@ -524,7 +524,7 @@ export function WomensHealthTracker() {
 
               {/* Pain Level */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-900 mb-2">
                   Pain Level: {newCycle.painLevel}/10
                 </label>
                 <input
@@ -539,7 +539,7 @@ export function WomensHealthTracker() {
 
               {/* Symptoms */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Symptoms</label>
+                <label className="block text-sm font-medium text-gray-900 mb-2">Symptoms</label>
                 <div className="flex flex-wrap gap-2">
                   {SYMPTOMS.map((symptom) => (
                     <button
@@ -556,7 +556,7 @@ export function WomensHealthTracker() {
                       className={`px-3 py-1 rounded text-sm ${
                         newCycle.symptoms.includes(symptom)
                           ? 'bg-red-600 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                       }`}
                     >
                       {symptom}
@@ -567,7 +567,7 @@ export function WomensHealthTracker() {
 
               {/* Mood */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Mood</label>
+                <label className="block text-sm font-medium text-gray-900 mb-2">Mood</label>
                 <div className="flex flex-wrap gap-2">
                   {MOODS.map((mood) => (
                     <button
@@ -584,7 +584,7 @@ export function WomensHealthTracker() {
                       className={`px-3 py-1 rounded text-sm ${
                         newCycle.mood.includes(mood)
                           ? 'bg-purple-600 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                       }`}
                     >
                       {mood}
@@ -595,7 +595,7 @@ export function WomensHealthTracker() {
 
               {/* Notes */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Notes (Optional)</label>
+                <label className="block text-sm font-medium text-gray-900 mb-2">Notes (Optional)</label>
                 <textarea
                   value={newCycle.notes}
                   onChange={(e) => setNewCycle({ ...newCycle, notes: e.target.value })}
@@ -609,7 +609,7 @@ export function WomensHealthTracker() {
             <div className="sticky bottom-0 bg-gray-50 px-6 py-4 flex gap-3 justify-end">
               <button
                 onClick={() => setShowAddCycleModal(false)}
-                className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
+                className="px-4 py-2 text-gray-900 hover:bg-gray-100 rounded-lg"
               >
                 Cancel
               </button>

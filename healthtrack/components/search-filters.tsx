@@ -54,7 +54,7 @@ export function SearchFilters({
       <div className="flex items-center justify-between mb-4">
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="flex items-center text-gray-700 font-medium hover:text-gray-900"
+          className="flex items-center text-gray-900 font-medium hover:text-gray-900"
         >
           <svg
             className={`w-5 h-5 mr-2 transform transition-transform ${
@@ -93,7 +93,7 @@ export function SearchFilters({
         <div className="space-y-4">
           {/* Date Range Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-900 mb-2">
               Date Range
             </label>
             <div className="grid grid-cols-2 gap-2">
@@ -130,7 +130,7 @@ export function SearchFilters({
           {/* Type Filter */}
           {availableTypes.length > 0 && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-900 mb-2">
                 Type
               </label>
               <div className="space-y-2">
@@ -149,7 +149,7 @@ export function SearchFilters({
                       }}
                       className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                     />
-                    <span className="ml-2 text-sm text-gray-700">{type}</span>
+                    <span className="ml-2 text-sm text-gray-900">{type}</span>
                   </label>
                 ))}
               </div>
@@ -159,7 +159,7 @@ export function SearchFilters({
           {/* Category Filter */}
           {availableCategories.length > 0 && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-900 mb-2">
                 Category
               </label>
               <select
@@ -186,7 +186,7 @@ export function SearchFilters({
           {/* Status Filter */}
           {availableStatuses.length > 0 && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-900 mb-2">
                 Status
               </label>
               <div className="flex flex-wrap gap-2">
@@ -204,7 +204,7 @@ export function SearchFilters({
                     className={`px-3 py-1 rounded-full text-sm font-medium ${
                       filters.status?.includes(status)
                         ? 'bg-blue-600 text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                     }`}
                   >
                     {status}

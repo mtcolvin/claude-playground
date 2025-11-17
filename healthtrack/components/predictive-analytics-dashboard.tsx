@@ -298,7 +298,7 @@ export function PredictiveAnalyticsDashboard() {
           >
             <div className="text-3xl mb-2">{metric.icon}</div>
             <div className="font-semibold text-gray-900">{metric.label}</div>
-            <div className="text-sm text-gray-700">{metric.unit}</div>
+            <div className="text-sm text-gray-900">{metric.unit}</div>
           </button>
         ))}
       </div>
@@ -317,7 +317,7 @@ export function PredictiveAnalyticsDashboard() {
         </div>
 
         <div className="flex items-center gap-4">
-          <label className="text-sm font-medium text-gray-700">Forecast Period:</label>
+          <label className="text-sm font-medium text-gray-900">Forecast Period:</label>
           <div className="flex gap-2">
             {[7, 14, 30, 60, 90].map((days) => (
               <button
@@ -326,7 +326,7 @@ export function PredictiveAnalyticsDashboard() {
                 className={`px-3 py-1 rounded text-sm ${
                   predictionDays === days
                     ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                 }`}
               >
                 {days} days
@@ -485,7 +485,7 @@ export function PredictiveAnalyticsDashboard() {
 
                   <div className="text-center">
                     <div className="text-3xl font-bold text-gray-900">{factor.score}</div>
-                    <div className="text-xs text-gray-700">Risk Score</div>
+                    <div className="text-xs text-gray-900">Risk Score</div>
                   </div>
                 </div>
 
@@ -509,7 +509,7 @@ export function PredictiveAnalyticsDashboard() {
                   <div className="font-semibold text-gray-900 mb-2">Recommendations:</div>
                   <ul className="space-y-1">
                     {factor.recommendations.map((rec, i) => (
-                      <li key={i} className="text-sm text-gray-700 flex items-start">
+                      <li key={i} className="text-sm text-gray-900 flex items-start">
                         <span className="text-blue-600 mr-2">•</span>
                         {rec}
                       </li>

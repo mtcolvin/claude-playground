@@ -254,7 +254,7 @@ export default function DashboardPage() {
                             }`}>
                               {insight.type.replace('_', ' ').toUpperCase()}
                             </span>
-                            <span className="text-sm text-gray-700">{formatDateShort(insight.date)}</span>
+                            <span className="text-sm text-gray-900">{formatDateShort(insight.date)}</span>
                           </div>
                           <CardTitle className="text-xl">{insight.title}</CardTitle>
                           <CardDescription className="mt-2">{insight.description}</CardDescription>
@@ -292,7 +292,7 @@ export default function DashboardPage() {
                               <CardTitle className="text-2xl">{metric.value}</CardTitle>
                               <span className="text-gray-800">{metric.unit}</span>
                             </div>
-                            <span className="text-sm text-gray-700">{formatDateShort(metric.date)}</span>
+                            <span className="text-sm text-gray-900">{formatDateShort(metric.date)}</span>
                           </div>
                           <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(status)}`}>
                             {status}
@@ -396,14 +396,14 @@ export default function DashboardPage() {
                                   <span className="text-gray-800">{config.unit}</span>
                                 </div>
                                 <div className="flex items-center justify-between mt-2">
-                                  <span className="text-sm text-gray-700">{formatDateShort(latest.date)}</span>
+                                  <span className="text-sm text-gray-900">{formatDateShort(latest.date)}</span>
                                   <span className={`px-2 py-1 rounded text-xs font-medium ${
                                     getStatusColor(getValueStatus(latest.value, config.normalRange))
                                   }`}>
                                     {getValueStatus(latest.value, config.normalRange)}
                                   </span>
                                 </div>
-                                <div className="text-xs text-gray-700 mt-2">
+                                <div className="text-xs text-gray-900 mt-2">
                                   Normal range: {config.normalRange.min} - {config.normalRange.max} {config.unit}
                                 </div>
                               </>
@@ -448,7 +448,7 @@ export default function DashboardPage() {
                   <p className="text-gray-800 mb-4">or click to browse</p>
                   <Button variant="outline">Select Files</Button>
                 </div>
-                <p className="text-sm text-gray-700 mt-4">
+                <p className="text-sm text-gray-900 mt-4">
                   This is a demo interface. In production, files would be uploaded to secure cloud storage.
                 </p>
               </CardContent>
@@ -477,7 +477,7 @@ export default function DashboardPage() {
                             <span className="font-medium">{item.biomarker}</span>
                             <div className="flex items-center space-x-4">
                               <span>{item.value} {item.unit}</span>
-                              <span className="text-sm text-gray-700">{item.normalRange}</span>
+                              <span className="text-sm text-gray-900">{item.normalRange}</span>
                               <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(item.status)}`}>
                                 {item.status}
                               </span>
@@ -527,13 +527,13 @@ export default function DashboardPage() {
                           }`}>
                             {insight.severity.toUpperCase()}
                           </span>
-                          <span className="text-sm text-gray-700">{formatDateShort(insight.date)}</span>
+                          <span className="text-sm text-gray-900">{formatDateShort(insight.date)}</span>
                         </div>
                         <CardTitle className="text-2xl mb-2">{insight.title}</CardTitle>
                         <CardDescription className="text-base">{insight.description}</CardDescription>
                         {insight.relatedMetrics.length > 0 && (
                           <div className="mt-4">
-                            <p className="text-sm font-medium text-gray-700 mb-2">Related Metrics:</p>
+                            <p className="text-sm font-medium text-gray-900 mb-2">Related Metrics:</p>
                             <div className="flex flex-wrap gap-2">
                               {insight.relatedMetrics.map((metricType) => (
                                 <span key={metricType} className="px-2 py-1 bg-gray-100 rounded text-sm">
@@ -635,7 +635,7 @@ export default function DashboardPage() {
                             <span className="text-sm text-gray-800">Since {formatDateShort(med.startDate)}</span>
                           </div>
                           <p className="text-gray-800">{med.dosage} • {med.frequency}</p>
-                          {med.notes && <p className="text-sm text-gray-700 mt-1">{med.notes}</p>}
+                          {med.notes && <p className="text-sm text-gray-900 mt-1">{med.notes}</p>}
                         </div>
                       ))}
                     </div>

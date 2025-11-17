@@ -177,7 +177,7 @@ export function HealthCorrelationsDashboard() {
   if (isLoading || !data) {
     return (
       <div className="flex items-center justify-center h-96">
-        <div className="text-gray-700">Loading correlation analysis...</div>
+        <div className="text-gray-900">Loading correlation analysis...</div>
       </div>
     )
   }
@@ -214,7 +214,7 @@ export function HealthCorrelationsDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {correlations.map((corr, idx) => (
           <div key={idx} className="bg-white rounded-lg shadow p-4">
-            <div className="text-sm text-gray-700 mb-1">{corr.metric1} vs {corr.metric2}</div>
+            <div className="text-sm text-gray-900 mb-1">{corr.metric1} vs {corr.metric2}</div>
             <div className="flex items-center justify-between">
               <div>
                 <div className="text-2xl font-bold text-gray-900">
@@ -241,7 +241,7 @@ export function HealthCorrelationsDashboard() {
             className={`px-4 py-2 rounded-lg whitespace-nowrap flex items-center gap-2 ${
               selectedCorrelation === corr.id
                 ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
             }`}
           >
             <span>{corr.icon}</span>
@@ -281,7 +281,7 @@ export function HealthCorrelationsDashboard() {
                   if (active && payload && payload.length) {
                     return (
                       <div className="bg-white p-3 rounded-lg shadow-lg border border-gray-200">
-                        <p className="text-xs text-gray-700 mb-1">
+                        <p className="text-xs text-gray-900 mb-1">
                           {new Date(payload[0].payload.date).toLocaleDateString()}
                         </p>
                         <p className="text-sm font-semibold text-gray-900">
@@ -405,19 +405,19 @@ export function HealthCorrelationsDashboard() {
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                   Metrics
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                   Coefficient
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                   Strength
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                   Direction
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                   Interpretation
                 </th>
               </tr>
@@ -427,7 +427,7 @@ export function HealthCorrelationsDashboard() {
                 <tr key={idx} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-medium text-gray-900">{corr.metric1}</div>
-                    <div className="text-sm text-gray-700">vs {corr.metric2}</div>
+                    <div className="text-sm text-gray-900">vs {corr.metric2}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-bold text-gray-900">
@@ -439,10 +439,10 @@ export function HealthCorrelationsDashboard() {
                       {corr.strength}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     {corr.direction === 'Positive' ? '📈 Positive' : corr.direction === 'Negative' ? '📉 Negative' : '➡️ Neutral'}
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-700">
+                  <td className="px-6 py-4 text-sm text-gray-900">
                     {corr.interpretation}
                   </td>
                 </tr>
@@ -469,7 +469,7 @@ export function HealthCorrelationsDashboard() {
             <div className="text-gray-800">Slight relationship. Metrics may have some connection but it's not very predictable.</div>
           </div>
           <div>
-            <div className="font-medium text-gray-700 mb-1">None (0.0-0.2)</div>
+            <div className="font-medium text-gray-900 mb-1">None (0.0-0.2)</div>
             <div className="text-gray-800">Little to no relationship. Changes in one metric don't appear to affect the other.</div>
           </div>
         </div>

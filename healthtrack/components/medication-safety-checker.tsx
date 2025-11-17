@@ -399,7 +399,7 @@ export function MedicationSafetyChecker() {
             <div key={med.id} className="p-3 bg-gray-50 rounded-lg">
               <div className="font-semibold text-gray-900">{med.name}</div>
               <div className="text-sm text-gray-800">{med.genericName}</div>
-              <div className="text-xs text-gray-700 mt-1">
+              <div className="text-xs text-gray-900 mt-1">
                 {med.dosage} • {med.frequency}
               </div>
             </div>
@@ -422,7 +422,7 @@ export function MedicationSafetyChecker() {
                 className={`px-4 py-2 rounded-lg capitalize ${
                   filterSeverity === severity
                     ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                 }`}
               >
                 {severity === 'all' ? 'All' : severity} ({count})
@@ -440,7 +440,7 @@ export function MedicationSafetyChecker() {
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
               {filterSeverity === 'all' ? 'No Interactions Detected' : `No ${filterSeverity} interactions`}
             </h3>
-            <p className="text-gray-700">
+            <p className="text-gray-900">
               {filterSeverity === 'all'
                 ? 'Your current medications appear safe to take together.'
                 : `No ${filterSeverity} severity interactions found. Check other severity levels.`}
@@ -486,7 +486,7 @@ export function MedicationSafetyChecker() {
                     <div className="font-semibold text-gray-900 mb-2">Clinical Effects:</div>
                     <ul className="space-y-1">
                       {interaction.clinicalEffects.map((effect, idx) => (
-                        <li key={idx} className="text-sm text-gray-700 flex items-start">
+                        <li key={idx} className="text-sm text-gray-900 flex items-start">
                           <span className="text-red-600 mr-2">•</span>
                           {effect}
                         </li>
@@ -499,7 +499,7 @@ export function MedicationSafetyChecker() {
                     <div className="font-semibold text-gray-900 mb-2">💡 Recommendations:</div>
                     <ul className="space-y-1">
                       {interaction.recommendations.map((rec, idx) => (
-                        <li key={idx} className="text-sm text-gray-700 flex items-start">
+                        <li key={idx} className="text-sm text-gray-900 flex items-start">
                           <span className="text-blue-600 mr-2">✓</span>
                           {rec}
                         </li>

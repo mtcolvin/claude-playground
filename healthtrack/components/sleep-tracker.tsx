@@ -212,7 +212,7 @@ export function SleepTracker() {
             className={`px-4 py-2 rounded-lg capitalize ${
               selectedPeriod === period
                 ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
             }`}
           >
             This {period}
@@ -290,7 +290,7 @@ export function SleepTracker() {
             height={320}
           />
         ) : (
-          <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center text-gray-700">
+          <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center text-gray-900">
             No sleep data yet. Log your first sleep session to see patterns!
           </div>
         )}
@@ -337,7 +337,7 @@ export function SleepTracker() {
                         year: 'numeric'
                       })}
                     </h3>
-                    <div className="text-sm text-gray-700">
+                    <div className="text-sm text-gray-900">
                       {session.bedTime} - {session.wakeTime}
                     </div>
                   </div>
@@ -346,26 +346,26 @@ export function SleepTracker() {
                 {/* Stats Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-3">
                   <div>
-                    <div className="text-xs text-gray-700">Duration</div>
+                    <div className="text-xs text-gray-900">Duration</div>
                     <div className="font-semibold text-gray-900">
                       {formatDuration(session.totalDuration)}
                     </div>
                   </div>
                   <div>
-                    <div className="text-xs text-gray-700">Quality</div>
+                    <div className="text-xs text-gray-900">Quality</div>
                     <div className={`font-semibold ${getQualityColor(session.quality)}`}>
                       {session.quality}/10
                     </div>
                   </div>
                   <div>
-                    <div className="text-xs text-gray-700">Restfulness</div>
+                    <div className="text-xs text-gray-900">Restfulness</div>
                     <div className={`font-semibold ${getQualityColor(session.restfulness)}`}>
                       {session.restfulness}/10
                     </div>
                   </div>
                   {session.interruptions !== undefined && (
                     <div>
-                      <div className="text-xs text-gray-700">Interruptions</div>
+                      <div className="text-xs text-gray-900">Interruptions</div>
                       <div className="font-semibold text-gray-900">{session.interruptions}</div>
                     </div>
                   )}
@@ -374,7 +374,7 @@ export function SleepTracker() {
                 {/* Sleep Stages */}
                 {(session.deepSleep || session.lightSleep || session.remSleep || session.awakeTime) && (
                   <div className="mb-3">
-                    <div className="text-xs text-gray-700 mb-2">Sleep Stages:</div>
+                    <div className="text-xs text-gray-900 mb-2">Sleep Stages:</div>
                     <div className="grid grid-cols-4 gap-2">
                       {session.deepSleep && (
                         <div className="text-center p-2 bg-purple-50 rounded">
@@ -415,10 +415,10 @@ export function SleepTracker() {
                 {/* Factors */}
                 {session.factors && session.factors.length > 0 && (
                   <div className="mb-3">
-                    <div className="text-xs text-gray-700 mb-1">Factors:</div>
+                    <div className="text-xs text-gray-900 mb-1">Factors:</div>
                     <div className="flex flex-wrap gap-1">
                       {session.factors.map((factor, idx) => (
-                        <span key={idx} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
+                        <span key={idx} className="px-2 py-1 bg-gray-100 text-gray-900 text-xs rounded">
                           {factor}
                         </span>
                       ))}
@@ -428,7 +428,7 @@ export function SleepTracker() {
 
                 {/* Notes */}
                 {session.notes && (
-                  <div className="p-3 bg-gray-50 rounded text-sm text-gray-700">
+                  <div className="p-3 bg-gray-50 rounded text-sm text-gray-900">
                     {session.notes}
                   </div>
                 )}
@@ -438,7 +438,7 @@ export function SleepTracker() {
         ))}
 
         {periodSessions.length === 0 && (
-          <div className="bg-white rounded-lg shadow p-12 text-center text-gray-700">
+          <div className="bg-white rounded-lg shadow p-12 text-center text-gray-900">
             No sleep data yet. Start tracking your sleep patterns today!
           </div>
         )}
@@ -455,7 +455,7 @@ export function SleepTracker() {
             <div className="p-6 space-y-6">
               {/* Date */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Date</label>
+                <label className="block text-sm font-medium text-gray-900 mb-2">Date</label>
                 <input
                   type="date"
                   value={newSession.date}
@@ -467,7 +467,7 @@ export function SleepTracker() {
               {/* Bed Time & Wake Time */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Bed Time</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-2">Bed Time</label>
                   <input
                     type="time"
                     value={newSession.bedTime}
@@ -476,7 +476,7 @@ export function SleepTracker() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Wake Time</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-2">Wake Time</label>
                   <input
                     type="time"
                     value={newSession.wakeTime}
@@ -497,7 +497,7 @@ export function SleepTracker() {
               {/* Quality & Restfulness Sliders */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-900 mb-2">
                     Sleep Quality: {newSession.quality}/10
                   </label>
                   <input
@@ -510,7 +510,7 @@ export function SleepTracker() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-900 mb-2">
                     Restfulness: {newSession.restfulness}/10
                   </label>
                   <input
@@ -527,7 +527,7 @@ export function SleepTracker() {
               {/* Sleep Latency & Interruptions */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-900 mb-2">
                     Time to Fall Asleep (min)
                   </label>
                   <input
@@ -538,7 +538,7 @@ export function SleepTracker() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-900 mb-2">
                     Interruptions
                   </label>
                   <input
@@ -552,7 +552,7 @@ export function SleepTracker() {
 
               {/* Factors */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-900 mb-2">
                   Factors Affecting Sleep
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -571,7 +571,7 @@ export function SleepTracker() {
                       className={`px-3 py-1 rounded text-sm ${
                         newSession.factors.includes(factor)
                           ? 'bg-blue-600 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                       }`}
                     >
                       {factor}
@@ -582,7 +582,7 @@ export function SleepTracker() {
 
               {/* Notes */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Notes (Optional)</label>
+                <label className="block text-sm font-medium text-gray-900 mb-2">Notes (Optional)</label>
                 <textarea
                   value={newSession.notes}
                   onChange={(e) => setNewSession({ ...newSession, notes: e.target.value })}
@@ -596,7 +596,7 @@ export function SleepTracker() {
             <div className="sticky bottom-0 bg-gray-50 px-6 py-4 flex gap-3 justify-end">
               <button
                 onClick={() => setShowAddModal(false)}
-                className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
+                className="px-4 py-2 text-gray-900 hover:bg-gray-100 rounded-lg"
               >
                 Cancel
               </button>

@@ -89,7 +89,7 @@ export function HealthMetricsDashboard() {
             >
               <div className="text-3xl mb-2">{type.icon}</div>
               <div className="text-sm font-medium text-gray-900">{type.label.split('(')[0].trim()}</div>
-              <div className="text-xs text-gray-700 mt-1">{count} records</div>
+              <div className="text-xs text-gray-900 mt-1">{count} records</div>
             </button>
           )
         })}
@@ -128,7 +128,7 @@ export function HealthMetricsDashboard() {
             height={300}
           />
         ) : (
-          <div className="text-center py-12 text-gray-700">
+          <div className="text-center py-12 text-gray-900">
             No data recorded yet. Add your first {metricInfo?.label} reading.
           </div>
         )}
@@ -147,7 +147,7 @@ export function HealthMetricsDashboard() {
                   <div className="font-medium text-gray-900">
                     {metric.value} {metric.unit}
                   </div>
-                  <div className="text-sm text-gray-700">
+                  <div className="text-sm text-gray-900">
                     {new Date(metric.date).toLocaleString()}
                   </div>
                   {metric.notes && (
@@ -222,7 +222,7 @@ function AddMetricModal({ onClose, onSuccess }: { onClose: () => void; onSuccess
         <h2 className="text-xl font-semibold mb-4">Add Health Metric</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Metric Type</label>
+            <label className="block text-sm font-medium text-gray-900 mb-1">Metric Type</label>
             <select
               value={formData.type}
               onChange={(e) => setFormData({ ...formData, type: e.target.value })}
@@ -237,7 +237,7 @@ function AddMetricModal({ onClose, onSuccess }: { onClose: () => void; onSuccess
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-900 mb-1">
               Value ({METRIC_TYPES.find(t => t.value === formData.type)?.unit})
             </label>
             <input
@@ -251,7 +251,7 @@ function AddMetricModal({ onClose, onSuccess }: { onClose: () => void; onSuccess
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Date & Time</label>
+            <label className="block text-sm font-medium text-gray-900 mb-1">Date & Time</label>
             <input
               type="datetime-local"
               value={formData.date}
@@ -262,7 +262,7 @@ function AddMetricModal({ onClose, onSuccess }: { onClose: () => void; onSuccess
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Notes (Optional)</label>
+            <label className="block text-sm font-medium text-gray-900 mb-1">Notes (Optional)</label>
             <textarea
               value={formData.notes}
               onChange={(e) => setFormData({ ...formData, notes: e.target.value })}

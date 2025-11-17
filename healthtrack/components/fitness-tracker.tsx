@@ -212,7 +212,7 @@ export function FitnessTracker() {
             className={`px-4 py-2 rounded-lg capitalize ${
               selectedPeriod === period
                 ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
             }`}
           >
             This {period}
@@ -278,7 +278,7 @@ export function FitnessTracker() {
             height={300}
           />
         ) : (
-          <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center text-gray-700">
+          <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center text-gray-900">
             No workout data yet. Log your first workout to see progress!
           </div>
         )}
@@ -296,7 +296,7 @@ export function FitnessTracker() {
                   <span className="text-3xl">{getActivityIcon(session.activityType)}</span>
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900">{session.activityName}</h3>
-                    <div className="text-sm text-gray-700">
+                    <div className="text-sm text-gray-900">
                       {new Date(session.date).toLocaleDateString('en-US', {
                         weekday: 'short',
                         month: 'short',
@@ -311,18 +311,18 @@ export function FitnessTracker() {
                 {/* Stats Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-3">
                   <div>
-                    <div className="text-xs text-gray-700">Duration</div>
+                    <div className="text-xs text-gray-900">Duration</div>
                     <div className="font-semibold text-gray-900">{session.duration} min</div>
                   </div>
                   {session.caloriesBurned && session.caloriesBurned > 0 && (
                     <div>
-                      <div className="text-xs text-gray-700">Calories</div>
+                      <div className="text-xs text-gray-900">Calories</div>
                       <div className="font-semibold text-gray-900">{session.caloriesBurned} kcal</div>
                     </div>
                   )}
                   {session.distance && session.distance > 0 && (
                     <div>
-                      <div className="text-xs text-gray-700">Distance</div>
+                      <div className="text-xs text-gray-900">Distance</div>
                       <div className="font-semibold text-gray-900">
                         {session.distance} {session.distanceUnit || 'km'}
                       </div>
@@ -330,7 +330,7 @@ export function FitnessTracker() {
                   )}
                   {session.heartRateAvg && (
                     <div>
-                      <div className="text-xs text-gray-700">Heart Rate</div>
+                      <div className="text-xs text-gray-900">Heart Rate</div>
                       <div className="font-semibold text-gray-900">
                         {session.heartRateAvg} bpm
                         {session.heartRateMax && ` / ${session.heartRateMax}`}
@@ -342,7 +342,7 @@ export function FitnessTracker() {
                 {/* Exercises (for strength training) */}
                 {session.exercises && session.exercises.length > 0 && (
                   <div className="mb-3">
-                    <div className="text-sm font-medium text-gray-700 mb-2">Exercises:</div>
+                    <div className="text-sm font-medium text-gray-900 mb-2">Exercises:</div>
                     <div className="space-y-2">
                       {session.exercises.map((exercise, idx) => (
                         <div key={idx} className="flex items-center justify-between bg-gray-50 p-2 rounded">
@@ -371,7 +371,7 @@ export function FitnessTracker() {
 
                 {/* Notes */}
                 {session.notes && (
-                  <div className="mt-3 p-3 bg-blue-50 rounded text-sm text-gray-700">
+                  <div className="mt-3 p-3 bg-blue-50 rounded text-sm text-gray-900">
                     {session.notes}
                   </div>
                 )}
@@ -381,7 +381,7 @@ export function FitnessTracker() {
         ))}
 
         {periodSessions.length === 0 && (
-          <div className="bg-white rounded-lg shadow p-12 text-center text-gray-700">
+          <div className="bg-white rounded-lg shadow p-12 text-center text-gray-900">
             No workouts logged yet. Start tracking your fitness journey today!
           </div>
         )}
@@ -398,7 +398,7 @@ export function FitnessTracker() {
             <div className="p-6 space-y-6">
               {/* Activity Type */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Activity Type</label>
+                <label className="block text-sm font-medium text-gray-900 mb-2">Activity Type</label>
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
                   {(['CARDIO', 'STRENGTH', 'FLEXIBILITY', 'SPORTS', 'OTHER'] as const).map((type) => (
                     <button
@@ -407,7 +407,7 @@ export function FitnessTracker() {
                       className={`px-4 py-2 rounded-lg text-sm ${
                         newSession.activityType === type
                           ? 'bg-blue-600 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                       }`}
                     >
                       {getActivityIcon(type)} {type}
@@ -418,7 +418,7 @@ export function FitnessTracker() {
 
               {/* Activity Name */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Activity Name</label>
+                <label className="block text-sm font-medium text-gray-900 mb-2">Activity Name</label>
                 <input
                   type="text"
                   value={newSession.activityName}
@@ -437,7 +437,7 @@ export function FitnessTracker() {
               {/* Duration & Intensity */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Duration (minutes)</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-2">Duration (minutes)</label>
                   <input
                     type="number"
                     value={newSession.duration}
@@ -446,7 +446,7 @@ export function FitnessTracker() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Intensity</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-2">Intensity</label>
                   <select
                     value={newSession.intensity}
                     onChange={(e) => setNewSession({ ...newSession, intensity: e.target.value as any })}
@@ -463,7 +463,7 @@ export function FitnessTracker() {
               {/* Calories & Distance */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Calories Burned</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-2">Calories Burned</label>
                   <input
                     type="number"
                     value={newSession.caloriesBurned}
@@ -473,7 +473,7 @@ export function FitnessTracker() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Distance (km)</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-2">Distance (km)</label>
                   <input
                     type="number"
                     step="0.1"
@@ -489,7 +489,7 @@ export function FitnessTracker() {
               {newSession.activityType === 'STRENGTH' && (
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <label className="block text-sm font-medium text-gray-700">Exercises</label>
+                    <label className="block text-sm font-medium text-gray-900">Exercises</label>
                     <button
                       onClick={addExercise}
                       className="text-sm text-blue-600 hover:text-blue-700 flex items-center"
@@ -564,7 +564,7 @@ export function FitnessTracker() {
 
               {/* Notes */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Notes (Optional)</label>
+                <label className="block text-sm font-medium text-gray-900 mb-2">Notes (Optional)</label>
                 <textarea
                   value={newSession.notes}
                   onChange={(e) => setNewSession({ ...newSession, notes: e.target.value })}
@@ -578,7 +578,7 @@ export function FitnessTracker() {
             <div className="sticky bottom-0 bg-gray-50 px-6 py-4 flex gap-3 justify-end">
               <button
                 onClick={() => setShowAddModal(false)}
-                className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
+                className="px-4 py-2 text-gray-900 hover:bg-gray-100 rounded-lg"
               >
                 Cancel
               </button>

@@ -112,7 +112,7 @@ export function AppointmentCalendar() {
             className={`px-4 py-2 font-medium capitalize ${
               filterStatus === status
                 ? 'text-blue-600 border-b-2 border-blue-600'
-                : 'text-gray-700 hover:text-gray-700'
+                : 'text-gray-900 hover:text-gray-900'
             }`}
           >
             {status === 'all' ? 'All' : status.toLowerCase()}
@@ -178,7 +178,7 @@ export function AppointmentCalendar() {
                   </div>
 
                   {apt.notes && (
-                    <div className="mt-3 p-3 bg-gray-50 rounded text-sm text-gray-700">
+                    <div className="mt-3 p-3 bg-gray-50 rounded text-sm text-gray-900">
                       {apt.notes}
                     </div>
                   )}
@@ -204,7 +204,7 @@ export function AppointmentCalendar() {
         })}
 
         {filteredAppointments.length === 0 && (
-          <div className="text-center py-12 text-gray-700">
+          <div className="text-center py-12 text-gray-900">
             No appointments found
           </div>
         )}

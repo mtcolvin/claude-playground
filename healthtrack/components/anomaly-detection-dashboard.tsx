@@ -304,9 +304,9 @@ export function AnomalyDetectionDashboard() {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         <div className="bg-white rounded-lg shadow p-6">
-          <div className="text-sm text-gray-700">Total Anomalies</div>
+          <div className="text-sm text-gray-900">Total Anomalies</div>
           <div className="text-3xl font-bold text-gray-900 mt-1">{stats.totalAnomalies}</div>
-          <div className="text-xs text-gray-700 mt-1">Detected patterns</div>
+          <div className="text-xs text-gray-900 mt-1">Detected patterns</div>
         </div>
 
         <div className="bg-gradient-to-br from-red-500 to-red-600 rounded-lg shadow p-6 text-white">
@@ -343,7 +343,7 @@ export function AnomalyDetectionDashboard() {
             className={`px-4 py-2 rounded-lg capitalize ${
               selectedSeverity === severity
                 ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
             }`}
           >
             {severity === 'all' ? 'All Alerts' : `${severity} (${stats[`${severity}Count` as keyof AnomalyStats]})`}
@@ -363,7 +363,7 @@ export function AnomalyDetectionDashboard() {
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
               {selectedSeverity === 'all' ? 'No Anomalies Detected' : `No ${selectedSeverity} severity anomalies`}
             </h3>
-            <p className="text-gray-700">
+            <p className="text-gray-900">
               {selectedSeverity === 'all'
                 ? 'Your health metrics are all within expected ranges. Great job!'
                 : `No ${selectedSeverity} severity issues detected. Check other severity levels.`}
@@ -417,7 +417,7 @@ export function AnomalyDetectionDashboard() {
                   {/* Recommendation */}
                   <div className="p-4 bg-white bg-opacity-50 rounded-lg">
                     <div className="font-semibold text-gray-900 mb-1">💡 Recommendation</div>
-                    <p className="text-sm text-gray-700">{anomaly.recommendation}</p>
+                    <p className="text-sm text-gray-900">{anomaly.recommendation}</p>
                   </div>
                 </div>
 

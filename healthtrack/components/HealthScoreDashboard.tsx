@@ -146,7 +146,7 @@ export default function HealthScoreDashboard({ healthScore }: HealthScoreDashboa
             {healthScore.improvements.map((improvement, index) => (
               <li key={index} className="flex items-start gap-2">
                 <span className="text-blue-600 mt-1">•</span>
-                <span className="text-gray-700">{improvement}</span>
+                <span className="text-gray-900">{improvement}</span>
               </li>
             ))}
           </ul>
