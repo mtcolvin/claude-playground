@@ -354,7 +354,7 @@ export function MedicalFileUpload() {
 
                 {file.tags && file.tags.length > 0 && (
                   <div className="flex flex-wrap gap-1 mt-2">
-                    {file.tags.map((tag, idx) => (
+                    {file.tags.map((tag: string, idx) => (
                       <span key={idx} className="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded">
                         {tag}
                       </span>
