@@ -14,63 +14,78 @@ const loginSchema = z.object({
   password: z.string().min(8),
 })
 
-export const authConfig: NextAuthConfig = {
-  adapter: PrismaAdapter(prisma) as any,
-  providers: [
-    CredentialsProvider({
-      name: "credentials",
-      credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials) {
-        try {
-          const { email, password } = loginSchema.parse(credentials)
+// Only include OAuth providers if credentials are configured
+const providers: any[] = [
+  CredentialsProvider({
+    name: "credentials",
+    credentials: {
+      email: { label: "Email", type: "email" },
+      password: { label: "Password", type: "password" },
+    },
+    async authorize(credentials) {
+      try {
+        const { email, password } = loginSchema.parse(credentials)
 
-          const user = await prisma.user.findUnique({
-            where: { email },
-            include: { profile: true },
-          })
+        const user = await prisma.user.findUnique({
+          where: { email },
+          include: { profile: true },
+        })
 
-          if (!user || !user.passwordHash) {
-            return null
-          }
-
-          const isValidPassword = await bcrypt.compare(password, user.passwordHash)
-
-          if (!isValidPassword) {
-            return null
-          }
-
-          // Update last login
-          await prisma.user.update({
-            where: { id: user.id },
-            data: { lastLoginAt: new Date() },
-          })
-
-          return {
-            id: user.id,
-            email: user.email,
-            name: user.name,
-            image: user.image,
-            role: user.role as any,
-          }
-        } catch (error) {
+        if (!user || !user.passwordHash) {
           return null
         }
-      },
-    }),
+
+        const isValidPassword = await bcrypt.compare(password, user.passwordHash)
+
+        if (!isValidPassword) {
+          return null
+        }
+
+        // Update last login
+        await prisma.user.update({
+          where: { id: user.id },
+          data: { lastLoginAt: new Date() },
+        })
+
+        return {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          image: user.image,
+          role: user.role as any,
+        }
+      } catch (error) {
+        return null
+      }
+    },
+  }),
+]
+
+// Add Google OAuth if configured
+if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
+  providers.push(
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       allowDangerousEmailAccountLinking: true,
-    }),
+    })
+  )
+}
+
+// Add GitHub OAuth if configured
+if (process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET) {
+  providers.push(
     GitHubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID!,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
       allowDangerousEmailAccountLinking: true,
-    }),
-  ],
+    })
+  )
+}
+
+export const authConfig: NextAuthConfig = {
+  adapter: PrismaAdapter(prisma) as any,
+  providers,
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days
