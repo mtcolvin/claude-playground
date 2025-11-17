@@ -51,7 +51,7 @@ export default function HomePage() {
 
       {/* Features Section */}
       <section className="container mx-auto px-4 py-20">
-        <h2 className="text-3xl font-bold text-center mb-12">Comprehensive Health Management</h2>
+        <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Comprehensive Health Management</h2>
         <div className="grid md:grid-cols-3 gap-8">
           <Card>
             <CardHeader>
@@ -141,7 +141,7 @@ export default function HomePage() {
 
       {/* Pricing Section */}
       <section className="container mx-auto px-4 py-20 bg-gray-50 rounded-3xl">
-        <h2 className="text-3xl font-bold text-center mb-4">Simple, Transparent Pricing</h2>
+        <h2 className="text-3xl font-bold text-gray-900 text-center mb-4">Simple, Transparent Pricing</h2>
         <p className="text-center text-gray-800 mb-12">Choose the plan that works best for you</p>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
