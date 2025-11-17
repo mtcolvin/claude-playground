@@ -88,7 +88,7 @@ export const POST = apiHandler(
         date: data.date ? new Date(data.date) : new Date(),
         notes: data.notes,
         source: data.source,
-        metadata: data.metadata,
+        metadata: data.metadata as any,
       },
     })
 

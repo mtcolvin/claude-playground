@@ -71,7 +71,7 @@ export const PUT = apiHandler(
         ...(data.date && { date: new Date(data.date) }),
         ...(data.notes !== undefined && { notes: data.notes }),
         ...(data.source !== undefined && { source: data.source }),
-        ...(data.metadata !== undefined && { metadata: data.metadata }),
+        ...(data.metadata !== undefined && { metadata: data.metadata as any }),
       },
     })
 
