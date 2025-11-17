@@ -5,7 +5,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Globe, Check, ChevronRight } from 'lucide-react'
-import { i18nManager, type Locale, localeInfo, type TranslationKeys } from '@/lib/i18n'
+import { i18n, type Locale, localeInfo, type TranslationKeys } from '@/lib/i18n'
 
 export function LanguageSelector() {
   const [currentLocale, setCurrentLocale] = useState<Locale>('en-US')
@@ -13,13 +13,13 @@ export function LanguageSelector() {
 
   useEffect(() => {
     // Detect browser locale on mount
-    const browserLocale = i18nManager.detectLocale()
+    const browserLocale = i18n.detectBrowserLocale()
     setCurrentLocale(browserLocale)
     setIsRTL(localeInfo[browserLocale].direction === 'rtl')
   }, [])
 
   const handleLocaleChange = (locale: Locale) => {
-    i18nManager.setLocale(locale)
+    i18n.setLocale(locale)
     setCurrentLocale(locale)
     setIsRTL(localeInfo[locale].direction === 'rtl')
 
@@ -44,7 +44,7 @@ export function LanguageSelector() {
       <div>
         <h1 className="text-3xl font-bold mb-2 flex items-center gap-2">
           <Globe className="h-8 w-8 text-blue-600" />
-          {i18nManager.t('language_settings')}
+          {i18n.t('language_settings')}
         </h1>
         <p className="text-muted-foreground">
           Choose your preferred language and regional settings
@@ -171,11 +171,11 @@ export function LanguageSelector() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Example Date:</span>
-                  <span className="font-medium">{i18nManager.formatDate(new Date())}</span>
+                  <span className="font-medium">{i18n.formatDate(new Date())}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Example Time:</span>
-                  <span className="font-medium">{i18nManager.formatTime(new Date())}</span>
+                  <span className="font-medium">{i18n.formatTime(new Date())}</span>
                 </div>
               </div>
             </div>
@@ -190,15 +190,15 @@ export function LanguageSelector() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Number (1234.56):</span>
-                  <span className="font-medium">{i18nManager.formatNumber(1234.56, 2)}</span>
+                  <span className="font-medium">{i18n.formatNumber(1234.56, 2)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Currency ($99.99):</span>
-                  <span className="font-medium">{i18nManager.formatCurrency(99.99)}</span>
+                  <span className="font-medium">{i18n.formatCurrency(99.99)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Large Number:</span>
-                  <span className="font-medium">{i18nManager.formatNumber(1234567.89, 2)}</span>
+                  <span className="font-medium">{i18n.formatNumber(1234567.89, 2)}</span>
                 </div>
               </div>
             </div>
@@ -212,7 +212,7 @@ export function LanguageSelector() {
                   <span className="font-medium">
                     {localeInfo[currentLocale].measurementSystem === 'metric'
                       ? '70.0 kg'
-                      : `${i18nManager.convertWeight(70, 'kg', 'lbs').toFixed(1)} lbs`}
+                      : `${i18n.convertWeight(70, 'kg', 'lbs').toFixed(1)} lbs`}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -220,7 +220,7 @@ export function LanguageSelector() {
                   <span className="font-medium">
                     {localeInfo[currentLocale].measurementSystem === 'metric'
                       ? '175.0 cm'
-                      : `${i18nManager.convertHeight(175, 'cm', 'in').toFixed(1)} inches`}
+                      : `${i18n.convertHeight(175, 'cm', 'in').toFixed(1)} inches`}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -241,7 +241,7 @@ export function LanguageSelector() {
                   <span className="font-medium">
                     {localeInfo[currentLocale].measurementSystem === 'metric'
                       ? '37.0°C'
-                      : `${i18nManager.convertTemperature(37, 'C', 'F').toFixed(1)}°F`}
+                      : `${i18n.convertTemperature(37, 'C', 'F').toFixed(1)}°F`}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -249,7 +249,7 @@ export function LanguageSelector() {
                   <span className="font-medium">
                     {localeInfo[currentLocale].measurementSystem === 'metric'
                       ? '20.0°C'
-                      : `${i18nManager.convertTemperature(20, 'C', 'F').toFixed(1)}°F`}
+                      : `${i18n.convertTemperature(20, 'C', 'F').toFixed(1)}°F`}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -278,7 +278,7 @@ export function LanguageSelector() {
               <div key={key} className="flex items-center gap-2 p-2 border rounded">
                 <Check className="h-4 w-4 text-green-600 flex-shrink-0" />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">{i18nManager.t(key)}</p>
+                  <p className="text-sm font-medium truncate">{i18n.t(key)}</p>
                   <p className="text-xs text-muted-foreground capitalize">{key}</p>
                 </div>
               </div>
