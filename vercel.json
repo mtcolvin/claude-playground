@@ -1,7 +1,0 @@
-{
-  "buildCommand": "cd healthtrack && npm run build",
-  "devCommand": "cd healthtrack && npm run dev",
-  "installCommand": "cd healthtrack && npm install",
-  "framework": "nextjs",
-  "outputDirectory": "healthtrack/.next"
-}
