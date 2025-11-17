@@ -39,13 +39,21 @@ export function WomensHealthTracker() {
   const [pregnancy, setPregnancy] = useState<PregnancyTracking | null>(null)
   const [view, setView] = useState<'cycle' | 'pregnancy' | 'symptoms'>('cycle')
   const [showAddCycleModal, setShowAddCycleModal] = useState(false)
-  const [newCycle, setNewCycle] = useState({
+  const [newCycle, setNewCycle] = useState<{
+    startDate: string
+    endDate: string
+    flowIntensity: 'LIGHT' | 'MEDIUM' | 'HEAVY' | 'SPOTTING'
+    painLevel: number
+    symptoms: string[]
+    mood: string[]
+    notes: string
+  }>({
     startDate: new Date().toISOString().split('T')[0],
     endDate: '',
-    flowIntensity: 'MEDIUM' as const,
+    flowIntensity: 'MEDIUM',
     painLevel: 3,
-    symptoms: [] as string[],
-    mood: [] as string[],
+    symptoms: [],
+    mood: [],
     notes: '',
   })
 

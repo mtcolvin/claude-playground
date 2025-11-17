@@ -41,14 +41,23 @@ export function FitnessTracker() {
   const [sessions, setSessions] = useState<ExerciseSession[]>([])
   const [selectedPeriod, setSelectedPeriod] = useState<'week' | 'month'>('week')
   const [showAddModal, setShowAddModal] = useState(false)
-  const [newSession, setNewSession] = useState({
-    activityType: 'CARDIO' as const,
+  const [newSession, setNewSession] = useState<{
+    activityType: 'CARDIO' | 'STRENGTH' | 'FLEXIBILITY' | 'SPORTS' | 'OTHER'
+    activityName: string
+    duration: number
+    caloriesBurned: number
+    distance: number
+    intensity: 'LOW' | 'MODERATE' | 'HIGH' | 'VIGOROUS'
+    exercises: Array<{ name: string; sets: number; reps: number; weight: number }>
+    notes: string
+  }>({
+    activityType: 'CARDIO',
     activityName: '',
     duration: 30,
     caloriesBurned: 0,
     distance: 0,
-    intensity: 'MODERATE' as const,
-    exercises: [] as Array<{ name: string; sets: number; reps: number; weight: number }>,
+    intensity: 'MODERATE',
+    exercises: [],
     notes: '',
   })
 

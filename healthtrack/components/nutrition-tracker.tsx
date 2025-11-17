@@ -41,8 +41,12 @@ export function NutritionTracker() {
   const [entries, setEntries] = useState<NutritionEntry[]>([])
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0])
   const [showAddModal, setShowAddModal] = useState(false)
-  const [newEntry, setNewEntry] = useState({
-    mealType: 'BREAKFAST' as const,
+  const [newEntry, setNewEntry] = useState<{
+    mealType: 'BREAKFAST' | 'LUNCH' | 'DINNER' | 'SNACK'
+    foodItems: Array<{ name: string; quantity: number; unit: string; calories: number; protein: number; carbs: number; fat: number }>
+    notes: string
+  }>({
+    mealType: 'BREAKFAST',
     foodItems: [{ name: '', quantity: 1, unit: 'serving', calories: 0, protein: 0, carbs: 0, fat: 0 }],
     notes: '',
   })
