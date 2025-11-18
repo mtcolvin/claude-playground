@@ -17,10 +17,10 @@ export default function HomePage() {
             <span className="text-2xl font-bold text-gray-900">HealthTrack AI</span>
           </div>
           <div className="flex items-center space-x-4">
-            <Link href="/dashboard">
-              <Button variant="ghost">Dashboard</Button>
+            <Link href="/auth">
+              <Button variant="ghost">Sign In</Button>
             </Link>
-            <Link href="/dashboard">
+            <Link href="/auth">
               <Button variant="primary">Get Started</Button>
             </Link>
           </div>
@@ -38,7 +38,7 @@ export default function HomePage() {
           Get intelligent insights powered by advanced AI to understand your health better.
         </p>
         <div className="flex justify-center space-x-4">
-          <Link href="/dashboard">
+          <Link href="/auth">
             <Button variant="primary" size="lg">
               Start Free Trial
             </Button>
@@ -181,7 +181,7 @@ export default function HomePage() {
                   <span>5 AI insights per month</span>
                 </li>
               </ul>
-              <Link href="/dashboard">
+              <Link href="/auth">
                 <Button variant="outline" className="w-full mt-6">
                   Get Started
                 </Button>
@@ -240,7 +240,7 @@ export default function HomePage() {
                   <span>PDF report export</span>
                 </li>
               </ul>
-              <Link href="/dashboard">
+              <Link href="/auth">
                 <Button variant="primary" className="w-full mt-6">
                   Start Free Trial
                 </Button>
@@ -296,7 +296,7 @@ export default function HomePage() {
                   <span>API access</span>
                 </li>
               </ul>
-              <Link href="/dashboard">
+              <Link href="/auth">
                 <Button variant="outline" className="w-full mt-6">
                   Contact Sales
                 </Button>
