@@ -4,7 +4,7 @@
 
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 interface MedicalFile {
   id: string
@@ -51,6 +51,12 @@ export function MedicalFileUpload() {
     'Documents': ['.pdf', '.doc', '.docx'],
     'Data Files': ['.csv', '.xlsx', '.json', '.xml', '.hl7'],
   }
+
+  // Load files on mount
+  useEffect(() => {
+    loadFiles()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault()
@@ -108,7 +114,7 @@ export function MedicalFileUpload() {
         ))
 
         // Upload file
-        const response = await fetch('/api/v1/medical-files', {
+        const response = await fetch('/api/v1/medical-files/upload', {
           method: 'POST',
           body: formData,
         })
@@ -144,13 +150,24 @@ export function MedicalFileUpload() {
 
     setIsUploading(false)
     setTimeout(() => setUploadProgress([]), 3000)
+
+    // Reload files to show newly uploaded ones
+    loadFiles()
   }
 
   const loadFiles = async () => {
     try {
-      const response = await fetch('/api/v1/medical-files?sortBy=uploadedAt&sortOrder=desc')
+      const response = await fetch('/api/v1/medical-files?sortBy=uploadDate&sortOrder=desc')
+      if (!response.ok) {
+        // If unauthorized, just keep empty files list
+        if (response.status === 401) {
+          console.log('User not authenticated')
+          return
+        }
+        throw new Error('Failed to load files')
+      }
       const data = await response.json()
-      if (data.success) {
+      if (data.success && Array.isArray(data.data)) {
         setFiles(data.data)
       }
     } catch (error) {
@@ -256,10 +273,11 @@ export function MedicalFileUpload() {
 
       {/* Drag & Drop Zone */}
       <div
+        onClick={() => fileInputRef.current?.click()}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        className={`border-2 border-dashed rounded-lg p-12 text-center transition-colors ${
+        className={`border-2 border-dashed rounded-lg p-12 text-center transition-colors cursor-pointer ${
           isDragging
             ? 'border-blue-500 bg-blue-50'
             : 'border-gray-300 bg-gray-50 hover:bg-gray-100'

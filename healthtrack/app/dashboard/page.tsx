@@ -19,6 +19,7 @@ import {
 import type { HealthMetric, PatientProfile, MetricType, AIInsight, MedicalFile, LabResult } from '@/lib/types';
 import { METRIC_CONFIGS } from '@/lib/types';
 import { formatDateShort, calculateAge, getValueStatus, getStatusColor } from '@/lib/utils';
+import { MedicalFileUpload } from '@/components/medical-file-upload';
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState<'overview' | 'metrics' | 'files' | 'insights' | 'profile'>('overview');
@@ -421,77 +422,7 @@ export default function DashboardPage() {
           </div>
         )}
 
-        {activeTab === 'files' && (
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h1 className="text-3xl font-bold mb-2">Medical Files</h1>
-                <p className="text-gray-600">Upload and manage your medical documents, scans, and lab reports</p>
-              </div>
-              <Button variant="primary">Upload File</Button>
-            </div>
-
-            {/* Upload Area */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Upload Medical Files</CardTitle>
-                <CardDescription>
-                  Supports DICOM scans, PDF lab reports, images, and more
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center hover:border-blue-500 transition-colors cursor-pointer">
-                  <svg className="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                  </svg>
-                  <p className="text-lg font-medium mb-2">Drag and drop files here</p>
-                  <p className="text-gray-600 mb-4">or click to browse</p>
-                  <Button variant="outline">Select Files</Button>
-                </div>
-                <p className="text-sm text-gray-500 mt-4">
-                  This is a demo interface. In production, files would be uploaded to secure cloud storage.
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* Recent Lab Results */}
-            <div>
-              <h2 className="text-2xl font-bold mb-4">Lab Results</h2>
-              <div className="space-y-4">
-                {labResults.map((result) => (
-                  <Card key={result.id}>
-                    <CardHeader>
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <CardTitle>{result.testName}</CardTitle>
-                          <CardDescription>
-                            {formatDateShort(result.date)} • {result.labName || 'Lab'}
-                          </CardDescription>
-                        </div>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2">
-                        {result.results.map((item, idx) => (
-                          <div key={idx} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
-                            <span className="font-medium">{item.biomarker}</span>
-                            <div className="flex items-center space-x-4">
-                              <span>{item.value} {item.unit}</span>
-                              <span className="text-sm text-gray-500">{item.normalRange}</span>
-                              <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(item.status)}`}>
-                                {item.status}
-                              </span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
+        {activeTab === 'files' && <MedicalFileUpload />}
 
         {activeTab === 'insights' && (
           <div className="space-y-6">
