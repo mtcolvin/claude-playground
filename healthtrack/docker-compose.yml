@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:14-alpine
+    container_name: healthtrack-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: healthtrack_user
+      POSTGRES_PASSWORD: healthtrack_secure_password
+      POSTGRES_DB: healthtrack
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U healthtrack_user -d healthtrack"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Next.js Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: healthtrack-app
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: "postgresql://healthtrack_user:healthtrack_secure_password@postgres:5432/healthtrack?schema=public"
+      NEXTAUTH_URL: "http://localhost:3000"
+      NEXTAUTH_SECRET: "your-nextauth-secret-change-in-production"
+      NODE_ENV: production
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+      - /app/.next
+    command: sh -c "npm run db:push && npm run build && npm start"
+
+  # Prisma Studio (Database GUI)
+  studio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: healthtrack-studio
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: "postgresql://healthtrack_user:healthtrack_secure_password@postgres:5432/healthtrack?schema=public"
+    ports:
+      - "5555:5555"
+    volumes:
+      - ./:/app
+    command: npx prisma studio --port 5555 --hostname 0.0.0.0
+    profiles:
+      - dev  # Only start with: docker-compose --profile dev up
+
+volumes:
+  postgres_data:
+    driver: local
