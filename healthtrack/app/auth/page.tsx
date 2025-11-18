@@ -57,15 +57,22 @@ export default function AuthPage() {
     setLoading(true);
 
     try {
-      // TODO: Implement actual sign-in with NextAuth
-      // For now, simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const { signInUser } = await import('@/lib/demo-auth');
+      const result = await signInUser({
+        email: signInEmail,
+        password: signInPassword,
+      });
 
-      // Mock successful sign-in
+      if (!result.success) {
+        setError(result.error || 'Sign in failed');
+        setLoading(false);
+        return;
+      }
+
       setSuccess('Signed in successfully!');
       setTimeout(() => {
         router.push('/dashboard');
-      }, 1000);
+      }, 500);
     } catch (err) {
       setError('Invalid email or password');
     } finally {
@@ -96,28 +103,24 @@ export default function AuthPage() {
     setLoading(true);
 
     try {
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: `${signUpData.firstName} ${signUpData.lastName}`,
-          email: signUpData.email,
-          password: signUpData.password,
-        }),
+      const { registerUser } = await import('@/lib/demo-auth');
+      const result = await registerUser({
+        firstName: signUpData.firstName,
+        lastName: signUpData.lastName,
+        email: signUpData.email,
+        password: signUpData.password,
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Registration failed');
+      if (!result.success) {
+        setError(result.error || 'Registration failed');
+        setLoading(false);
+        return;
       }
 
       setSuccess('Account created successfully! Redirecting...');
       setTimeout(() => {
         router.push('/dashboard');
-      }, 1500);
+      }, 1000);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to create account');
     } finally {

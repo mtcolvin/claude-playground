@@ -94,6 +94,9 @@ export function MedicalFileUpload() {
     }))
     setUploadProgress(progressEntries)
 
+    // Import storage functions
+    const { addMedicalFile } = await import('@/lib/storage')
+
     for (let i = 0; i < filesToUpload.length; i++) {
       const file = filesToUpload[i]
 
@@ -103,27 +106,20 @@ export function MedicalFileUpload() {
           idx === i ? { ...p, progress: 10, status: 'uploading' } : p
         ))
 
-        // Create FormData
-        const formData = new FormData()
-        formData.append('file', file)
-        formData.append('category', 'other') // Would come from user selection in full implementation
+        // Read file as base64
+        const reader = new FileReader()
+        const fileDataPromise = new Promise<string>((resolve, reject) => {
+          reader.onload = () => resolve(reader.result as string)
+          reader.onerror = () => reject(new Error('Failed to read file'))
+          reader.readAsDataURL(file)
+        })
 
         // Simulate upload progress
         setUploadProgress(prev => prev.map((p, idx) =>
           idx === i ? { ...p, progress: 50 } : p
         ))
 
-        // Upload file
-        const response = await fetch('/api/v1/medical-files/upload', {
-          method: 'POST',
-          body: formData,
-        })
-
-        if (!response.ok) {
-          throw new Error('Upload failed')
-        }
-
-        const data = await response.json()
+        const fileData = await fileDataPromise
 
         // Update to encrypting
         setUploadProgress(prev => prev.map((p, idx) =>
@@ -131,16 +127,25 @@ export function MedicalFileUpload() {
         ))
 
         // Simulate encryption time
-        await new Promise(resolve => setTimeout(resolve, 500))
+        await new Promise(resolve => setTimeout(resolve, 300))
+
+        // Save to localStorage
+        const newFile = addMedicalFile({
+          fileName: file.name,
+          fileType: file.type,
+          fileSize: file.size,
+          fileUrl: fileData, // base64 data URL
+          category: 'other',
+          uploadDate: new Date().toISOString(),
+          tags: [],
+        })
 
         // Complete
         setUploadProgress(prev => prev.map((p, idx) =>
           idx === i ? { ...p, progress: 100, status: 'complete' } : p
         ))
 
-        if (data.success) {
-          setFiles(prev => [data.data, ...prev])
-        }
+        setFiles(prev => [newFile, ...prev])
       } catch (error) {
         setUploadProgress(prev => prev.map((p, idx) =>
           idx === i ? { ...p, status: 'error', error: 'Upload failed' } : p
@@ -150,26 +155,17 @@ export function MedicalFileUpload() {
 
     setIsUploading(false)
     setTimeout(() => setUploadProgress([]), 3000)
-
-    // Reload files to show newly uploaded ones
-    loadFiles()
   }
 
   const loadFiles = async () => {
     try {
-      const response = await fetch('/api/v1/medical-files?sortBy=uploadDate&sortOrder=desc')
-      if (!response.ok) {
-        // If unauthorized, just keep empty files list
-        if (response.status === 401) {
-          console.log('User not authenticated')
-          return
-        }
-        throw new Error('Failed to load files')
-      }
-      const data = await response.json()
-      if (data.success && Array.isArray(data.data)) {
-        setFiles(data.data)
-      }
+      const { getMedicalFiles } = await import('@/lib/storage')
+      const allFiles = getMedicalFiles()
+      // Sort by upload date descending
+      const sortedFiles = allFiles.sort((a, b) =>
+        new Date(b.uploadDate).getTime() - new Date(a.uploadDate).getTime()
+      )
+      setFiles(sortedFiles)
     } catch (error) {
       console.error('Failed to load files:', error)
     }
@@ -179,15 +175,11 @@ export function MedicalFileUpload() {
     if (!confirm('Are you sure you want to delete this file?')) return
 
     try {
-      const response = await fetch(`/api/v1/medical-files/${fileId}`, {
-        method: 'DELETE',
-      })
-
-      if (response.ok) {
-        setFiles(prev => prev.filter(f => f.id !== fileId))
-        if (selectedFile?.id === fileId) {
-          setSelectedFile(null)
-        }
+      const { deleteMedicalFile } = await import('@/lib/storage')
+      deleteMedicalFile(fileId)
+      setFiles(prev => prev.filter(f => f.id !== fileId))
+      if (selectedFile?.id === fileId) {
+        setSelectedFile(null)
       }
     } catch (error) {
       console.error('Failed to delete file:', error)

@@ -1,0 +1,137 @@
+// Demo authentication using localStorage
+// For production, this should use NextAuth with database
+
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+  role: string;
+}
+
+const STORAGE_KEYS = {
+  USERS: 'healthtrack_users',
+  CURRENT_USER: 'healthtrack_current_user',
+};
+
+// Get all users from storage
+const getUsers = (): User[] => {
+  if (typeof window === 'undefined') return [];
+  const data = localStorage.getItem(STORAGE_KEYS.USERS);
+  return data ? JSON.parse(data) : [];
+};
+
+// Save users to storage
+const saveUsers = (users: User[]): void => {
+  if (typeof window === 'undefined') return;
+  localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
+};
+
+// Register a new user
+export const registerUser = async (data: {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}): Promise<{ success: boolean; user?: User; error?: string }> => {
+  try {
+    const users = getUsers();
+
+    // Check if user already exists
+    if (users.some(u => u.email === data.email)) {
+      return { success: false, error: 'User with this email already exists' };
+    }
+
+    // Create new user
+    const newUser: User = {
+      id: `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      email: data.email,
+      name: `${data.firstName} ${data.lastName}`,
+      role: 'PATIENT',
+    };
+
+    users.push(newUser);
+    saveUsers(users);
+
+    // Auto sign in
+    setCurrentUser(newUser);
+
+    return { success: true, user: newUser };
+  } catch (error) {
+    return { success: false, error: 'Registration failed' };
+  }
+};
+
+// Sign in a user
+export const signInUser = async (data: {
+  email: string;
+  password: string;
+}): Promise<{ success: boolean; user?: User; error?: string }> => {
+  try {
+    const users = getUsers();
+    const user = users.find(u => u.email === data.email);
+
+    if (!user) {
+      return { success: false, error: 'Invalid email or password' };
+    }
+
+    // For demo purposes, any password works
+    // In production, you'd verify the password hash
+
+    setCurrentUser(user);
+
+    return { success: true, user };
+  } catch (error) {
+    return { success: false, error: 'Sign in failed' };
+  }
+};
+
+// Sign out the current user
+export const signOutUser = (): void => {
+  if (typeof window === 'undefined') return;
+  localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
+};
+
+// Get current user
+export const getCurrentUser = (): User | null => {
+  if (typeof window === 'undefined') return null;
+  const data = localStorage.getItem(STORAGE_KEYS.CURRENT_USER);
+  return data ? JSON.parse(data) : null;
+};
+
+// Set current user
+const setCurrentUser = (user: User): void => {
+  if (typeof window === 'undefined') return;
+  localStorage.setItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(user));
+};
+
+// Check if user is authenticated
+export const isAuthenticated = (): boolean => {
+  return getCurrentUser() !== null;
+};
+
+// Create demo user if none exists
+export const ensureDemoUser = (): User => {
+  const users = getUsers();
+
+  if (users.length === 0) {
+    const demoUser: User = {
+      id: 'demo_user_1',
+      email: 'demo@healthtrack.com',
+      name: 'Demo User',
+      role: 'PATIENT',
+    };
+
+    users.push(demoUser);
+    saveUsers(users);
+    setCurrentUser(demoUser);
+    return demoUser;
+  }
+
+  const currentUser = getCurrentUser();
+  if (!currentUser && users.length > 0) {
+    setCurrentUser(users[0]);
+    return users[0];
+  }
+
+  return currentUser || users[0];
+};

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -20,8 +21,10 @@ import type { HealthMetric, PatientProfile, MetricType, AIInsight, MedicalFile, 
 import { METRIC_CONFIGS } from '@/lib/types';
 import { formatDateShort, calculateAge, getValueStatus, getStatusColor } from '@/lib/utils';
 import { MedicalFileUpload } from '@/components/medical-file-upload';
+import { getCurrentUser, signOutUser } from '@/lib/demo-auth';
 
 export default function DashboardPage() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<'overview' | 'metrics' | 'files' | 'insights' | 'profile'>('overview');
   const [profile, setProfile] = useState<PatientProfile | null>(null);
   const [metrics, setMetrics] = useState<HealthMetric[]>([]);
@@ -29,6 +32,7 @@ export default function DashboardPage() {
   const [files, setFiles] = useState<MedicalFile[]>([]);
   const [labResults, setLabResults] = useState<LabResult[]>([]);
   const [loading, setLoading] = useState(true);
+  const [currentUser, setCurrentUser] = useState(getCurrentUser());
 
   // New metric form
   const [newMetric, setNewMetric] = useState<{
@@ -44,12 +48,20 @@ export default function DashboardPage() {
   });
 
   useEffect(() => {
+    // Check authentication
+    const user = getCurrentUser();
+    if (!user) {
+      router.push('/auth');
+      return;
+    }
+    setCurrentUser(user);
     loadData();
-  }, []);
+  }, [router]);
 
   const loadData = () => {
     const savedProfile = getPatientProfile();
     if (!savedProfile) {
+      // Generate demo data for new users
       generateDemoData();
     }
     setProfile(getPatientProfile());
@@ -58,6 +70,11 @@ export default function DashboardPage() {
     setFiles(getMedicalFiles());
     setLabResults(getLabResults());
     setLoading(false);
+  };
+
+  const handleSignOut = () => {
+    signOutUser();
+    router.push('/');
   };
 
   const handleAddMetric = () => {
@@ -160,10 +177,13 @@ export default function DashboardPage() {
               <span className="text-2xl font-bold text-gray-900">HealthTrack AI</span>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-gray-600">Welcome, {profile?.name || 'User'}</span>
+              <span className="text-gray-600">Welcome, {currentUser?.name || profile?.name || 'User'}</span>
               <Link href="/">
                 <Button variant="outline">Home</Button>
               </Link>
+              <Button variant="ghost" onClick={handleSignOut}>
+                Sign Out
+              </Button>
             </div>
           </div>
         </div>
