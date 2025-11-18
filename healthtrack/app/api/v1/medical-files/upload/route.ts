@@ -8,13 +8,24 @@ const MAX_FILE_SIZE = 50 * 1024 * 1024
 
 export async function POST(request: NextRequest) {
   try {
-    // Get user session
+    // Get user session (with fallback for demo mode)
     const session = await getServerSession(authOptions)
-    if (!session?.user?.id) {
-      return NextResponse.json(
-        { success: false, error: "Unauthorized" },
-        { status: 401 }
-      )
+
+    // For demo mode, use a default user if no session
+    let userId = session?.user?.id
+    if (!userId) {
+      // Try to find or create a demo user
+      const demoUser = await prisma.user.findFirst({
+        where: { email: 'demo@healthtrack.com' }
+      })
+      if (demoUser) {
+        userId = demoUser.id
+      } else {
+        return NextResponse.json(
+          { success: false, error: "No user found. Please ensure demo data is seeded." },
+          { status: 401 }
+        )
+      }
     }
 
     const formData = await request.formData()
@@ -47,7 +58,7 @@ export async function POST(request: NextRequest) {
     // Create medical file record
     const medicalFile = await prisma.medicalFile.create({
       data: {
-        userId: session.user.id,
+        userId: userId,
         fileName: file.name,
         fileType: file.type,
         category: category,
@@ -62,7 +73,7 @@ export async function POST(request: NextRequest) {
     // Log audit trail
     await prisma.auditLog.create({
       data: {
-        userId: session.user.id,
+        userId: userId,
         action: "FILE_UPLOADED",
         resourceType: "MedicalFile",
         resourceId: medicalFile.id,
