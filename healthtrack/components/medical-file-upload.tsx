@@ -152,12 +152,15 @@ export function MedicalFileUpload() {
           setFiles(prev => [data.data, ...prev])
         }
       } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Upload failed'
         console.error('Upload error:', error)
+        console.error('Error message:', errorMessage)
+        alert(`Upload failed: ${errorMessage}`) // Make error visible
         setUploadProgress(prev => prev.map((p, idx) =>
           idx === i ? {
             ...p,
             status: 'error',
-            error: error instanceof Error ? error.message : 'Upload failed'
+            error: errorMessage
           } : p
         ))
       }

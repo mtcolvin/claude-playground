@@ -189,6 +189,17 @@ export default function DashboardPage() {
         </div>
       </header>
 
+      {/* Debug Info */}
+      <div className="bg-yellow-50 border-b border-yellow-200 py-2">
+        <div className="container mx-auto px-4">
+          <p className="text-sm text-yellow-800">
+            <strong>Debug:</strong> User ID: {currentUser?.id || 'NOT LOGGED IN'} |
+            Email: {currentUser?.email || 'NONE'} |
+            Name: {currentUser?.name || 'NONE'}
+          </p>
+        </div>
+      </div>
+
       {/* Navigation Tabs */}
       <div className="bg-white border-b border-gray-200">
         <div className="container mx-auto px-4">
