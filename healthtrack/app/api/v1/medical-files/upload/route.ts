@@ -8,13 +8,20 @@ const MAX_FILE_SIZE = 50 * 1024 * 1024
 
 export async function POST(request: NextRequest) {
   try {
+    const formData = await request.formData()
+    const file = formData.get("file") as File
+    const category = formData.get("category") as string || "other"
+    const description = formData.get("description") as string | undefined
+    const userIdFromClient = formData.get("userId") as string | null
+
     // Get user session (with fallback for demo mode)
     const session = await getServerSession(authOptions)
 
-    // For demo mode, use a default user if no session
-    let userId = session?.user?.id
+    // Determine userId: prefer session, then client-provided, then demo user
+    let userId = session?.user?.id || userIdFromClient
+
     if (!userId) {
-      // Try to find or create a demo user
+      // Try to find demo user as last resort
       const demoUser = await prisma.user.findFirst({
         where: { email: 'demo@healthtrack.com' }
       })
@@ -22,16 +29,23 @@ export async function POST(request: NextRequest) {
         userId = demoUser.id
       } else {
         return NextResponse.json(
-          { success: false, error: "No user found. Please ensure demo data is seeded." },
+          { success: false, error: "No user found. Please sign in." },
           { status: 401 }
         )
       }
     }
 
-    const formData = await request.formData()
-    const file = formData.get("file") as File
-    const category = formData.get("category") as string || "other"
-    const description = formData.get("description") as string | undefined
+    // Verify user exists in database
+    const user = await prisma.user.findUnique({
+      where: { id: userId }
+    })
+
+    if (!user) {
+      return NextResponse.json(
+        { success: false, error: "User not found in database" },
+        { status: 401 }
+      )
+    }
 
     if (!file) {
       return NextResponse.json(

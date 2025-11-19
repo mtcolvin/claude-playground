@@ -103,10 +103,19 @@ export function MedicalFileUpload() {
           idx === i ? { ...p, progress: 10, status: 'uploading' } : p
         ))
 
+        // Get current user
+        const { getCurrentUser } = await import('@/lib/demo-auth')
+        const currentUser = getCurrentUser()
+
+        if (!currentUser) {
+          throw new Error('Please sign in to upload files')
+        }
+
         // Create FormData for upload
         const formData = new FormData()
         formData.append('file', file)
         formData.append('category', 'other')
+        formData.append('userId', currentUser.id)
 
         // Simulate upload progress
         setUploadProgress(prev => prev.map((p, idx) =>
