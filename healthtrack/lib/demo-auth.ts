@@ -80,22 +80,52 @@ export const registerUser = async (data: {
   }
 };
 
-// Sign in a user
+// Sign in a user (validates against database)
 export const signInUser = async (data: {
   email: string;
   password: string;
 }): Promise<{ success: boolean; user?: User; error?: string }> => {
   try {
-    const users = getUsers();
-    const user = users.find(u => u.email === data.email);
+    // Validate credentials against database via API
+    const response = await fetch('/api/auth/signin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: data.email,
+        password: data.password,
+      }),
+    });
 
-    if (!user) {
-      return { success: false, error: 'Invalid email or password' };
+    if (!response.ok) {
+      const errorData = await response.json();
+      return { success: false, error: errorData.error || 'Invalid email or password' };
     }
 
-    // For demo purposes, any password works
-    // In production, you'd verify the password hash
+    const dbUser = await response.json();
 
+    // Create user object
+    const user: User = {
+      id: dbUser.data.id,
+      email: dbUser.data.email,
+      name: dbUser.data.name,
+      role: dbUser.data.role,
+    };
+
+    // Save to localStorage for demo auth
+    const users = getUsers();
+    const existingUserIndex = users.findIndex(u => u.email === user.email);
+
+    if (existingUserIndex >= 0) {
+      // Update existing user
+      users[existingUserIndex] = user;
+    } else {
+      // Add new user
+      users.push(user);
+    }
+
+    saveUsers(users);
+
+    // Set as current user
     setCurrentUser(user);
 
     return { success: true, user };
