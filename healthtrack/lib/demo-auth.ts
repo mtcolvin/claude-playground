@@ -1,4 +1,4 @@
-// Demo authentication using localStorage
+// Demo authentication using localStorage + database
 // For production, this should use NextAuth with database
 
 export interface User {
@@ -26,7 +26,7 @@ const saveUsers = (users: User[]): void => {
   localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
 };
 
-// Register a new user
+// Register a new user (in both localStorage and database)
 export const registerUser = async (data: {
   firstName: string;
   lastName: string;
@@ -36,17 +36,36 @@ export const registerUser = async (data: {
   try {
     const users = getUsers();
 
-    // Check if user already exists
+    // Check if user already exists in localStorage
     if (users.some(u => u.email === data.email)) {
       return { success: false, error: 'User with this email already exists' };
     }
 
-    // Create new user
+    // Create user in database via API
+    const response = await fetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: data.email,
+        password: data.password,
+        name: `${data.firstName} ${data.lastName}`,
+        role: 'PATIENT',
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      return { success: false, error: errorData.error || 'Registration failed' };
+    }
+
+    const dbUser = await response.json();
+
+    // Also save to localStorage for demo auth
     const newUser: User = {
-      id: `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      email: data.email,
-      name: `${data.firstName} ${data.lastName}`,
-      role: 'PATIENT',
+      id: dbUser.data.id,
+      email: dbUser.data.email,
+      name: dbUser.data.name,
+      role: dbUser.data.role,
     };
 
     users.push(newUser);
