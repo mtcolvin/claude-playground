@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
-import { getServerSession } from "next-auth"
-import { authOptions } from "@/lib/auth"
 
 // Maximum file size: 50MB
 const MAX_FILE_SIZE = 50 * 1024 * 1024
@@ -14,11 +12,8 @@ export async function POST(request: NextRequest) {
     const description = formData.get("description") as string | undefined
     const userIdFromClient = formData.get("userId") as string | null
 
-    // Get user session (with fallback for demo mode)
-    const session = await getServerSession(authOptions)
-
-    // Determine userId: prefer session, then client-provided, then demo user
-    let userId = session?.user?.id || userIdFromClient
+    // Use userId from client (sent from localStorage auth)
+    let userId = userIdFromClient
 
     if (!userId) {
       // Try to find demo user as last resort
