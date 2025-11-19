@@ -86,7 +86,10 @@ export const signInUser = async (data: {
   password: string;
 }): Promise<{ success: boolean; user?: User; error?: string }> => {
   try {
+    console.log('signInUser called with:', data.email);
+
     // Validate credentials against database via API
+    console.log('Fetching /api/auth/signin...');
     const response = await fetch('/api/auth/signin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -96,12 +99,16 @@ export const signInUser = async (data: {
       }),
     });
 
+    console.log('Response status:', response.status);
+
     if (!response.ok) {
       const errorData = await response.json();
+      console.log('Error response:', errorData);
       return { success: false, error: errorData.error || 'Invalid email or password' };
     }
 
     const dbUser = await response.json();
+    console.log('Successful sign in:', dbUser);
 
     // Create user object
     const user: User = {
@@ -130,6 +137,7 @@ export const signInUser = async (data: {
 
     return { success: true, user };
   } catch (error) {
+    console.error('Sign in error:', error);
     return { success: false, error: 'Sign in failed' };
   }
 };
