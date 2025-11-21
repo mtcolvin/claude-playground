@@ -37,17 +37,18 @@ export function HealthAnalyticsDashboard() {
   const loadAnalyticsData = async () => {
     setIsLoading(true)
     try {
-      // In production, this would fetch from analytics API
-      // For now, using mock data
+      // MOCK DATA DISABLED - Use real API instead
+      // To enable real data from uploaded files, fetch from /api/v1/metrics
+      // For now, showing empty state
       const mockData: AnalyticsData = {
-        bloodPressure: generateMockData(30, { systolic: 120, diastolic: 80 }),
-        heartRate: generateMockData(30, { value: 72 }),
-        weight: generateMockData(30, { value: 70 }),
-        glucose: generateMockData(30, { value: 95 }),
-        sleep: generateMockData(30, { duration: 420, quality: 7 }),
-        mood: generateMockData(30, { mood: 7, anxiety: 4, stress: 5 }),
-        nutrition: { protein: 150, carbs: 250, fat: 65 },
-        exercise: generateMockData(30, { duration: 45, calories: 350 }),
+        bloodPressure: [],
+        heartRate: [],
+        weight: [],
+        glucose: [],
+        sleep: [],
+        mood: [],
+        nutrition: { protein: 0, carbs: 0, fat: 0 },
+        exercise: [],
       }
       setData(mockData)
     } catch (error) {
