@@ -89,6 +89,8 @@ export function MedicalFileUpload() {
     }))
     setUploadProgress(progressEntries)
 
+    let totalExtracted = 0
+
     for (let i = 0; i < filesToUpload.length; i++) {
       const file = filesToUpload[i]
 
@@ -119,6 +121,7 @@ export function MedicalFileUpload() {
         }
 
         const data = await response.json()
+        console.log('Upload response:', data)
 
         // Update to parsing
         setUploadProgress(prev => prev.map((p, idx) =>
@@ -130,6 +133,10 @@ export function MedicalFileUpload() {
 
         // Complete
         const extractedCount = data.data?.extractedMetrics || 0
+        totalExtracted += extractedCount
+        console.log('Extracted metrics count:', extractedCount)
+        console.log('Parse errors:', data.data?.parseErrors)
+
         setUploadProgress(prev => prev.map((p, idx) =>
           idx === i ? {
             ...p,
@@ -143,6 +150,7 @@ export function MedicalFileUpload() {
           setFiles(prev => [data.data.file, ...prev])
         }
       } catch (error) {
+        console.error('Upload error:', error)
         setUploadProgress(prev => prev.map((p, idx) =>
           idx === i ? { ...p, status: 'error', error: 'Upload failed' } : p
         ))
@@ -150,7 +158,10 @@ export function MedicalFileUpload() {
     }
 
     setIsUploading(false)
-    setTimeout(() => setUploadProgress([]), 3000)
+
+    // Keep progress visible longer if any metrics were extracted
+    const displayTime = totalExtracted > 0 ? 5000 : 3000
+    setTimeout(() => setUploadProgress([]), displayTime)
   }
 
   const loadFiles = async () => {
@@ -360,11 +371,25 @@ export function MedicalFileUpload() {
                   </div>
                 </div>
 
-                {file.category && (
-                  <span className="inline-block mt-2 px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
-                    {CATEGORIES.find(c => c.value === file.category)?.label || file.category}
-                  </span>
+                {file.description && (
+                  <div className="mt-2 text-xs text-gray-600">
+                    {file.description}
+                  </div>
                 )}
+
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {file.category && (
+                    <span className="inline-block px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
+                      {CATEGORIES.find(c => c.value === file.category)?.label || file.category}
+                    </span>
+                  )}
+
+                  {file.description?.includes('Extracted') && file.description.match(/\d+/) && (
+                    <span className="inline-block px-2 py-1 bg-green-100 text-green-700 text-xs rounded font-medium">
+                      📊 {file.description.match(/\d+/)?.[0]} metrics extracted
+                    </span>
+                  )}
+                </div>
 
                 {file.tags && file.tags.length > 0 && (
                   <div className="flex flex-wrap gap-1 mt-2">
