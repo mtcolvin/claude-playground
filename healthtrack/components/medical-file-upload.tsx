@@ -22,8 +22,9 @@ interface MedicalFile {
 interface UploadProgress {
   fileName: string
   progress: number
-  status: 'uploading' | 'encrypting' | 'complete' | 'error'
+  status: 'uploading' | 'parsing' | 'complete' | 'error'
   error?: string
+  extractedMetrics?: number
 }
 
 export function MedicalFileUpload() {
@@ -119,21 +120,27 @@ export function MedicalFileUpload() {
 
         const data = await response.json()
 
-        // Update to encrypting
+        // Update to parsing
         setUploadProgress(prev => prev.map((p, idx) =>
-          idx === i ? { ...p, progress: 75, status: 'encrypting' } : p
+          idx === i ? { ...p, progress: 75, status: 'parsing' } : p
         ))
 
-        // Simulate encryption time
+        // Allow time for user to see parsing status
         await new Promise(resolve => setTimeout(resolve, 500))
 
         // Complete
+        const extractedCount = data.data?.extractedMetrics || 0
         setUploadProgress(prev => prev.map((p, idx) =>
-          idx === i ? { ...p, progress: 100, status: 'complete' } : p
+          idx === i ? {
+            ...p,
+            progress: 100,
+            status: 'complete',
+            extractedMetrics: extractedCount
+          } : p
         ))
 
-        if (data.success) {
-          setFiles(prev => [data.data, ...prev])
+        if (data.success && data.data?.file) {
+          setFiles(prev => [data.data.file, ...prev])
         }
       } catch (error) {
         setUploadProgress(prev => prev.map((p, idx) =>
@@ -216,7 +223,7 @@ export function MedicalFileUpload() {
           multiple
           onChange={handleFileSelect}
           className="hidden"
-          accept=".dcm,.dicom,.jpg,.jpeg,.png,.pdf,.doc,.docx,.csv,.xlsx,.json,.xml"
+          accept=".dcm,.dicom,.jpg,.jpeg,.png,.pdf,.doc,.docx,.csv,.xlsx,.json,.xml,.txt"
         />
       </div>
 
@@ -234,8 +241,12 @@ export function MedicalFileUpload() {
                   'text-blue-600'
                 }`}>
                   {progress.status === 'uploading' && `${progress.progress}% Uploading...`}
-                  {progress.status === 'encrypting' && 'Encrypting...'}
-                  {progress.status === 'complete' && '✓ Complete'}
+                  {progress.status === 'parsing' && 'Parsing health data...'}
+                  {progress.status === 'complete' && (
+                    progress.extractedMetrics !== undefined && progress.extractedMetrics > 0
+                      ? `✓ Complete (${progress.extractedMetrics} metric${progress.extractedMetrics !== 1 ? 's' : ''} extracted)`
+                      : '✓ Complete'
+                  )}
                   {progress.status === 'error' && progress.error}
                 </span>
               </div>
@@ -282,7 +293,10 @@ export function MedicalFileUpload() {
           <span className="font-semibold">Click to upload</span> or drag and drop
         </p>
         <p className="mt-1 text-xs text-gray-500">
-          DICOM, PDF, Images, Documents (up to 50MB each)
+          DICOM, PDF, Images, Documents, CSV, JSON, TXT (up to 50MB each)
+        </p>
+        <p className="mt-1 text-xs text-green-600 font-medium">
+          Health data will be automatically extracted and added to your metrics
         </p>
 
         {/* Supported Formats */}

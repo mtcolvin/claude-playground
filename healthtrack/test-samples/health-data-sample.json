@@ -1,0 +1,41 @@
+{
+  "metrics": [
+    {
+      "type": "glucose",
+      "value": 95,
+      "unit": "mg/dL",
+      "date": "2025-01-15T08:30:00Z",
+      "notes": "Fasting glucose test"
+    },
+    {
+      "type": "cholesterol",
+      "value": 180,
+      "unit": "mg/dL",
+      "date": "2025-01-15T08:30:00Z"
+    },
+    {
+      "type": "hdl",
+      "value": 55,
+      "unit": "mg/dL",
+      "date": "2025-01-15T08:30:00Z"
+    },
+    {
+      "type": "ldl",
+      "value": 110,
+      "unit": "mg/dL",
+      "date": "2025-01-15T08:30:00Z"
+    },
+    {
+      "type": "heart rate",
+      "value": 72,
+      "unit": "bpm",
+      "date": "2025-01-15T08:30:00Z"
+    },
+    {
+      "type": "weight",
+      "value": 75,
+      "unit": "kg",
+      "date": "2025-01-15T08:30:00Z"
+    }
+  ]
+}

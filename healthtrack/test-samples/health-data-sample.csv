@@ -1,0 +1,11 @@
+test_name,value,unit,date
+glucose,95,mg/dL,2025-01-15
+cholesterol,180,mg/dL,2025-01-15
+hdl,55,mg/dL,2025-01-15
+ldl,110,mg/dL,2025-01-15
+triglycerides,120,mg/dL,2025-01-15
+blood pressure systolic,118,mmHg,2025-01-15
+blood pressure diastolic,78,mmHg,2025-01-15
+heart rate,72,bpm,2025-01-15
+weight,75,kg,2025-01-15
+bmi,22.5,kg/m²,2025-01-15

@@ -1,0 +1,21 @@
+Lab Results - January 15, 2025
+
+Patient Health Metrics:
+
+Blood Glucose: 95 mg/dL
+Total Cholesterol: 180 mg/dL
+HDL Cholesterol: 55 mg/dL
+LDL Cholesterol: 110 mg/dL
+Triglycerides: 120 mg/dL
+
+Vital Signs:
+Blood Pressure: 118/78 mmHg
+Heart Rate: 72 bpm
+Temperature: 36.8 °C
+Oxygen Saturation: 98 %
+
+Body Composition:
+Weight: 75 kg
+BMI: 22.5 kg/m²
+
+All values are within normal range.
